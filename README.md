@@ -28,5 +28,3 @@ ENGworks has the combined experience of over 25 years of involvement and collabo
 
 <img src="https://github.com/ENGworks-DEV/RenumberParts/blob/master/RenumberParts/Resources/EngLogo-01.png" width="650" height="200">
 
-  https://www.engworks.com/
-
