@@ -1,0 +1,35 @@
+﻿<Window x:Class="RenumberParts.MainForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RenumberParts"
+             mc:Ignorable="d" Height="300" Width="200" MinHeight="300" MinWidth="250" MaxHeight="300" MaxWidth="200">
+
+    <Window.InputBindings>
+        <KeyBinding Key="A" Modifiers="Control" Command="SelectAll" />
+    </Window.InputBindings>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="SelectAll" Executed="AddButton_Click" />
+
+    </Window.CommandBindings>
+
+    <Grid Margin="0,2,0,-2">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button x:Name="AddButton" Content="Add" Margin="0,154,10,0" Click="AddButton_Click" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"  />
+        <Button Content="Reset" Margin="10,154,0,0" Height="30" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Left" Width="100"/>
+        <TextBox x:Name="PrefixBox" Height="20" Margin="102,84,10,0" TextWrapping="Wrap" Text="Prefix" VerticalAlignment="Top"/>
+        <Label Content="Prefix" HorizontalAlignment="Left" Height="24" Margin="10,80,0,0" VerticalAlignment="Top" Width="50"/>
+        <TextBox x:Name="NumberBox"  TextChanged="textChangedEventHandler" Height="20" Margin="102,113,10,0" TextWrapping="Wrap" Text="000" VerticalAlignment="Top"/>
+        <Label Content="Number" HorizontalAlignment="Left" Height="24" Margin="10,109,0,0" VerticalAlignment="Top" Width="61"/>
+        <Label Content="Actual Count" HorizontalContentAlignment="Center"  x:Name="ActualCounter" Margin="23,0,23,198" Height="24" VerticalAlignment="Bottom"/>
+        <Button  Click="DiplaceUp_Click" x:Name="DiplaceUp" Content="Displace Up" HorizontalAlignment="Left" Height="30" Margin="10,224,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button Click="DiplaceDn_Click"  x:Name="DisplaceDN" Content="Displace Dn" Height="30" Margin="0,224,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"/>
+        <TextBlock Text="Renumber Fab parts, ducts and pipes"  TextWrapping="Wrap" Height="41" Margin="10,11,10,0" VerticalAlignment="Top" TextAlignment="Center"/>
+
+    </Grid>
+
+</Window>

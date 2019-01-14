@@ -1,0 +1,14 @@
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\bin\Debug\ENGworksTab.dll
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\bin\Debug\ENGworksTab.pdb
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\obj\Debug\ENGworksTab.csprojAssemblyReference.cache
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\obj\Debug\ENGworksTab.Properties.Resources.resources
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\obj\Debug\ENGworksTab.csproj.GenerateResource.cache
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\obj\Debug\ENGworksTab.csproj.CoreCompileInputs.cache
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\obj\Debug\ENGworksTab.dll
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\obj\Debug\ENGworksTab.pdb
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\obj\Debug\MainForm.g.cs
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\obj\Debug\ENGworksTab_MarkupCompile.cache
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\obj\Debug\ENGworksTab_MarkupCompile.lref
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\bin\Debug\SP.txt
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\obj\Debug\MainForm.baml
+C:\Users\noves\Downloads\ENG-master\ENGworksTab\ENGworksTab\obj\Debug\ENGworksTab.g.resources

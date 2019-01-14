@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+
+  <AddIn Type="Application">
+    <Name>RenumberParts</Name>
+    <Assembly>RenumberParts.dll</Assembly>
+    <FullClassName>RenumberParts.App</FullClassName>
+    <ClientId>0a7c185d-fb3d-44c5-b30f-170115cefb85</ClientId>
+    <VendorId>ENG</VendorId>
+    <VendorDescription>ENGworks, http://www.engworks.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>
