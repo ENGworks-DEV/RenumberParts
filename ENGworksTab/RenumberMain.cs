@@ -69,15 +69,21 @@ namespace RenumberParts
 
         public static void RawCreateProjectParameterFromExistingSharedParameter(Autodesk.Revit.ApplicationServices.Application app, string name, CategorySet cats, BuiltInParameterGroup group, bool inst)
         {
-
+            //Define string variable wih the name of the sharedParameters file.
             string oriFile = app.SharedParametersFilename;
-            //Replace current sharedParamters with addin copy
+
+            //Get current assembly location
             string assemblylocation = Assembly.GetExecutingAssembly().Location;
+
+            //Location of SP.txt file
             string tempFile = new FileInfo(assemblylocation).Directory.FullName + @"\SP.txt";
 
+            //Change current document shared parameter file for SP temporary
             app.SharedParametersFilename = tempFile;
+
             DefinitionFile defFile = app.OpenSharedParameterFile();
 
+            //Access shared parameter file
             var v = (from DefinitionGroup dg in defFile.Groups
                      from ExternalDefinition d in dg.Definitions
                      where d.Name == name
@@ -87,7 +93,8 @@ namespace RenumberParts
             if (v == null || v.Count() < 1) throw new Exception("Invalid Name Input!wwwww");
 
             ExternalDefinition def = v.First();
-            //Place original SP file 
+
+            //Replace temporary shared parameter file for the original one 
             app.SharedParametersFilename = oriFile;
 
             Autodesk.Revit.DB.Binding binding = app.Create.NewTypeBinding(cats);
@@ -99,8 +106,7 @@ namespace RenumberParts
 
         public static void RawCreateProjectParameter(Autodesk.Revit.ApplicationServices.Application app, string name, ParameterType type, bool visible, CategorySet cats, BuiltInParameterGroup group, bool inst)
         {
-            //InternalDefinition def = new InternalDefinition();
-            //Definition def = new Definition();
+            
 
             string oriFile = app.SharedParametersFilename;
             string tempFile = Path.GetTempFileName() + ".txt";
@@ -285,7 +291,11 @@ namespace RenumberParts
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <param name="number"></param>
         public static void writeConfig(string prefix, string number)
         {
 
@@ -498,8 +508,7 @@ namespace RenumberParts
             var tuple = new Tuple<string, string>(prefix, Number);
 
             return tuple;
-
-
+            
         }
     }
 }
