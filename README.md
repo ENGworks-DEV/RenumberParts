@@ -1,4 +1,4 @@
-![](https://github.com/ENGworks-DEV/ENGyn/blob/master/tools/ENGyn-300x138.png?raw=true)
+![](https://github.com/ENGworks-DEV/RenumberParts/blob/master/RenumberParts/Resources/LogoAndName-01.jpg)
 
 Graphical programing interface based on [TUM.CMS.VPLControl](https://github.com/tumcms/TUM.CMS.VPLControl) in progress
 
