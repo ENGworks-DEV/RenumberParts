@@ -1,6 +1,6 @@
 ![](https://github.com/ENGworks-DEV/RenumberParts/blob/master/RenumberParts/Resources/LogoAndName-01.jpg)
 
-Graphical programing interface based on [TUM.CMS.VPLControl](https://github.com/tumcms/TUM.CMS.VPLControl) in progress
+This is a Revit add-in that help you numbering parts for MEP elements for spooling
 
 ## Examples
 ENGyn: Automate Group clashes
