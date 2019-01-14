@@ -93,9 +93,7 @@
   <ItemGroup>
     <Content Include="RenumberParts.addin" />
     <EmbeddedResource Include="Resources\RenumberPartsLogo.png" />
-    <Content Include="SP.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="Resources\SP.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

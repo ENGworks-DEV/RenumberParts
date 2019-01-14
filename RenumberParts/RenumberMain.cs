@@ -69,12 +69,19 @@ namespace RenumberParts
 
         public static void RawCreateProjectParameterFromExistingSharedParameter(Autodesk.Revit.ApplicationServices.Application app, string name, CategorySet cats, BuiltInParameterGroup group, bool inst)
         {
-
+            //Location of the shared parameters
             string oriFile = app.SharedParametersFilename;
-            //Replace current sharedParamters with addin copy
-            string assemblylocation = Assembly.GetExecutingAssembly().Location;
-            string tempFile = new FileInfo(assemblylocation).Directory.FullName + @"\SP.txt";
 
+            //My Documents
+            var newpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            //Create txt inside my documents
+            Extract("RenumberParts", newpath, "Resources", "SP.txt");
+
+            //Create variable with the location on SP.txt inside my documents
+            string tempFile = newpath + @"\SP.txt";
+
+            //Change the location of the shared parameters for the SP location
             app.SharedParametersFilename = tempFile;
             DefinitionFile defFile = app.OpenSharedParameterFile();
 
@@ -87,14 +94,30 @@ namespace RenumberParts
             if (v == null || v.Count() < 1) throw new Exception("Invalid Name Input!wwwww");
 
             ExternalDefinition def = v.First();
+
             //Place original SP file 
             app.SharedParametersFilename = oriFile;
+
+            //Delete SP temporary file
+            System.IO.File.Delete(tempFile);
 
             Autodesk.Revit.DB.Binding binding = app.Create.NewTypeBinding(cats);
             if (inst) binding = app.Create.NewInstanceBinding(cats);
 
             BindingMap map = (new UIApplication(app)).ActiveUIDocument.Document.ParameterBindings;
             map.Insert(def, binding, group);
+        }
+
+        private static void Extract(string nameSpace, string outDirectory, string internalFilePath, string resourceName)
+        {
+            //Method to copy an embedded resource to a directory
+            Assembly assembly = Assembly.GetCallingAssembly();
+
+            using (Stream s = assembly.GetManifestResourceStream(nameSpace + "." + (internalFilePath == "" ? "" : internalFilePath + ".") + resourceName))
+            using (BinaryReader r = new BinaryReader(s))
+            using (FileStream fs = new FileStream(outDirectory + "\\" + resourceName, FileMode.OpenOrCreate))
+            using (BinaryWriter w = new BinaryWriter(fs))
+                w.Write(r.ReadBytes((int)s.Length));
         }
 
         public static void RawCreateProjectParameter(Autodesk.Revit.ApplicationServices.Application app, string name, ParameterType type, bool visible, CategorySet cats, BuiltInParameterGroup group, bool inst)
