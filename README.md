@@ -3,41 +3,23 @@
 This is a Revit add-in that help you numbering parts for MEP elements for spooling
 
 ## Examples
-ENGyn: Automate Group clashes
-
-[![](http://img.youtube.com/vi/zN5bTxGnX6E/0.jpg)](http://www.youtube.com/watch?v=zN5bTxGnX6E "ENGyn: Automate Group clashes")
-
-ENGyn: Apply appearance by profile
-
-[![](http://img.youtube.com/vi/Ar2xiYwzpCA/0.jpg)](http://www.youtube.com/watch?v=Ar2xiYwzpCA "ENGyn: Apply appearance by profile")
 
 
-## Navisworks tested versions
+## Revit tested versions
 
-* Navisworks Manage 2019
-* Navisworks Manage 2018
+* Revit 2019
+* Revit 2018
 
 ## Dependencies
-Dependencies are loaded by configuration - 2019 uses NW 2019 dlls and net 4.7 as framework, 2018 uses NW 2018 and net 4.6. 
-TUM dll need to be build in submodule to use it as reference.
+
+The only externaL dependency is RevitAPI.dll
 
 ## Installation
-Build the project and the Build events will copy the dlls to the right folder or copy them yourself to (replace 2019 with the version of Navisworks you have):
 
-``` %APPDATA%\Autodesk Navisworks Manage 2019\Plugins\  ```
-
-TUM.VPLcontrol should be compiled using ENG version which includes different features than original version.
-[![](https://github.com/ENGworks-DEV/TUM.CMS.VPLControl)](TUM.VPLcontrol)
+You can find this addin inside Autodesk app store
 
 ## Contribute ##
 
-ENGyn is an open-source project and would be nothing without its community. You can make suggestions or track and submit bugs via Github issues.  You can submit your own code to the ENGyn project via a Github pull request.
+RenumberParts is an open-source project. You can make suggestions or track and submit bugs via Github issues.  You can submit your own code to the RenumberParts project via a Github pull request.
 
-### Commits:
 
-***Name:*** should follow this schema (ENGyn)(-)(chore|feat|docs|fix|refactor|style|test|sonar|hack|release)(:)( )(.{0,80})
-
-e.g:
-```ENGyn-fix: ZoomOut command method fixed to include new matrix zoom.```
-
-***Changes:*** Should be as atomic as posible remaining transactional.
