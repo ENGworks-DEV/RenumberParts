@@ -1,7 +1,7 @@
 ﻿<Window x:Class="RenumberParts.ConfirmDelete"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Warning" Height="143" Width="233">
+    Title="Warning" Height="143" Width="244">
     <Grid Margin="0,0,0,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="59*"/>
@@ -9,7 +9,7 @@
         </Grid.ColumnDefinitions>
         <Button Margin="21,70,0,0" x:Name="Button1" Grid.ColumnSpan="2" Content="Yes" HorizontalAlignment="Left" Width="80" Click="Button1_Click" Height="23" VerticalAlignment="Top"/>
         <Label Content="Are you sure you want to delete all&#xD;&#xA;values?" HorizontalAlignment="Left" Margin="21,13,0,0" VerticalAlignment="Top" Width="203" Grid.ColumnSpan="2"/>
-        <Button Content="No" Grid.Column="1" Margin="85,70,15,0" VerticalAlignment="Top" Height="23" Click="Button_Click"/>
+        <Button Content="No" Grid.Column="1" Margin="76,70,24,0" VerticalAlignment="Top" Height="23" Click="Button_Click"/>
     </Grid>
 </Window>
 

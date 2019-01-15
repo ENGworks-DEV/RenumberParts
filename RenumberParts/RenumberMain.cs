@@ -10,6 +10,8 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Drawing;
+using Color = System.Drawing.Color;
 
 namespace RenumberParts
 {
@@ -172,8 +174,21 @@ namespace RenumberParts
                 var element = uidoc.Document.GetElement(refElement);
 
                 OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
-                overrideGraphicSettings.SetProjectionFillColor(new Color(255, 0, 0));
-                overrideGraphicSettings.SetProjectionLineColor(new Color(255, 0, 0));
+                Color colorSelect = MainForm.ColorSelected;
+
+                byte r = 255;
+                byte b = 0;
+                byte g = 0;
+
+                if (colorSelect != null)
+                {
+                    r = colorSelect.R;
+                    g = colorSelect.G;
+                    b = colorSelect.B;
+                }
+                
+                overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(r, g, b));
+                overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(r, g, b));
 
 
                 doc.ActiveView.SetElementOverrides(element.Id, overrideGraphicSettings);
@@ -280,7 +295,13 @@ namespace RenumberParts
             {
                 ResetView.Start();
                 OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
-                foreach (var item in ListOfElements)
+                
+                LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
+
+                var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(
+                    logicalOrFilter).WhereElementIsNotElementType();
+
+                foreach (var item in collector.ToElements())
                 {
                     if (item.IsValidObject && doc.GetElement(item.Id) != null)
                     { 
@@ -295,13 +316,17 @@ namespace RenumberParts
 
         public static void resetValues()
         {
+            LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
+
+            var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(
+                logicalOrFilter).WhereElementIsNotElementType();
             using (Transaction ResetView = new Transaction(tools.uidoc.Document, "Reset view"))
             {
                 ResetView.Start();
                 OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
                 Guid guid = new Guid("460e0a79-a970-4b03-95f1-ac395c070beb");
                 string blankPrtnmbr = "";
-                foreach (var item in ListOfElements)
+                foreach (var item in collector.ToElements())
                 {
                     
                     item.get_Parameter(guid).Set(blankPrtnmbr);
