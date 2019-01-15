@@ -37,12 +37,11 @@ namespace RenumberParts
             //Create an instance of the MainForm.xaml
             var mainForm = new MainForm();
             Process process = Process.GetCurrentProcess();
-
+            
             var h = process.MainWindowHandle;
 
             //Show MainForm.xaml on top of any other forms
             mainForm.Topmost = true;
-
 
             //Show the WPF MainForm.xaml
             mainForm.ShowDialog();
@@ -283,7 +282,11 @@ namespace RenumberParts
                 OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
                 foreach (var item in ListOfElements)
                 {
+                    if (item.IsValidObject && doc.GetElement(item.Id) != null)
+                    { 
                     doc.ActiveView.SetElementOverrides(item.Id, overrideGraphicSettings);
+                    }
+                    
                 }
 
                 ResetView.Commit();

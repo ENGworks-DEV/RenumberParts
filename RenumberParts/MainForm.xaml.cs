@@ -5,6 +5,8 @@
 
 using System.Windows;
 using System.Windows.Controls;
+using System.Diagnostics;
+
 
 namespace RenumberParts
 {
@@ -117,9 +119,11 @@ namespace RenumberParts
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            tools.resetValues();
+            //Create an instance of the confirmDeleteForm.xaml
+            ConfirmDelete confirmDeleteForm = new ConfirmDelete();
+            confirmDeleteForm.Topmost = true;
+            confirmDeleteForm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            confirmDeleteForm.ShowDialog();
         }
     }
-
-
 }

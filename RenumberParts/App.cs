@@ -16,25 +16,21 @@ namespace RenumberParts
     class App : IExternalApplication
     {
 
-        private System.Windows.Media.ImageSource PngImageSource(string embeddedPath)
-        {
-            Stream stream = this.GetType().Assembly.GetManifestResourceStream(embeddedPath);
-            var decoder = new System.Windows.Media.Imaging.PngBitmapDecoder(stream,
-                BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
-            return decoder.Frames[0];
-        }
-
         public Result OnStartup(UIControlledApplication application)
         {
+
             // Get the absolut path of this assembly
-            string ExecutingAssemblyPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string ExecutingAssemblyPath = System.Reflection.Assembly.GetExecutingAssembly(
+                ).Location;
 
             // Create a ribbon panel
-            RibbonPanel m_projectPanel = application.CreateRibbonPanel("RenumberParts");
+            RibbonPanel m_projectPanel = application.CreateRibbonPanel(
+                "RenumberParts");
             
             //Button
-            PushButton pushButton = m_projectPanel.AddItem(new PushButtonData("RenumberParts", "Renumber Parts",
-               ExecutingAssemblyPath, "RenumberParts.RenumberMain")) as PushButton;
+            PushButton pushButton = m_projectPanel.AddItem(new PushButtonData(
+                "RenumberParts", "Renumber Parts",ExecutingAssemblyPath,
+                "RenumberParts.RenumberMain")) as PushButton;
 
             //Add Help ToolTip 
             pushButton.ToolTip = "RenumberParts";
@@ -44,29 +40,36 @@ namespace RenumberParts
              "This addin helps you to renumber MEP part with a prefix";
 
             // Set the large image shown on button.
-            pushButton.LargeImage = PngImageSource("RenumberParts.Resources.RenumberPartsLogo.png");
+            pushButton.LargeImage = PngImageSource(
+                "RenumberParts.Resources.RenumberPartsLogo.png");
 
-            // Context (F1) Help
-            string path;
-            path = System.IO.Path.GetDirectoryName(
+            // Get the location of the solution DLL
+            string path = System.IO.Path.GetDirectoryName(
                System.Reflection.Assembly.GetExecutingAssembly().Location);
 
+            // Combine path with \
             string newpath = Path.GetFullPath(Path.Combine(path, @"..\"));
 
+            // Set the contextual help to point Help.html
             ContextualHelp contextHelp = new ContextualHelp(
                 ContextualHelpType.ChmFile,
-                newpath + "Resources\\Help.html"); 
+                newpath + "Resources\\Help.html");
 
+            // Assign contextual help to pushbutton
             pushButton.SetContextualHelp(contextHelp);
 
-
-
-
-
-
             return Result.Succeeded;
+
         }
 
+        private System.Windows.Media.ImageSource PngImageSource(string embeddedPath)
+        {
+            // Get Bitmap from Resources folder
+            Stream stream = this.GetType().Assembly.GetManifestResourceStream(embeddedPath);
+            var decoder = new System.Windows.Media.Imaging.PngBitmapDecoder(stream,
+                BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+            return decoder.Frames[0];
+        }
 
         public Result OnShutdown(UIControlledApplication a)
         {
