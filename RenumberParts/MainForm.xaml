@@ -30,17 +30,17 @@
 
         </Border>
 
-        <Button x:Name="ResetColor" Content="Reset color" Margin="31,0,69,77" Click="Button_Click" Grid.Column="1" Height="28" VerticalAlignment="Bottom" FontSize="11" ToolTip="Reset Elements colour" ToolTipService.ShowDuration="3"/>
-        <Button x:Name="AddButton" Content="Add" Margin="19,0,19,148" Click="AddButton_Click" Grid.Column="1" Height="38" VerticalAlignment="Bottom" Grid.ColumnSpan="2" ToolTip="Add element to selection, use ctrl + A to select multiple" ToolTipService.ShowDuration="3"  />
+        <Button x:Name="ResetColor" Content="Reset color" Margin="31,0,69,77" Click="Button_Click" Grid.Column="1" Height="28" VerticalAlignment="Bottom" FontSize="11" ToolTip="Reset Elements colour" ToolTipService.ShowDuration="20"/>
+        <Button x:Name="AddButton" Content="Add" Margin="19,0,19,148" Click="AddButton_Click" Grid.Column="1" Height="38" VerticalAlignment="Bottom" Grid.ColumnSpan="2" ToolTip="Add element to selection, use ctrl + A to select multiple" ToolTipService.ShowDuration="20"  />
         <TextBox x:Name="PrefixBox" Height="20" Margin="79,0,19,237" TextWrapping="Wrap" Text="Prefix" VerticalAlignment="Bottom" Grid.Column="1" Grid.ColumnSpan="2"/>
         <Label Content="Prefix" Height="24" Margin="16,0,114,237" VerticalAlignment="Bottom" Grid.Column="1"/>
         <TextBox x:Name="NumberBox"  TextChanged="textChangedEventHandler" Height="20" Margin="79,0,19,208" TextWrapping="Wrap" Text="000" VerticalAlignment="Bottom" Grid.Column="1" Grid.ColumnSpan="2"/>
         <Label Content="Number" Height="24" Margin="16,0,103,208" VerticalAlignment="Bottom" Grid.Column="1"/>
-        <Button  Click="DiplaceUp_Click" x:Name="DiplaceUp" Content="Displace values &#xD;&#xA;         up" Margin="31,0,69,-16" RenderTransformOrigin="0.44,0.595" FontSize="10" Grid.Column="1" Height="30" VerticalAlignment="Bottom" ToolTip="Displace all elements numbers up" ToolTipService.ShowDuration="3"/>
-        <Button Click="DiplaceDn_Click"  x:Name="DisplaceDN" Content="Displace values&#xD;&#xA;       down" Margin="133,0,29,-16" FontSize="10" IsCancel="True" IsDefault="True" Grid.Column="1" RenderTransformOrigin="0.477,0.461" Height="30" VerticalAlignment="Bottom" Grid.ColumnSpan="2" ToolTip="Displace all elements numbers down" ToolTipService.ShowDuration="3"/>
+        <Button  Click="DiplaceUp_Click" x:Name="DiplaceUp" Content="Displace values &#xD;&#xA;         up" Margin="31,0,69,-16" RenderTransformOrigin="0.44,0.595" FontSize="10" Grid.Column="1" Height="30" VerticalAlignment="Bottom" ToolTip="Displace all elements numbers up" ToolTipService.ShowDuration="20"/>
+        <Button Click="DiplaceDn_Click"  x:Name="DisplaceDN" Content="Displace values&#xD;&#xA;       down" Margin="133,0,29,-16" FontSize="10" IsCancel="True" IsDefault="True" Grid.Column="1" RenderTransformOrigin="0.477,0.461" Height="30" VerticalAlignment="Bottom" Grid.ColumnSpan="2" ToolTip="Displace all elements numbers down" ToolTipService.ShowDuration="20"/>
         <Label Content="Displace existing values" HorizontalAlignment="Left" Height="24" Margin="16,0,0,30" VerticalAlignment="Bottom" Width="135" Grid.Column="1"/>
         <Label Content="Reset color and values" HorizontalAlignment="Left" Height="24" Margin="19,0,0,117" VerticalAlignment="Bottom" Width="132" Grid.Column="1"/>
-        <Button Grid.ColumnSpan="3" Content="Reset Values" Margin="133,0,29,77" VerticalAlignment="Bottom" Height="28" Click="Button_Click_1" FontSize="11" ToolTip="Reset Elements values" ToolTipService.ShowDuration="3"/>
+        <Button Grid.ColumnSpan="3" Content="Reset Values" Margin="133,0,29,77" VerticalAlignment="Bottom" Height="28" Click="Button_Click_1" FontSize="11" ToolTip="Reset Elements values" ToolTipService.ShowDuration="20"/>
 
     </Grid>
 
