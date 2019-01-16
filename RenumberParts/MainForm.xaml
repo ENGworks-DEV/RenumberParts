@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:sw="clr-namespace:WpfStyleableWindow.StyleableWindow"      
              xmlns:local="clr-namespace:RenumberParts"
-        mc:Ignorable="d" Height="354.891" Width="230.672" MinHeight="300" MinWidth="250"  MaxHeight="400" MaxWidth="200" WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" Height="442" Width="230.672" MinHeight="440" MinWidth="250"  MaxHeight="440" MaxWidth="200" WindowStartupLocation="CenterScreen"
         Background="White" 
         Foreground="Black" 
         ResizeMode="NoResize" 
@@ -21,40 +21,40 @@
 
     </Window.CommandBindings>
 
-    <Grid Margin="0,0,0,0">
+    <Grid Margin="0,0,0,0" Height="412" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="18*"/>
-            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="125*"/>
+            <ColumnDefinition Width="54*"/>
+            <ColumnDefinition Width="69*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="19,0,16,-28" Grid.Column="1" Height="60" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="16,269,19,0" Grid.Column="1" Grid.ColumnSpan="3" Height="60" VerticalAlignment="Top"/>
 
-        <Border BorderBrush="Black" BorderThickness="1" Margin="19,0,19,61" Grid.Column="1" Height="60" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
-
-        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="19,183,19,0" Grid.Column="1" Grid.ColumnSpan="3" Height="60" VerticalAlignment="Top"/>
 
 
-        <TextBlock  x:Name="SeparatorBox"/>
+        <TextBlock  x:Name="SeparatorBox" Grid.ColumnSpan="2" Margin="0,0,125,0"/>
 
 
 
-        <Button x:Name="ResetColor" Content="Reset color" Margin="31,193,69,0" Click="Button_Click" Grid.Column="1" FontSize="11" ToolTip="Reset Elements colour" ToolTipService.ShowDuration="20" Height="28" VerticalAlignment="Top"/>
-        <Button x:Name="AddButton" Content="Add" Margin="19,112,39,0" Click="AddButton_Click" Grid.Column="1" ToolTip="Add element to selection, use ctrl + A to select multiple" ToolTipService.ShowDuration="20" Grid.ColumnSpan="2" Height="38" VerticalAlignment="Top"  />
-        <TextBox x:Name="PrefixBox" Margin="79,16,19,0" TextWrapping="Wrap" Text="Prefix" Grid.Column="1" Grid.ColumnSpan="2" Height="20" VerticalAlignment="Top"/>
-        <Label Content="Prefix" Margin="16,12,114,0" Grid.Column="1" Height="24" VerticalAlignment="Top"/>
-        <TextBox x:Name="NumberBox"  TextChanged="textChangedEventHandler" Margin="79,78,19,0" TextWrapping="Wrap" Text="000" Grid.Column="1" Grid.ColumnSpan="2" Height="20" VerticalAlignment="Top"/>
-        <Label Content="Number" Margin="12,74,107,0" Grid.Column="1" Height="24" VerticalAlignment="Top"/>
+        <Button x:Name="ResetColor" Content="Reset color" Margin="31,199,15,0" Click="Button_Click" Grid.Column="1" FontSize="11" ToolTip="Reset Elements colour" ToolTipService.ShowDuration="20" Height="28" VerticalAlignment="Top"/>
+        <Button x:Name="AddButton" Content="Add" Margin="19,112,39,0" Click="AddButton_Click" Grid.Column="1" ToolTip="Add element to selection, use ctrl + A to select multiple" ToolTipService.ShowDuration="20" Grid.ColumnSpan="3" Height="38" VerticalAlignment="Top"  />
+        <TextBox x:Name="PrefixBox" Margin="79,16,19,0" TextWrapping="Wrap" Text="Prefix" Grid.Column="1" Grid.ColumnSpan="3" Height="20" VerticalAlignment="Top"/>
+        <Label Content="Prefix" Margin="16,12,60,0" Grid.Column="1" Height="24" VerticalAlignment="Top"/>
+        <TextBox x:Name="NumberBox"  TextChanged="textChangedEventHandler" Margin="79,78,19,0" TextWrapping="Wrap" Text="000" Grid.Column="1" Grid.ColumnSpan="3" Height="20" VerticalAlignment="Top"/>
+        <Label Content="Number" Margin="12,74,53,0" Grid.Column="1" Height="24" VerticalAlignment="Top"/>
         <Button  Click="DiplaceUp_Click" x:Name="DiplaceUp" Content="Displace values &#xD;&#xA;         up" Margin="31,284,0,0" RenderTransformOrigin="0.44,0.595" FontSize="10" Grid.Column="1" ToolTip="Displace all elements numbers up" ToolTipService.ShowDuration="20" Height="30" Width="80" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Button Click="DiplaceDn_Click"  x:Name="DisplaceDN" Content="Displace values&#xD;&#xA;       down" Margin="0,284,31,0" FontSize="10" IsCancel="True" IsDefault="True" Grid.Column="1" RenderTransformOrigin="0.477,0.461" Grid.ColumnSpan="2" ToolTip="Displace all elements numbers down" ToolTipService.ShowDuration="20" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80"/>
-        <Label Content="Displace existing values" HorizontalAlignment="Left" Margin="16,244,0,0" Width="135" Grid.Column="1" Height="24" VerticalAlignment="Top"/>
-        <Label Content="Reset color and values" HorizontalAlignment="Left" Margin="19,157,0,156" Width="132" Grid.Column="1"/>
-        <Button Grid.ColumnSpan="3" Content="Reset Values" Margin="0,193,31,0" Width="80" Click="Button_Click_1" FontSize="11" ToolTip="Reset Elements values" ToolTipService.ShowDuration="20" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-        <Button Content="" Grid.Column="2" Margin="0,112,19,0" Click="Button_Click_2" HorizontalAlignment="Right" Width="15" Height="38" VerticalAlignment="Top"/>
-        <Label Content="Separator" Margin="10,42,109,0" Grid.Column="1" Height="24" VerticalAlignment="Top"/>
-        <TextBox Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="23" Margin="79,46,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" Width="152"/>
+        <Button Click="DiplaceDn_Click"  x:Name="DisplaceDN" Content="Displace values&#xD;&#xA;       down" Margin="0,284,31,0" FontSize="10" IsCancel="True" IsDefault="True" Grid.Column="2" RenderTransformOrigin="0.477,0.461" Grid.ColumnSpan="2" ToolTip="Displace all elements numbers down" ToolTipService.ShowDuration="20" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80"/>
+        <Label Content="Displace existing values" HorizontalAlignment="Left" Margin="11,248,0,0" Width="135" Grid.Column="1" Height="24" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="Reset color and values" HorizontalAlignment="Left" Margin="14,162,0,218" Width="132" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Button Grid.ColumnSpan="2" Content="Reset Values" Margin="0,199,31,0" Width="80" Click="Button_Click_1" FontSize="11" ToolTip="Reset Elements values" ToolTipService.ShowDuration="20" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="2"/>
+        <Button Content="" Grid.Column="3" Margin="0,112,19,0" Click="Button_Click_2" HorizontalAlignment="Right" Width="15" Height="38" VerticalAlignment="Top"/>
+        <Label Content="Separator" Margin="10,42,55,0" Grid.Column="1" Height="24" VerticalAlignment="Top"/>
+        <TextBox x:Name="ColorButton" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="23" Margin="79,46,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" Width="152" MaxLength="1"/>
+        <Button x:Name="ColorByPrefix" Content="Color elements by prefix" Grid.Column="1" HorizontalAlignment="Left" Margin="19,344,0,0" VerticalAlignment="Top" Width="210" Grid.ColumnSpan="3" Height="47"/>
 
     </Grid>
 
