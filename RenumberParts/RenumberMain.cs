@@ -10,6 +10,8 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Drawing;
+using Color = System.Drawing.Color;
 
 namespace RenumberParts
 {
@@ -37,12 +39,11 @@ namespace RenumberParts
             //Create an instance of the MainForm.xaml
             var mainForm = new MainForm();
             Process process = Process.GetCurrentProcess();
-
+            
             var h = process.MainWindowHandle;
 
             //Show MainForm.xaml on top of any other forms
             mainForm.Topmost = true;
-
 
             //Show the WPF MainForm.xaml
             mainForm.ShowDialog();
@@ -69,12 +70,19 @@ namespace RenumberParts
 
         public static void RawCreateProjectParameterFromExistingSharedParameter(Autodesk.Revit.ApplicationServices.Application app, string name, CategorySet cats, BuiltInParameterGroup group, bool inst)
         {
-
+            //Location of the shared parameters
             string oriFile = app.SharedParametersFilename;
-            //Replace current sharedParamters with addin copy
-            string assemblylocation = Assembly.GetExecutingAssembly().Location;
-            string tempFile = new FileInfo(assemblylocation).Directory.FullName + @"\SP.txt";
 
+            //My Documents
+            var newpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            //Create txt inside my documents
+            Extract("RenumberParts", newpath, "Resources", "SP.txt");
+
+            //Create variable with the location on SP.txt inside my documents
+            string tempFile = newpath + @"\SP.txt";
+
+            //Change the location of the shared parameters for the SP location
             app.SharedParametersFilename = tempFile;
             DefinitionFile defFile = app.OpenSharedParameterFile();
 
@@ -87,14 +95,30 @@ namespace RenumberParts
             if (v == null || v.Count() < 1) throw new Exception("Invalid Name Input!wwwww");
 
             ExternalDefinition def = v.First();
+
             //Place original SP file 
             app.SharedParametersFilename = oriFile;
+
+            //Delete SP temporary file
+            System.IO.File.Delete(tempFile);
 
             Autodesk.Revit.DB.Binding binding = app.Create.NewTypeBinding(cats);
             if (inst) binding = app.Create.NewInstanceBinding(cats);
 
             BindingMap map = (new UIApplication(app)).ActiveUIDocument.Document.ParameterBindings;
             map.Insert(def, binding, group);
+        }
+
+        private static void Extract(string nameSpace, string outDirectory, string internalFilePath, string resourceName)
+        {
+            //Method to copy an embedded resource to a directory
+            Assembly assembly = Assembly.GetCallingAssembly();
+
+            using (Stream s = assembly.GetManifestResourceStream(nameSpace + "." + (internalFilePath == "" ? "" : internalFilePath + ".") + resourceName))
+            using (BinaryReader r = new BinaryReader(s))
+            using (FileStream fs = new FileStream(outDirectory + "\\" + resourceName, FileMode.OpenOrCreate))
+            using (BinaryWriter w = new BinaryWriter(fs))
+                w.Write(r.ReadBytes((int)s.Length));
         }
 
         public static void RawCreateProjectParameter(Autodesk.Revit.ApplicationServices.Application app, string name, ParameterType type, bool visible, CategorySet cats, BuiltInParameterGroup group, bool inst)
@@ -150,8 +174,21 @@ namespace RenumberParts
                 var element = uidoc.Document.GetElement(refElement);
 
                 OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
-                overrideGraphicSettings.SetProjectionFillColor(new Color(255, 0, 0));
-                overrideGraphicSettings.SetProjectionLineColor(new Color(255, 0, 0));
+                Color colorSelect = MainForm.ColorSelected;
+
+                byte r = 255;
+                byte b = 0;
+                byte g = 0;
+
+                if (colorSelect != null)
+                {
+                    r = colorSelect.R;
+                    g = colorSelect.G;
+                    b = colorSelect.B;
+                }
+                
+                overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(r, g, b));
+                overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(r, g, b));
 
 
                 doc.ActiveView.SetElementOverrides(element.Id, overrideGraphicSettings);
@@ -258,9 +295,19 @@ namespace RenumberParts
             {
                 ResetView.Start();
                 OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
-                foreach (var item in ListOfElements)
+                
+                LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
+
+                var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(
+                    logicalOrFilter).WhereElementIsNotElementType();
+
+                foreach (var item in collector.ToElements())
                 {
+                    if (item.IsValidObject && doc.GetElement(item.Id) != null)
+                    { 
                     doc.ActiveView.SetElementOverrides(item.Id, overrideGraphicSettings);
+                    }
+                    
                 }
 
                 ResetView.Commit();
@@ -269,13 +316,17 @@ namespace RenumberParts
 
         public static void resetValues()
         {
+            LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
+
+            var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(
+                logicalOrFilter).WhereElementIsNotElementType();
             using (Transaction ResetView = new Transaction(tools.uidoc.Document, "Reset view"))
             {
                 ResetView.Start();
                 OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
                 Guid guid = new Guid("460e0a79-a970-4b03-95f1-ac395c070beb");
                 string blankPrtnmbr = "";
-                foreach (var item in ListOfElements)
+                foreach (var item in collector.ToElements())
                 {
                     
                     item.get_Parameter(guid).Set(blankPrtnmbr);

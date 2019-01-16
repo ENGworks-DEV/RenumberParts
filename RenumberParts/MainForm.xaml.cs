@@ -5,6 +5,10 @@
 
 using System.Windows;
 using System.Windows.Controls;
+using System.Diagnostics;
+using System.Windows.Forms;
+using MessageBox = System.Windows.MessageBox;
+using System.Drawing;
 
 namespace RenumberParts
 {
@@ -13,6 +17,8 @@ namespace RenumberParts
     /// </summary>
     public partial class MainForm : Window
     {
+        public static Color ColorSelected;
+
         public MainForm()
         {
             InitializeComponent();
@@ -35,7 +41,7 @@ namespace RenumberParts
             {
                 tools.count = c;
             }
-            else { MessageBox.Show("Number field should contain a number"); }
+            else { System.Windows.Forms.MessageBox.Show("Number field should contain a number"); }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -46,6 +52,9 @@ namespace RenumberParts
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            //How to obtain color
+            Color color = ColorSelected;
+
             this.Hide();
             int c;
             bool isNumeric = int.TryParse(this.NumberBox.Text, out c);
@@ -117,9 +126,18 @@ namespace RenumberParts
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            tools.resetValues();
+            //Create an instance of the confirmDeleteForm.xaml
+            ConfirmDelete confirmDeleteForm = new ConfirmDelete();
+            confirmDeleteForm.Topmost = true;
+            confirmDeleteForm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            confirmDeleteForm.ShowDialog();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.ColorDialog colorDialog = new ColorDialog();
+            colorDialog.ShowDialog();
+            ColorSelected = colorDialog.Color;
         }
     }
-
-
 }
