@@ -121,6 +121,7 @@ namespace RenumberParts
                 w.Write(r.ReadBytes((int)s.Length));
         }
 
+
         public static void RawCreateProjectParameter(Autodesk.Revit.ApplicationServices.Application app, string name, ParameterType type, bool visible, CategorySet cats, BuiltInParameterGroup group, bool inst)
         {
             //InternalDefinition def = new InternalDefinition();
@@ -145,6 +146,10 @@ namespace RenumberParts
             map.Insert(def, binding, group);
         }
 
+        /// <summary>
+        /// Categories used when creating shared parameters / project parameters
+        /// </summary>
+        /// <returns></returns>
         public static CategorySet CategorySetList()
         {
             CategorySet categorySet = new CategorySet();
@@ -164,6 +169,10 @@ namespace RenumberParts
 
         public static Element selectedElement { get; set; }
 
+
+        /// <summary>
+        /// Save an element on a temporary list and override its color
+        /// </summary>
         public static void AddToSelection()
         {
 
@@ -222,6 +231,11 @@ namespace RenumberParts
             return output;
         }
 
+        /// <summary>
+        /// Get number from element as string
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
         public static string getNumber(Element element)
         {
 
@@ -249,6 +263,14 @@ namespace RenumberParts
             return currentNumber;
         }
 
+        /// <summary>
+        /// Creates a new number from a prefix, separator, a number and the amount of digits the number should have
+        /// </summary>
+        /// <param name="prefix">Prefix</param>
+        /// <param name="separator">Separator string</param>
+        /// <param name="number">Current number</param>
+        /// <param name="chars">Amount of digits the number should have</param>
+        /// <returns></returns>
         public static string createNumbering(string prefix,string separator, int number, int chars)
         {
 
@@ -289,6 +311,9 @@ namespace RenumberParts
             #endregion
         }
 
+        /// <summary>
+        /// Resets override on all elements in current view
+        /// </summary>
         public static void resetView()
         {
             using (Transaction ResetView = new Transaction(tools.uidoc.Document, "Reset view"))
@@ -314,6 +339,9 @@ namespace RenumberParts
             }
         }
 
+        /// <summary>
+        /// Reset prefix values on all elements visible on current view
+        /// </summary>
         public static void resetValues()
         {
             LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
@@ -336,7 +364,11 @@ namespace RenumberParts
             }
         }
 
-
+        /// <summary>
+        /// Write configuration file saved on user document 
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <param name="number"></param>
         public static void writeConfig(string prefix, string number)
         {
 
@@ -350,6 +382,11 @@ namespace RenumberParts
             }
         }
 
+
+        /// <summary>
+        /// Read configuration file saved on user document 
+        /// </summary>
+        /// <returns></returns>
         public static List<string> readConfig()
         {
             var output = new List<string>();
@@ -372,6 +409,12 @@ namespace RenumberParts
             return output;
         }
 
+
+        /// <summary>
+        /// Assing number to element
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="partNumber"></param>
         public static void AssingPartNumber(Element element, string partNumber)
         {
 
@@ -401,6 +444,10 @@ namespace RenumberParts
 
         }
 
+        /// <summary>
+        /// Hard coded list of categories to be used as a filter, only pipes, ducts and FabParts should be included when selecting and filter
+        /// </summary>
+        /// <returns></returns>
         public static List<ElementFilter> filters()
         {
             var output = new List<ElementFilter>();
@@ -415,6 +462,9 @@ namespace RenumberParts
             return output;
         }
 
+        /// <summary>
+        /// Adds 1 to all elements with the same prefix and bigger number than the one on selection
+        /// </summary>
         public static void SetElementsUpStream()
         {
 
@@ -448,9 +498,9 @@ namespace RenumberParts
 
                                     if (limitNumber < currentNumber)
                                     {
-                                        //var newnumber = createNumbering(itemNumber.Item1, currentNumber + 1, itemNumber.Item2.Count());
+                                        var newnumber = createNumbering(itemNumber.Item1,MainForm.Separator, currentNumber + 1, itemNumber.Item2.Count());
 
-                                        //AssingPartNumber(item, newnumber);
+                                        AssingPartNumber(item, newnumber);
 
                                     }
                                 }
@@ -471,6 +521,9 @@ namespace RenumberParts
 
         }
 
+        /// <summary>
+        /// Subtract 1 to all elements with the same prefix and bigger number than the one on selection
+        /// </summary>
         internal static void SetElementsDnStream()
         {
             tools.AddToSelection();
@@ -500,9 +553,9 @@ namespace RenumberParts
 
                                     if (limitNumber < currentNumber)
                                     {
-                                        //var newnumber = createNumbering(itemNumber.Item1, currentNumber - 1, itemNumber.Item2.Count());
+                                        var newnumber = createNumbering(itemNumber.Item1,MainForm.Separator, currentNumber - 1, itemNumber.Item2.Count());
 
-                                        //AssingPartNumber(item, newnumber);
+                                        AssingPartNumber(item, newnumber);
 
                                     }
                                 }
@@ -521,7 +574,8 @@ namespace RenumberParts
                 MessageBox.Show("Please select an element");
             }
         }
-        //TODO
+        
+
         /// <summary>
         /// Get number and prefix from string using the separator
         /// </summary>
