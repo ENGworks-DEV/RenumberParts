@@ -51,6 +51,8 @@ namespace RenumberParts
             tools.resetView();
         }
 
+        internal static string Separator;
+
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
            
@@ -139,6 +141,16 @@ namespace RenumberParts
             System.Windows.Forms.ColorDialog colorDialog = new ColorDialog();
             colorDialog.ShowDialog();
             ColorSelected = colorDialog.Color;
+        }
+
+        /// <summary>
+        /// Writes string used as separator to field
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Separator =  this.SeparatorBox.Text;
         }
     }
 }

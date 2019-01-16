@@ -521,31 +521,28 @@ namespace RenumberParts
                 MessageBox.Show("Please select an element");
             }
         }
-
+        //TODO
+        /// <summary>
+        /// Get number and prefix from string using the separator
+        /// </summary>
+        /// <param name="CNumber"></param>
+        /// <returns></returns>
         public static Tuple<string, string> GetNumberAndPrexif(string CNumber)
         {
             var str = CNumber;
+            var separator = MainForm.Separator;
+            var PrefixValueArray = CNumber.Split(new[] { separator }, StringSplitOptions.None);
 
-            if (str == null || !str.Any(char.IsDigit)) return null;
-            StringBuilder sb = new StringBuilder();
-
-            foreach (var c in str.ToCharArray().Reverse())
+            //Just last object should be a number, if there is no number place 000
+            int c;
+            bool isNumeric = int.TryParse(PrefixValueArray.Last(), out c);
+            string Number = "000";
+            if (isNumeric)
             {
-
-                if (Regex.IsMatch(c.ToString(), @"\d"))
-                {
-                    sb.Append(c);
-
-                }
-                else
-                {
-
-                    break;
-                }
+                Number =  PrefixValueArray.Last();
             }
-
-            string Number = new string(sb.ToString().Reverse().ToArray());
-            string prefix = CNumber.Replace(Number, "");
+            //Remove the separator and number leaving the prefix only
+            string prefix = CNumber.Replace(separator+Number, "");
             var tuple = new Tuple<string, string>(prefix, Number);
 
             return tuple;

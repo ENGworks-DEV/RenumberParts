@@ -54,7 +54,7 @@
         <Button Grid.ColumnSpan="3" Content="Reset Values" Margin="0,193,31,0" Width="80" Click="Button_Click_1" FontSize="11" ToolTip="Reset Elements values" ToolTipService.ShowDuration="20" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         <Button Content="" Grid.Column="2" Margin="0,112,19,0" Click="Button_Click_2" HorizontalAlignment="Right" Width="15" Height="38" VerticalAlignment="Top"/>
         <Label Content="Separator" Margin="10,42,109,0" Grid.Column="1" Height="24" VerticalAlignment="Top"/>
-        <TextBox Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="23" Margin="79,46,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" Width="152"/>
+        <TextBox Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="23" Margin="79,46,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" Width="152" TextChanged="TextBox_TextChanged"/>
 
     </Grid>
 
