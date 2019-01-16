@@ -50,7 +50,7 @@
         <Button Content="" Grid.Column="3" Margin="0,112,19,0" Click="Button_Click_2" HorizontalAlignment="Right" Width="15" Height="38" VerticalAlignment="Top"/>
         <Label Content="Separator" Margin="10,42,55,0" Grid.Column="1" Height="24" VerticalAlignment="Top"/>
         <TextBox x:Name="SeparatorBox" Grid.ColumnSpan="4" Height="23" Margin="79,46,19,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" MaxLength="1"/>
-        <Button x:Name="ColorByPrefix" Content="Color elements by prefix" Grid.Column="1" Margin="19,344,19,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="47"/>
+        <Button x:Name="ColorByPrefix" Content="Color elements by prefix" Grid.Column="1" Margin="19,344,19,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="47" Click="ColorByPrefix_Click"/>
 
     </Grid>
 
@@ -64,5 +64,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
 
 </Window>

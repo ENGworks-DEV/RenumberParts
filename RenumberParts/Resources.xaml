@@ -66,7 +66,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="55"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0"                                           
                                     sw:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource CloseCommand}"                                               
@@ -90,8 +90,8 @@
                                     sw:ShowSystemMenuBehavior.RightButtonShow="true">
                 </Label>
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <!--<Button DockPanel.Dock="Right" Style="{StaticResource WindowButton}" Command="{StaticResource MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">_</Button>
-                            <Button DockPanel.Dock="Right" Style="{StaticResource WindowButton}">+</Button> -->
+                    <Button DockPanel.Dock="Right" Style="{StaticResource WindowButton}" Command="{StaticResource MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">?</Button>
+                            <!--<Button DockPanel.Dock="Right" Style="{StaticResource WindowButton}">+</Button>--> 
                     <!-- To allow maximize copy this command inside declaration Command="{StaticResource MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"-->
                     <Button DockPanel.Dock="Right"  Style="{StaticResource WindowButton}" Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">X</Button>
                 </StackPanel>

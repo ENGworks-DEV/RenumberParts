@@ -339,6 +339,43 @@ namespace RenumberParts
             }
         }
 
+
+        /// <summary>
+        /// Override colors in view by prefix
+        /// </summary>
+        public static void colorInView()
+        {
+            using (Transaction ResetView = new Transaction(tools.uidoc.Document, "Reset view"))
+            {
+                ResetView.Start();
+                OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
+
+                LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
+
+                var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(
+                    logicalOrFilter).WhereElementIsNotElementType();
+
+
+
+
+                // Get distinct elements and convert into a list again.
+                List<Element> distinct = collector.Distinct().ToList();
+
+
+
+                foreach (var item in collector.ToElements())
+                {
+                    if (item.IsValidObject && doc.GetElement(item.Id) != null)
+                    {
+                        doc.ActiveView.SetElementOverrides(item.Id, overrideGraphicSettings);
+                    }
+
+                }
+
+                ResetView.Commit();
+            }
+        }
+
         /// <summary>
         /// Reset prefix values on all elements visible on current view
         /// </summary>
@@ -468,18 +505,22 @@ namespace RenumberParts
         public static void SetElementsUpStream()
         {
 
-
-
             tools.AddToSelection();
             if (tools.selectedElement != null)
             {
+                //Get the selected element
                 Element element = tools.selectedElement;
 
+                //Get filter with all the MEP categories
+               LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
 
-                LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
-
+                //Get all MEP elements in active view
                 var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(logicalOrFilter).WhereElementIsNotElementType();
+
+                //Get Shared parameter with the Prefix and number
                 var startNumber = getNumber(element);
+
+            
                 var limit = GetNumberAndPrexif(startNumber);
                 if (limit != null)
                 {

@@ -157,5 +157,10 @@ namespace RenumberParts
 
           
         }
+
+        private void ColorByPrefix_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
