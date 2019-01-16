@@ -103,7 +103,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="RenumberParts.addin" />
-    <EmbeddedResource Include="Resources\RenumberPartsLogo.png" />
+    <Resource Include="Resources\RenumberPartsLogo-Icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <EmbeddedResource Include="Resources\RenumberPartsLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\SP.txt" />
   </ItemGroup>
   <ItemGroup>
