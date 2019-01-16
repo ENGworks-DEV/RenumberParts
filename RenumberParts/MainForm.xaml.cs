@@ -52,7 +52,7 @@ namespace RenumberParts
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            //How to obtain color
+           
             Color color = ColorSelected;
 
             this.Hide();
@@ -73,7 +73,7 @@ namespace RenumberParts
                         AssingPartNumberT.Start();
                         tools.AddToSelection();
 
-                        var partNumber = tools.createNumbering(this.PrefixBox.Text, tools.count, this.NumberBox.Text.Length);
+                        var partNumber = tools.createNumbering(this.PrefixBox.Text,this.SeparatorBox.Text, tools.count, this.NumberBox.Text.Length);
                         tools.AssingPartNumber(tools.selectedElement, partNumber);
                         tools.count += 1;
                         tools.writeConfig(this.PrefixBox.Text, tools.count.ToString().PadLeft(this.NumberBox.Text.Length, '0'));

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RenumberParts"
-             mc:Ignorable="d" Height="397.238" Width="230.672" MinHeight="300" MinWidth="250" MaxHeight="400" MaxWidth="200" WindowStartupLocation="CenterScreen" Background="White" Foreground="Black" ResizeMode="NoResize" Title="Renumber Parts">
+             mc:Ignorable="d" Height="424.238" Width="230.672" MinHeight="300" MinWidth="250" MaxHeight="500" MaxWidth="200" WindowStartupLocation="CenterScreen" Background="White" Foreground="Black" ResizeMode="NoResize" Title="Renumber Parts">
 
     <Window.InputBindings>
         <KeyBinding Key="A" Modifiers="Control" Command="SelectAll" />
@@ -42,8 +42,9 @@
         <Label Content="Reset color and values" HorizontalAlignment="Left" Margin="19,157,0,156" Width="132" Grid.Column="1"/>
         <Button Grid.ColumnSpan="3" Content="Reset Values" Margin="134,193,31,0" Width="80" Click="Button_Click_1" FontSize="11" ToolTip="Reset Elements values" ToolTipService.ShowDuration="20" Height="28" VerticalAlignment="Top"/>
         <Button Content="" Grid.Column="2" Margin="0,112,19,0" Click="Button_Click_2" HorizontalAlignment="Right" Width="15" Height="38" VerticalAlignment="Top"/>
-        <Label Content="Separator" Margin="10,42,109,0" Grid.Column="1" Height="24" VerticalAlignment="Top"/>
-        <TextBox Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="23" Margin="79,46,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Separator" Margin="10,42,0,0" Grid.Column="1" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="61"/>
+        <TextBox x:Name="SeparatorBox" Grid.ColumnSpan="3" Height="23" Margin="0,46,19,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" HorizontalAlignment="Right" Width="152"/>
+        <Button Grid.ColumnSpan="3" Content="Color by spool prefix" HorizontalAlignment="Left" Height="38" Margin="19,343,0,-16" VerticalAlignment="Top" Width="212"/>
 
     </Grid>
 

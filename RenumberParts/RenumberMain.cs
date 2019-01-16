@@ -249,11 +249,11 @@ namespace RenumberParts
             return currentNumber;
         }
 
-        public static string createNumbering(string prefix, int number, int chars)
+        public static string createNumbering(string prefix,string separator, int number, int chars)
         {
 
             var num = number.ToString().PadLeft(chars, '0');
-            return prefix + num;
+            return prefix + separator + num;
 
         }
 
@@ -448,9 +448,9 @@ namespace RenumberParts
 
                                     if (limitNumber < currentNumber)
                                     {
-                                        var newnumber = createNumbering(itemNumber.Item1, currentNumber + 1, itemNumber.Item2.Count());
+                                        //var newnumber = createNumbering(itemNumber.Item1, currentNumber + 1, itemNumber.Item2.Count());
 
-                                        AssingPartNumber(item, newnumber);
+                                        //AssingPartNumber(item, newnumber);
 
                                     }
                                 }
@@ -500,9 +500,9 @@ namespace RenumberParts
 
                                     if (limitNumber < currentNumber)
                                     {
-                                        var newnumber = createNumbering(itemNumber.Item1, currentNumber - 1, itemNumber.Item2.Count());
+                                        //var newnumber = createNumbering(itemNumber.Item1, currentNumber - 1, itemNumber.Item2.Count());
 
-                                        AssingPartNumber(item, newnumber);
+                                        //AssingPartNumber(item, newnumber);
 
                                     }
                                 }
