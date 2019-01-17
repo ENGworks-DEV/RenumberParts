@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using MessageBox = System.Windows.MessageBox;
 using System.Drawing;
-
+using System.Windows.Media;
 
 namespace RenumberParts
 {
@@ -18,21 +18,34 @@ namespace RenumberParts
     /// </summary>
     public partial class MainForm : Window
     {
-        public static Color ColorSelected;
+        public static System.Drawing.Color ColorSelected;
+        public System.Windows.Forms.ColorDialog colorDialog = new ColorDialog();
+        
 
         public MainForm()
         {
+            
+
             InitializeComponent();
             var conf = tools.readConfig();
+
+            //Set as default red color
+            ColorSelected = System.Drawing.Color.FromArgb(1,255,0,0);
             
+
             if (conf != null && conf.Count == 2)
             {
                 this.PrefixBox.Text = conf[0];
                 this.NumberBox.Text = conf[1];
             }
-
         }
 
+
+        /// <summary>
+        /// Check if the suffix is a number or not
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void textChangedEventHandler(object sender, TextChangedEventArgs args)
         {
 
@@ -46,18 +59,33 @@ namespace RenumberParts
             else { System.Windows.Forms.MessageBox.Show("Number field should contain a number"); }
         }
 
+
+        /// <summary>
+        /// Reset values in view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
+        {    
             tools.resetView();
         }
 
+
+
         internal static string Separator { get; set; }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+       
+
+
+            /// <summary>
+            /// Add spool number to element
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-           
-            Color color = ColorSelected;
+
+            System.Drawing.Color color = ColorSelected;
 
             this.Hide();
             int c;
@@ -101,6 +129,12 @@ namespace RenumberParts
             this.ShowDialog();
         }
 
+
+        /// <summary>
+        /// Displace all values up
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DiplaceUp_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
@@ -115,6 +149,12 @@ namespace RenumberParts
         }
 
 
+    
+        /// <summary>
+        /// Desplace all values down
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DiplaceDn_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
@@ -128,39 +168,58 @@ namespace RenumberParts
             this.ShowDialog();
         }
 
+
+        /// <summary>
+        /// Create an instance of the confirmDeleteForm.xaml
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            //Create an instance of the confirmDeleteForm.xaml
             ConfirmDelete confirmDeleteForm = new ConfirmDelete();
             confirmDeleteForm.Topmost = true;
             confirmDeleteForm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             confirmDeleteForm.ShowDialog();
         }
 
+
+        /// <summary>
+        /// Show Color dialog and set selected color to variable
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.ColorDialog colorDialog = new ColorDialog();
+             
             colorDialog.ShowDialog();
             ColorSelected = colorDialog.Color;
         }
 
-        
+     
         /// <summary>
         /// Writes string used as separator to an internal field
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        //private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //        Separator = this.SeparatorBox.Text;    
+        //}
 
-                Separator = this.SeparatorBox.Text;
 
-          
-        }
-
+        /// <summary>
+        /// Colorize all elements in view grouping them by its prefix
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ColorByPrefix_Click(object sender, RoutedEventArgs e)
         {
+            tools.ColorInView();
+        }
 
+        public void SeparatorBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Separator = this.SeparatorBox.Text;
         }
     }
 }
