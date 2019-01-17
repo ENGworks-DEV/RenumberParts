@@ -94,7 +94,7 @@
                                     sw:ShowSystemMenuBehavior.RightButtonShow="true">
                     </Label>
                     <StackPanel Grid.Column="0" >
-                        <Image Height="28"  Source="Resources/RenumberPartsLogo-Icon.png" Stretch="UniformToFill" /><!--Valentin here is the image, use height to change the size-->
+                        <Image Height="28"  Source="Resources/Icon.png" Stretch="UniformToFill" /><!--Valentin here is the image, use height to change the size-->
                     </StackPanel>
                     <StackPanel Grid.Column="2" Orientation="Horizontal">
                         
