@@ -68,6 +68,16 @@ namespace RenumberParts
 
         public static Document doc { get; set; }
 
+
+
+        /// <summary>
+        /// Create project parameter from existing shared parameter
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="name"></param>
+        /// <param name="cats"></param>
+        /// <param name="group"></param>
+        /// <param name="inst"></param>
         public static void RawCreateProjectParameterFromExistingSharedParameter(Autodesk.Revit.ApplicationServices.Application app, string name, CategorySet cats, BuiltInParameterGroup group, bool inst)
         {
             //Location of the shared parameters
@@ -109,9 +119,16 @@ namespace RenumberParts
             map.Insert(def, binding, group);
         }
 
+
+        /// <summary>
+        /// Copy and embedded resource to a directory(txt file in this case)
+        /// </summary>
+        /// <param name="nameSpace"></param>
+        /// <param name="outDirectory"></param>
+        /// <param name="internalFilePath"></param>
+        /// <param name="resourceName"></param>
         private static void Extract(string nameSpace, string outDirectory, string internalFilePath, string resourceName)
         {
-            //Method to copy an embedded resource to a directory
             Assembly assembly = Assembly.GetCallingAssembly();
 
             using (Stream s = assembly.GetManifestResourceStream(nameSpace + "." + (internalFilePath == "" ? "" : internalFilePath + ".") + resourceName))
@@ -122,6 +139,16 @@ namespace RenumberParts
         }
 
 
+        /// <summary>
+        /// Create a project parameter
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="name"></param>
+        /// <param name="type"></param>
+        /// <param name="visible"></param>
+        /// <param name="cats"></param>
+        /// <param name="group"></param>
+        /// <param name="inst"></param>
         public static void RawCreateProjectParameter(Autodesk.Revit.ApplicationServices.Application app, string name, ParameterType type, bool visible, CategorySet cats, BuiltInParameterGroup group, bool inst)
         {
             //InternalDefinition def = new InternalDefinition();
@@ -145,6 +172,7 @@ namespace RenumberParts
             BindingMap map = (new UIApplication(app)).ActiveUIDocument.Document.ParameterBindings;
             map.Insert(def, binding, group);
         }
+
 
         /// <summary>
         /// Categories used when creating shared parameters / project parameters
@@ -185,28 +213,28 @@ namespace RenumberParts
                 OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
                 Color colorSelect = MainForm.ColorSelected;
 
-                byte r = 255;
-                byte b = 0;
-                byte g = 0;
-
-                if (colorSelect != null)
-                {
-                    r = colorSelect.R;
-                    g = colorSelect.G;
-                    b = colorSelect.B;
-                }
+                //Split coloSelect in R,G,B to be transformed to a Revit color later
+                byte r = colorSelect.R;
+                byte b = colorSelect.B;
+                byte g = colorSelect.G;
                 
+                //Set override properties to fill and line colors
                 overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(r, g, b));
                 overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(r, g, b));
 
-
+                //Override color of element
                 doc.ActiveView.SetElementOverrides(element.Id, overrideGraphicSettings);
+
+
                 selectedElement = element;
+
+                //Add element to the temporary list of selected elemenents
                 ListOfElements.Add(element);
 
             }
 
         }
+
 
         /// <summary>
         /// Get selected elements
@@ -218,18 +246,17 @@ namespace RenumberParts
             var selection = uidoc.Selection.GetElementIds();
             foreach (var item in selection)
             {
-
                 try
                 {
                     Element element = doc.GetElement(item);
                     output.Add(element);
                 }
                 catch (Exception e) { MessageBox.Show(e.Message); }
-
             }
 
             return output;
         }
+
 
         /// <summary>
         /// Get number from element as string
@@ -338,6 +365,55 @@ namespace RenumberParts
                 ResetView.Commit();
             }
         }
+
+
+        /// <summary>
+        /// Override colors in view by prefix
+        /// </summary>
+        public static void ColorInView()
+        {
+            using (Transaction ResetView = new Transaction(tools.uidoc.Document, "Reset view"))
+            {
+                ResetView.Start();
+                OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
+
+                LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
+
+                var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(
+                    logicalOrFilter).WhereElementIsNotElementType();
+
+                Dictionary<Element, string> elemtNPrefix = new Dictionary<Element, string>();
+                Dictionary<string, Color> colorNPrefix = new Dictionary<string, Color>();
+
+                //Create a Dictionary with Elements and its prefixes
+                foreach (var item in collector.ToElements())
+                {
+                    var number = getNumber(item);
+                    var itemNumber = GetNumberAndPrexif(number);
+                    elemtNPrefix.Add(item, itemNumber.Item1);
+                }
+
+                //Create a unique prefixes and an assigned color
+                foreach (var prefix in elemtNPrefix.Values.Distinct())
+                {
+                    //TaskDialog.Show("dd", prefix);
+                    Random randonGen = new Random();
+                    Color randomColor = Color.FromArgb(1, randonGen.Next(255), randonGen.Next(255), randonGen.Next(255));
+                    colorNPrefix.Add(prefix, randomColor);
+                }
+
+                //Override colors following the already created schema of colors
+                foreach (var item in elemtNPrefix)
+                {      
+                    overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
+                    overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
+                    doc.ActiveView.SetElementOverrides(item.Key.Id, overrideGraphicSettings);      
+                }
+
+                    ResetView.Commit();
+            }
+        }
+
 
         /// <summary>
         /// Reset prefix values on all elements visible on current view
@@ -468,19 +544,26 @@ namespace RenumberParts
         public static void SetElementsUpStream()
         {
 
-
-
             tools.AddToSelection();
             if (tools.selectedElement != null)
             {
+                //Get the selected element
                 Element element = tools.selectedElement;
 
+                //Get Shared parameter with the Prefix and number
+                var startNumber = getNumber(element);
 
+                //Get Number and prefix of the selected element
+                var limit = GetNumberAndPrexif(startNumber);
+
+                //Get filter with all the MEP categories
                 LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
 
+                //Get all MEP elements in active view
                 var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(logicalOrFilter).WhereElementIsNotElementType();
-                var startNumber = getNumber(element);
-                var limit = GetNumberAndPrexif(startNumber);
+
+                
+
                 if (limit != null)
                 {
                     foreach (var item in collector.ToElements())
@@ -498,7 +581,7 @@ namespace RenumberParts
 
                                     if (limitNumber < currentNumber)
                                     {
-                                        var newnumber = createNumbering(itemNumber.Item1,MainForm.Separator, currentNumber + 1, itemNumber.Item2.Count());
+                                        var newnumber = createNumbering(itemNumber.Item1, MainForm.Separator, currentNumber + 1, itemNumber.Item2.Count());
 
                                         AssingPartNumber(item, newnumber);
 

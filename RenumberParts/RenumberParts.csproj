@@ -92,6 +92,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenumberMain.cs" />
+    <Compile Include="Resources.xaml.cs">
+      <DependentUpon>Resources.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StyleableWindow\ControlDoubleClickBehavior.cs" />
     <Compile Include="StyleableWindow\ShowSystemMenuBehavior.cs" />
     <Compile Include="StyleableWindow\SystemMenuManager.cs" />
