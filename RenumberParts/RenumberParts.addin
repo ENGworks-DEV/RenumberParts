@@ -3,9 +3,9 @@
 
   <AddIn Type="Application">
     <Name>RenumberParts</Name>
-    <Assembly>RenumberParts.dll</Assembly>
+    <Assembly>RenumberParts\RenumberParts.dll</Assembly>
     <FullClassName>RenumberParts.App</FullClassName>
-    <ClientId>0a7c185d-fb3d-44c5-b30f-170115cefb85</ClientId>
+    <ClientId>3256F49C-7F76-4734-8992-3F1CF468BE9B</ClientId>
     <VendorId>ENG</VendorId>
     <VendorDescription>ENGworks, http://www.engworks.com</VendorDescription>
   </AddIn>

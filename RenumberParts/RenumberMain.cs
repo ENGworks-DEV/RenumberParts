@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Drawing;
 using Color = System.Drawing.Color;
+using System.Timers;
 
 namespace RenumberParts
 {
@@ -396,18 +397,22 @@ namespace RenumberParts
                 //Create a unique prefixes and an assigned color
                 foreach (var prefix in elemtNPrefix.Values.Distinct())
                 {
-                    //TaskDialog.Show("dd", prefix);
+                    //Chanchada
+                    System.Threading.Thread.Sleep(50);
                     Random randonGen = new Random();
                     Color randomColor = Color.FromArgb(1, randonGen.Next(255), randonGen.Next(255), randonGen.Next(255));
                     colorNPrefix.Add(prefix, randomColor);
+                    
                 }
 
                 //Override colors following the already created schema of colors
                 foreach (var item in elemtNPrefix)
-                {      
+                {
+
                     overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
                     overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
-                    doc.ActiveView.SetElementOverrides(item.Key.Id, overrideGraphicSettings);      
+                    doc.ActiveView.SetElementOverrides(item.Key.Id, overrideGraphicSettings);
+                 
                 }
 
                     ResetView.Commit();
