@@ -108,7 +108,7 @@
 
                     <StackPanel Grid.Column="2" Orientation="Horizontal">
                         <!--Customization of the minimize button-->
-                        <Button DockPanel.Dock="Right"  PreviewMouseDown="AddInLink"  Style="{StaticResource WindowButton}"  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" IsCancel="True">?</Button>
+                        <Button DockPanel.Dock="Right"  PreviewMouseDown="EngworksLink"  Style="{StaticResource WindowButton}"  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" IsCancel="True">?</Button>
                         <!--Customization of the maximize button-->          
                         <!-- To allow maximize copy this command inside declaration Command="{StaticResource MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"-->
                         <!--Customization of the maximize button-->
