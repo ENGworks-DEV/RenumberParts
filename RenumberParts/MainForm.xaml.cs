@@ -108,14 +108,14 @@ namespace RenumberParts
                         var partNumber = tools.createNumbering(this.PrefixBox.Text,this.SeparatorBox.Text, tools.count, this.NumberBox.Text.Length);
                         tools.AssingPartNumber(tools.selectedElement, partNumber);
                         tools.count += 1;
-                        tools.writeConfig(this.PrefixBox.Text, tools.count.ToString().PadLeft(this.NumberBox.Text.Length, '0'));
+                        tools.writeConfig(this.PrefixBox.Text, tools.count.ToString().PadLeft(this.NumberBox.Text.Length-1, '0'));
 
                         AssingPartNumberT.Commit();
+
+                            int leadingZeros =this.NumberBox.Text.Length - tools.count.ToString().Length;
+                            this.NumberBox.Text =( new string('0',leadingZeros)) + tools.count.ToString();
+                     
                         
-                        if(tools.count.ToString().Length == 1)
-                            this.NumberBox.Text = "0" + tools.count.ToString();
-                        else
-                            this.NumberBox.Text = tools.count.ToString();
                     }
                 }
                 catch (System.Exception ex)
