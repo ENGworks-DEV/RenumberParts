@@ -152,8 +152,7 @@ namespace RenumberParts
         /// <param name="inst"></param>
         public static void RawCreateProjectParameter(Autodesk.Revit.ApplicationServices.Application app, string name, ParameterType type, bool visible, CategorySet cats, BuiltInParameterGroup group, bool inst)
         {
-            //InternalDefinition def = new InternalDefinition();
-            //Definition def = new Definition();
+
 
             string oriFile = app.SharedParametersFilename;
             string tempFile = Path.GetTempFileName() + ".txt";

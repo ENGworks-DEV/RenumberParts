@@ -3,7 +3,7 @@
 
   <AddIn Type="Application">
     <Name>RenumberParts</Name>
-    <Assembly>RenumberParts\RenumberParts.dll</Assembly>
+    <Assembly>RenumberParts.dll</Assembly>
     <FullClassName>RenumberParts.App</FullClassName>
     <ClientId>3256F49C-7F76-4734-8992-3F1CF468BE9B</ClientId>
     <VendorId>ENG</VendorId>

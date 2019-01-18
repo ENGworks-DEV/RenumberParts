@@ -56,7 +56,14 @@ namespace RenumberParts
             {
                 tools.count = c;
             }
-            else { System.Windows.Forms.MessageBox.Show("Number field should contain a number"); }
+            else
+            {
+                SuffixContent suffixContentForm = new SuffixContent();
+                suffixContentForm.Topmost = true;
+                suffixContentForm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                suffixContentForm.ShowDialog();
+                //MessageBox.Show("Number field should contain only numbers");
+            }
         }
 
 
@@ -120,11 +127,18 @@ namespace RenumberParts
                 }
                 catch (System.Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    //MessageBox.Show(ex.Message);
                 }
 
             }
-            else { MessageBox.Show("Number field should contain only numbers"); }
+            else
+            {
+                SuffixContent suffixContentForm = new SuffixContent();
+                suffixContentForm.Topmost = true;
+                suffixContentForm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                suffixContentForm.ShowDialog();
+                //MessageBox.Show("Number field should contain only numbers");
+            }
             
             this.ShowDialog();
         }
@@ -138,11 +152,18 @@ namespace RenumberParts
         private void DiplaceUp_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            using (Autodesk.Revit.DB.Transaction DisplaceUp = new Autodesk.Revit.DB.Transaction(tools.uidoc.Document, "Displace Up Part Number"))
+            try
+            {
+                using (Autodesk.Revit.DB.Transaction DisplaceUp = new Autodesk.Revit.DB.Transaction(tools.uidoc.Document, "Displace Up Part Number"))
             {
                 DisplaceUp.Start();
                 tools.SetElementsUpStream();
                 DisplaceUp.Commit();
+            }
+            }
+            catch 
+            {
+
             }
 
             this.ShowDialog();
@@ -158,6 +179,8 @@ namespace RenumberParts
         private void DiplaceDn_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+            try
+            { 
             using (Autodesk.Revit.DB.Transaction DisplaceUp = new Autodesk.Revit.DB.Transaction(tools.uidoc.Document, "Displace Up Part Number"))
             {
                 DisplaceUp.Start();
@@ -165,6 +188,12 @@ namespace RenumberParts
                 DisplaceUp.Commit();
             }
 
+
+            }
+            catch 
+            {
+
+            }
             this.ShowDialog();
         }
 
