@@ -103,9 +103,14 @@
     <Compile Include="StyleableWindow\WindowMaximizeCommand.cs" />
     <Compile Include="StyleableWindow\WindowMinimizeCommand.cs" />
     <Compile Include="StyleableWindow\WindowResizeBehavior.cs" />
+    <Compile Include="SuffixContent.xaml.cs">
+      <DependentUpon>SuffixContent.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="RenumberParts.addin" />
+    <Resource Include="Resources\winforms.html" />
+    <Resource Include="Resources\WarningLogo.png" />
     <Resource Include="Resources\Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -133,6 +138,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SuffixContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

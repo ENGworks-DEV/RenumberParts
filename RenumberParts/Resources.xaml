@@ -1,11 +1,14 @@
 ﻿<ResourceDictionary 
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  x:Class="RenumberParts.Resources"
   xmlns:system="clr-namespace:System;assembly=mscorlib"
+  xmlns:local="clr-namespace:RenumberParts"
     xmlns:sw="clr-namespace:WpfStyleableWindow.StyleableWindow">
+    
 
-    <!--the brushes used in the template (use these to customize the window look along with the window style (see the bottom of this file)-->
-    <!-- Valentin here you can play with the colors of the bar-->
+ 
+    <!-- Colors of the bar-->
     <SolidColorBrush x:Key="WindowColor" Color="Red"/>
     <SolidColorBrush x:Key="WindowBackColor" Color="Gray"/>
     <SolidColorBrush x:Key="WindowForeColor" Color="WhiteSmoke"/>
@@ -67,7 +70,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="55"/>
                         
                     </Grid.ColumnDefinitions>
                     
@@ -93,14 +96,22 @@
                                     sw:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                     sw:ShowSystemMenuBehavior.RightButtonShow="true">
                     </Label>
+
+
                     <StackPanel Grid.Column="0" >
-                        <Image Height="28"  Source="Resources/Icon.png" Stretch="UniformToFill" /><!--Valentin here is the image, use height to change the size-->
+                        <TextBlock>
+                            <Button Name="btnAnswer4" Background="Gray" BorderThickness="0" MouseDown="EngworksLink">
+                                <Image Height="28" Source="Resources/Icon.png" Stretch="UniformToFill" MouseDown="AddInLink" />
+                            </Button>
+                        </TextBlock>
                     </StackPanel>
+
                     <StackPanel Grid.Column="2" Orientation="Horizontal">
-                        
-                        <!--<Button DockPanel.Dock="Right" Style="{StaticResource WindowButton}" Command="{StaticResource MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">_</Button>
-                            <Button DockPanel.Dock="Right" Style="{StaticResource WindowButton}">+</Button> -->
+                        <!--Customization of the minimize button-->
+                        <Button DockPanel.Dock="Right"  PreviewMouseDown="EngworksLink"  Style="{StaticResource WindowButton}"  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" IsCancel="True">?</Button>
+                        <!--Customization of the maximize button-->          
                         <!-- To allow maximize copy this command inside declaration Command="{StaticResource MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"-->
+                        <!--Customization of the maximize button-->
                         <Button DockPanel.Dock="Right"  Style="{StaticResource WindowButton}" Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">X</Button>
                     </StackPanel>
                 </Grid>
@@ -134,7 +145,11 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
     
-    <ControlTemplate x:Key="Warning" TargetType="{x:Type Window}">
+    
+    
+    
+    <!--Customized Templace for the Warning windows-->
+    <ControlTemplate x:Key="WarningTemplate" TargetType="{x:Type Window}">
         <Grid Background="{StaticResource WindowBackColor}">
             <Grid>
                 <Grid.RowDefinitions>
@@ -146,8 +161,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
+                        <!--Control of the location of close, minimize and maximazi buttons location-->
                         <ColumnDefinition Width="25"/>
-
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0"                                           
@@ -172,17 +187,19 @@
                                     sw:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                     sw:ShowSystemMenuBehavior.RightButtonShow="true">
                     </Label>
+                    
+                    <!--Control of the Warning logo image-->
                     <StackPanel Grid.Column="0" >
-                        <Image Height="28"  Source="Resources/Icon.png" Stretch="UniformToFill" />
-                        <!--Valentin here is the image, use height to change the size-->
+                        <TextBlock>
+                                <Image Height="28" Width="28" Source="Resources/WarningLogo.png" Stretch="UniformToFill"/>
+                        </TextBlock>
                     </StackPanel>
-                    <StackPanel Grid.Column="2" Orientation="Horizontal">
 
-                        <!--<Button DockPanel.Dock="Right" Style="{StaticResource WindowButton}" Command="{StaticResource MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">_</Button>
-                            <Button DockPanel.Dock="Right" Style="{StaticResource WindowButton}">+</Button> -->
-                        <!-- To allow maximize copy this command inside declaration Command="{StaticResource MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"-->
+                    <!--Control of the close Button-->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal">
                         <Button DockPanel.Dock="Right"  Style="{StaticResource WindowButton}" Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">X</Button>
                     </StackPanel>
+                
                 </Grid>
                 <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
 
@@ -213,35 +230,36 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    <!-- the custom window style and the window template 
-        Here you can customize the look of the window without having to touch the control template 
-        or comment out the brushes and create a new style (see the red style below)-->
 
+    
+    <!--Custom windows style of the Main window-->
     <Style x:Key="CustomWindowStyle" TargetType="{x:Type Window}">
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="AllowsTransparency" Value="True"/>
         <Setter Property="MinWidth" Value="200"/>
         <Setter Property="MinHeight" Value="46"/>
-        <!--CaptionHeight + ResizeBorderThickness * 2-->
         <Setter Property="Background" Value="LightGray"/>
-        <!-- Valentin Here change the color of the borders-->
+        <!--Color of the borders-->
         <Setter Property="BorderBrush" Value="LightGray"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Foreground" Value="DimGray"/>
         <Setter Property="Template" Value="{StaticResource WindowTemplate}"/>
+        <Setter Property="ResizeMode" Value="NoResize"/>
     </Style>
     
-    <Style x:Key="Secondary" TargetType="{x:Type Window}">
+    
+    <!--Custom windows style of the warning window-->
+    <Style x:Key="Warning" TargetType="{x:Type Window}">
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="AllowsTransparency" Value="True"/>
         <Setter Property="MinWidth" Value="200"/>
         <Setter Property="MinHeight" Value="46"/>
-        <!--CaptionHeight + ResizeBorderThickness * 2-->
         <Setter Property="Background" Value="LightGray"/>
-        <!-- Valentin Here change the color of the borders-->
-        <Setter Property="BorderBrush" Value="Red"/>
-        <Setter Property="BorderThickness" Value="122"/>
+        <!-- Color of the borders-->
+        <Setter Property="BorderBrush" Value="LightGray"/>
+        <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Foreground" Value="DimGray"/>
-        <Setter Property="Template" Value="{StaticResource Warning}"/>
+        <Setter Property="Template" Value="{StaticResource WarningTemplate}"/>
+        <Setter Property="ResizeMode" Value="NoResize"/>
     </Style>
 </ResourceDictionary>

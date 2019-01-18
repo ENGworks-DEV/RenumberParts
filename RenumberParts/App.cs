@@ -51,9 +51,13 @@ namespace RenumberParts
             string newpath = Path.GetFullPath(Path.Combine(path, @"..\"));
 
             // Set the contextual help to point Help.html
+            //ContextualHelp contextHelp = new ContextualHelp(
+            //    ContextualHelpType.ChmFile,
+            //    newpath + "Resources\\Help.html");
+
             ContextualHelp contextHelp = new ContextualHelp(
-                ContextualHelpType.ChmFile,
-                newpath + "Resources\\Help.html");
+                ContextualHelpType.Url,
+                "https://engworks.com/renumber-parts/");
 
             // Assign contextual help to pushbutton
             pushButton.SetContextualHelp(contextHelp);
