@@ -115,13 +115,16 @@ namespace RenumberParts
                         var partNumber = tools.createNumbering(this.PrefixBox.Text,this.SeparatorBox.Text, tools.count, this.NumberBox.Text.Length);
                         tools.AssingPartNumber(tools.selectedElement, partNumber);
                         tools.count += 1;
-                        tools.writeConfig(this.PrefixBox.Text, tools.count.ToString().PadLeft(this.NumberBox.Text.Length-1, '0'));
+                        //count 5, pad left
+
+                        int leadingZeros = this.NumberBox.Text.Length - tools.count.ToString().Length;
+                        this.NumberBox.Text = (new string('0', leadingZeros)) + tools.count.ToString();
+
+                        tools.writeConfig(this.PrefixBox.Text, this.NumberBox.Text);
 
                         AssingPartNumberT.Commit();
 
-                            int leadingZeros =this.NumberBox.Text.Length - tools.count.ToString().Length;
-                            this.NumberBox.Text =( new string('0',leadingZeros)) + tools.count.ToString();
-                     
+                            
                         
                     }
                 }

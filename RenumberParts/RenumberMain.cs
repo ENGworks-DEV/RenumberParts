@@ -66,7 +66,9 @@ namespace RenumberParts
         public static UIApplication uiapp { get; set; }
 
         public static UIDocument uidoc { get; set; }
-
+        /// <summary>
+        /// current document
+        /// </summary>
         public static Document doc { get; set; }
 
 
