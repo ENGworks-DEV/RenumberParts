@@ -206,12 +206,14 @@ namespace RenumberParts
         public static void AddToSelection()
         {
 
+            var filterS = new SelectionFilter();
+            
             var refElement = uidoc.Selection.PickObject(Autodesk.Revit.UI.Selection.ObjectType.Element, new SelectionFilter());
 
             if (refElement != null)
             {
                 var element = uidoc.Document.GetElement(refElement);
-
+                //TODO: check if element is from the right category
                 OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
                 Color colorSelect = MainForm.ColorSelected;
 
@@ -502,6 +504,7 @@ namespace RenumberParts
 
 
             //Check if element is Fab part or common mep element
+            //TODO: change to non local code
             if (element.Category.Name.Contains("MEP"))
             {
                 try
@@ -541,6 +544,24 @@ namespace RenumberParts
             output.Add(new ElementCategoryFilter(BuiltInCategory.OST_DuctAccessory));
             output.Add(new ElementCategoryFilter(BuiltInCategory.OST_DuctCurves));
             output.Add(new ElementCategoryFilter(BuiltInCategory.OST_DuctFitting));
+            return output;
+        }
+
+        /// <summary>
+        /// Hard coded list of categories to be used as a filter on selection, only pipes, ducts and FabParts should be included when selecting and filter
+        /// </summary>
+        /// <returns></returns>
+        public static List<BuiltInCategory> SelectionFilters()
+        {
+            var output = new List<BuiltInCategory>();
+            output.Add((BuiltInCategory.OST_FabricationDuctwork));
+            output.Add(BuiltInCategory.OST_FabricationPipework);
+            output.Add((BuiltInCategory.OST_PipeAccessory));
+            output.Add((BuiltInCategory.OST_PipeCurves));
+            output.Add((BuiltInCategory.OST_PipeFitting));
+            output.Add((BuiltInCategory.OST_DuctAccessory));
+            output.Add((BuiltInCategory.OST_DuctCurves));
+            output.Add((BuiltInCategory.OST_DuctFitting));
             return output;
         }
 
