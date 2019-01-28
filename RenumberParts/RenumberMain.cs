@@ -394,7 +394,8 @@ namespace RenumberParts
                 {
                     var number = getNumber(item);
                     var itemNumber = GetNumberAndPrexif(number);
-                    elemtNPrefix.Add(item, itemNumber.Item1);
+                    if (itemNumber != null) { elemtNPrefix.Add(item, itemNumber.Item1); }
+                    
                 }
 
                 //Create a unique prefixes and an assigned color
@@ -693,25 +694,28 @@ namespace RenumberParts
         /// <returns></returns>
         public static Tuple<string, string> GetNumberAndPrexif(string CNumber)
         {
-            var str = CNumber;
-            var separator = MainForm.Separator;
-            var PrefixValueArray = CNumber.Split(new[] { separator }, StringSplitOptions.None);
-
-            //Just last object should be a number, if there is no number place 000
-            int c;
-            bool isNumeric = int.TryParse(PrefixValueArray.Last(), out c);
-            string Number = "000";
-            if (isNumeric)
+            if (!string.IsNullOrEmpty(CNumber))
             {
-                Number =  PrefixValueArray.Last();
+                var str = CNumber;
+                var separator = MainForm.Separator;
+                var PrefixValueArray = CNumber.Split(new[] { separator }, StringSplitOptions.None);
+
+                //Just last object should be a number, if there is no number place 000
+                int c;
+                bool isNumeric = int.TryParse(PrefixValueArray.Last(), out c);
+                string Number = "000";
+                if (isNumeric)
+                {
+                    Number = PrefixValueArray.Last();
+                }
+                //Remove the separator and number leaving the prefix only
+                string prefix = CNumber.Replace(separator + Number, "");
+                var tuple = new Tuple<string, string>(prefix, Number);
+
+                return tuple;
+
             }
-            //Remove the separator and number leaving the prefix only
-            string prefix = CNumber.Replace(separator+Number, "");
-            var tuple = new Tuple<string, string>(prefix, Number);
-
-            return tuple;
-
-
+            else { return null; }
         }
     }
 }
