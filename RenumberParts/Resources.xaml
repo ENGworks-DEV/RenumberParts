@@ -69,7 +69,7 @@
 
     <!--Control template for Main forms-->
     <ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type Window}">
-        <Grid Background="{StaticResource WindowBackColor}">
+        <Grid Background="Transparent">
             <Grid>
 
 
@@ -82,16 +82,20 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Margin="0,0,0,0">
-                
-                    
+
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="52"/>
+                        <ColumnDefinition Width="60"/>
 
                     </Grid.ColumnDefinitions>
-
+                    <Border Grid.Column="0" Background="Gray" />
+                    <Border Grid.Column="1" Background="Gray" />
+                    <Border Grid.Column="2" Background="Gray" Margin="0,0,10,0">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="5" Color="Gray" Opacity="0.5"></DropShadowEffect>
+                        </Border.Effect></Border>
                     <!--Location Logo-->
                     <Label Grid.Column="0"                                           
                                     sw:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource CloseCommand}"                                               
@@ -102,7 +106,7 @@
                                     sw:ShowSystemMenuBehavior.LeftButtonShowAt="{Binding ElementName=WindowContent}"/>
                     </Label>
 
-                    <!--Location of tittle-->
+                    <!--Location of title-->
                     <Label Grid.Column="1" DockPanel.Dock="Left" Content="{TemplateBinding Property=Title}" Padding="25,0,0,0"                                                                                  
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
@@ -136,7 +140,7 @@
                     </StackPanel>
                 </Grid>
                 
-                <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1 0 1 1" Background="{TemplateBinding Background}">
+                <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0 0 0 0" Background="{TemplateBinding Background}">
                     <Grid>
                         <AdornerDecorator>
                             <ContentPresenter x:Name="WindowContent"/>
@@ -144,7 +148,10 @@
                         <!--<ResizeGrip  x:Name="WindowResizeGrip" HorizontalAlignment="Right" IsTabStop="false" Visibility="Collapsed" VerticalAlignment="Bottom"/>-->
                     </Grid>
                 </Border>
-                
+                <Border BorderThickness="0,0,0,3" BorderBrush="Gray" Margin="0,0,10,0" >
+                    <Border.Effect>
+                        <DropShadowEffect Opacity="0.5" Direction="270" Color="Gray" ShadowDepth="2" BlurRadius="5"></DropShadowEffect>
+                    </Border.Effect></Border>
             </Grid>
             <Thumb x:Name="ThumbTop" Height="6" Margin="14,0" VerticalAlignment="Top" Cursor="SizeNS"  Opacity="0" sw:WindowResizeBehavior.TopResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Thumb x:Name="ThumbTopLeft" Height="6" Width="6" VerticalAlignment="Top" HorizontalAlignment="Left" Cursor="SizeNWSE"  Opacity="0" sw:WindowResizeBehavior.TopLeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
@@ -154,7 +161,9 @@
             <Thumb x:Name="ThumbBottomRight" Height="6" Width="6" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="SizeNWSE"  Opacity="0" sw:WindowResizeBehavior.BottomRightResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Thumb x:Name="ThumbLeft" HorizontalAlignment="Left" Margin="0,14" Width="6" Cursor="SizeWE"  Opacity="0" sw:WindowResizeBehavior.LeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Thumb x:Name="ThumbBottomLeft" Height="6" Width="6" VerticalAlignment="Bottom" HorizontalAlignment="Left" Cursor="SizeNESW"  Opacity="0" sw:WindowResizeBehavior.BottomLeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            
         </Grid>
+        
         <!--<ControlTemplate.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -184,7 +193,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                         <!--Control of the location of close, minimize and maximazi buttons location-->
-                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="20"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0"                                           
@@ -266,11 +275,11 @@
     <Style x:Key="CustomWindowStyle" TargetType="{x:Type Window}">
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="AllowsTransparency" Value="True"/>
-        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="Background" Value="Transparent"/>
         <!--Color of the borders-->
-        <Setter Property="BorderBrush" Value="LightGray"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Foreground" Value="DimGray"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="Transparent"/>
         <Setter Property="Template" Value="{StaticResource WindowTemplate}"/>
         <Setter Property="ResizeMode" Value="NoResize"/>
 
