@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{B827E3D1-F82E-45B9-9352-53C8EF41399F}
 AppName=ENG RenumberParts 2018 Setup
-AppVersion=0.1.0
+AppVersion=0.1.1
 
 AppPublisher=PRD
 AppPublisherURL=-
@@ -17,7 +17,7 @@ DefaultDirName={pf}\RenumberParts
 DisableDirPage=yes
 DefaultGroupName=ENGworks RenumberParts 2018
 DisableProgramGroupPage=yes
-OutputBaseFilename=ENG RenumberParts 2018 Setup 0.1.0
+OutputBaseFilename=ENG RenumberParts 2018 Setup 0.1.1
 Compression=lzma
 SolidCompression=yes
 OutputManifestFile=Setup-Manifest.txt
