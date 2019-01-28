@@ -27,33 +27,32 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="125*"/>
-            <ColumnDefinition Width="54*"/>
-            <ColumnDefinition Width="69*"/>
+            <ColumnDefinition Width="179*"/>
+  
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
 
-        <Button Style="{DynamicResource MainButtonStyle}" Content="" Grid.Column="3" Margin="0,0,19,243" Click="Button_Click_2" HorizontalAlignment="Right" Width="15" VerticalAlignment="Bottom" ToolTip="Select default color"/>
-        <Button Style="{DynamicResource MainButtonStyle}" x:Name="AddButton" Content="ADD" Margin="19,0,39,243" Click="AddButton_Click" Grid.Column="1" ToolTip="Add element to selection, use ctrl + A to select multiple" Grid.ColumnSpan="3" VerticalAlignment="Bottom"/>
-        <Button Style="{DynamicResource SecondaryButtonStyle}" x:Name="ResetColor" Content="COLOR" Margin="19,0,10,162" Click="Button_Click" Grid.Column="1" ToolTip="Reset Elements color" VerticalAlignment="Bottom"/>
-        <Button Style="{DynamicResource SecondaryButtonStyle}" Grid.ColumnSpan="2" Content="VALUES" Margin="0,0,19,162" Width="94" Click="Button_Click_1" ToolTip="Reset Elements values" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="2"/>
-        <Button Style="{DynamicResource SecondaryButtonStyle}" Click="DiplaceUp_Click" x:Name="DiplaceUp" Content="UP" Margin="19,0,0,88" RenderTransformOrigin="0.44,0.595" Grid.Column="1" ToolTip="Displace all elements numbers up" Width="94" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-        <Button Style="{DynamicResource SecondaryButtonStyle}" Click="DiplaceDn_Click"  x:Name="DisplaceDN" Content="DOWN" Margin="0,0,19,88" IsCancel="True" IsDefault="True" Grid.Column="2" RenderTransformOrigin="0.477,0.461" Grid.ColumnSpan="2" ToolTip="Displace all elements numbers down" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="94"/>
-        <Button Style="{DynamicResource MainButtonStyle}" x:Name="ColorByPrefix" Content="COLOR BY PREFIX" Grid.Column="1" Margin="19,0,19,21" VerticalAlignment="Bottom" Grid.ColumnSpan="3" Click="ColorByPrefix_Click" ToolTip="Elements will be colorized by its prefix"/>
-        <TextBox Style="{DynamicResource MainTextBox}"  x:Name="PrefixBox" Margin="19,33,27,0" TextWrapping="Wrap" Text="ABC" Grid.Column="1" Height="30" VerticalAlignment="Top"/>
-        <TextBox Style="{DynamicResource MainTextBox}" x:Name="NumberBox"  TextChanged="textChangedEventHandler" Margin="25,33,19,0" TextWrapping="Wrap" Text="000" Grid.Column="2" Grid.ColumnSpan="2" Height="30" VerticalAlignment="Top" BorderThickness="0.6" />
-        <TextBox Style="{DynamicResource MainTextBox}" x:Name="SeparatorBox" Height="30" Margin="110,33,38,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" MaxLength="1" TextChanged="SeparatorBox_TextChanged" BorderThickness="0.6" Grid.Column="1" Grid.ColumnSpan="2"/>
-        <Label Style="{DynamicResource Labels}" Content="Number" Margin="18,12,45,0" Grid.Column="2" Height="24" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <Label Style="{DynamicResource Labels}" Content="Displace values"  Margin="19,0,20,126" Width="86" Grid.Column="1" Height="29" VerticalAlignment="Bottom"/>
-        <Label Style="{DynamicResource Labels}" Content="Reset"  Margin="14,0,67,199" Width="44" Grid.Column="1" FontFamily="Roboto" Background="White" Height="27" VerticalAlignment="Bottom"/>
-        <Label Style="{DynamicResource Labels}" Content="Prefix" Margin="11,13,65,0" Grid.Column="1" Height="24" VerticalAlignment="Top" FontFamily="Roboto"/>
-        <Label Style="{DynamicResource Labels}" Content="Separator" Margin="13,-88,-16,0" Grid.Column="3" Height="24" VerticalAlignment="Top"/>
-        <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Bottom" Fill="Gray" Height="2" Grid.ColumnSpan="3" Margin="63,0,19,211" Opacity="0.2" Grid.Column="1"/>
-        <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Bottom" Fill="Gray" Height="2" Grid.ColumnSpan="3" Margin="110,0,19,139" Opacity="0.2" Grid.Column="1"/>
-        <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Bottom" Fill="Gray" Height="2" Margin="1,-4,-1,371" Opacity="0.9" Grid.Column="1" Grid.ColumnSpan="3">
+        <Button Style="{DynamicResource MainButtonStyle}" Content="" Grid.Column="2" Margin="0,0,19,243" Click="Button_Click_2" VerticalAlignment="Bottom" ToolTip="Select default color" HorizontalAlignment="Right" Width="15"/>
+        <Button Style="{DynamicResource MainButtonStyle}" x:Name="AddButton" Content="ADD" Margin="19,0,39,243" Click="AddButton_Click" Grid.Column="1" ToolTip="Add element to selection, use ctrl + A to select multiple" Grid.ColumnSpan="2" VerticalAlignment="Bottom"/>
+        <Button Style="{DynamicResource SecondaryButtonStyle}" x:Name="ResetColor" Content="COLOR" Margin="19,0,0,162" Click="Button_Click" Grid.Column="1" ToolTip="Reset Elements color" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="96"/>
+        <Button Style="{DynamicResource SecondaryButtonStyle}" Grid.ColumnSpan="2" Content="VALUES" Margin="0,0,19,162" Width="94" Click="Button_Click_1" ToolTip="Reset Elements values" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1"/>
+        <Button Style="{DynamicResource SecondaryButtonStyle}" Click="DiplaceUp_Click" x:Name="DiplaceUp" Content="UP" Margin="19,0,0,88" RenderTransformOrigin="0.44,0.595" Grid.Column="1" ToolTip="Displace all elements numbers up" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="94"/>
+        <Button Style="{DynamicResource SecondaryButtonStyle}" Click="DiplaceDn_Click"  x:Name="DisplaceDN" Content="DOWN" Margin="0,0,19,88" IsCancel="True" IsDefault="True" Grid.Column="1" RenderTransformOrigin="0.477,0.461" Grid.ColumnSpan="2" ToolTip="Displace all elements numbers down" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="94"/>
+        <Button Style="{DynamicResource MainButtonStyle}" x:Name="ColorByPrefix" Content="COLOR BY PREFIX" Grid.Column="1" Margin="19,0,19,21" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Click="ColorByPrefix_Click" ToolTip="Elements will be colorized by its prefix"/>
+        <TextBox Style="{DynamicResource MainTextBox}"  x:Name="PrefixBox" Margin="19,33,0,0" TextWrapping="Wrap" Text="ABC" Grid.Column="1" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="79"/>
+        <TextBox Style="{DynamicResource MainTextBox}" x:Name="NumberBox"  TextChanged="textChangedEventHandler" Margin="0,33,19,0" TextWrapping="Wrap" Text="000" Grid.Column="1" Grid.ColumnSpan="2" Height="30" VerticalAlignment="Top" BorderThickness="0.6" HorizontalAlignment="Right" Width="79" />
+        <TextBox Style="{DynamicResource MainTextBox}" x:Name="SeparatorBox" Height="30" Margin="110,33,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" MaxLength="1" TextChanged="SeparatorBox_TextChanged" BorderThickness="0.6" Grid.Column="1" HorizontalAlignment="Left" Width="31"/>
+        <Label Style="{DynamicResource Labels}" Content="Number" Margin="143,12,45,0" Grid.Column="1" Height="24" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Style="{DynamicResource Labels}" Content="Displace values"  Margin="19,0,0,126" Width="86" Grid.Column="1" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+        <Label Style="{DynamicResource Labels}" Content="Reset"  Margin="14,0,0,199" Width="44" Grid.Column="1" FontFamily="Roboto" Background="White" Height="27" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+        <Label Style="{DynamicResource Labels}" Content="Prefix" Margin="11,13,0,0" Grid.Column="1" Height="24" VerticalAlignment="Top" FontFamily="Roboto" HorizontalAlignment="Left" Width="49"/>
+        <Label Style="{DynamicResource Labels}" Content="Separator" Margin="13,-88,-16,0" Grid.Column="2" Height="24" VerticalAlignment="Top"/>
+        <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Bottom" Fill="Gray" Height="2" Grid.ColumnSpan="2" Margin="63,0,19,211" Opacity="0.2" Grid.Column="1"/>
+        <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Bottom" Fill="Gray" Height="2" Grid.ColumnSpan="2" Margin="110,0,19,139" Opacity="0.2" Grid.Column="1"/>
+        <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Bottom" Fill="Gray" Height="2" Margin="1,-4,-1,371" Opacity="0.9" Grid.Column="1" Grid.ColumnSpan="2" d:IsHidden="True">
             <Rectangle.Effect>
                 <DropShadowEffect Direction="250" BlurRadius="6"/>
             </Rectangle.Effect>
