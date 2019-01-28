@@ -109,11 +109,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="RenumberParts.addin" />
-    <Resource Include="Resources\winforms.html" />
-    <Resource Include="Resources\WarningLogo.png" />
     <Resource Include="Resources\Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\winforms.html" />
+    <Resource Include="Resources\WarningLogo.png" />
     <EmbeddedResource Include="Resources\RenumberPartsLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

@@ -5,24 +5,30 @@
   xmlns:system="clr-namespace:System;assembly=mscorlib"
   xmlns:local="clr-namespace:RenumberParts"
     xmlns:sw="clr-namespace:WpfStyleableWindow.StyleableWindow">
-    
 
- 
+
+
     <!-- Colors of the bar-->
     <SolidColorBrush x:Key="WindowColor" Color="Red"/>
     <SolidColorBrush x:Key="WindowBackColor" Color="Gray"/>
-    <SolidColorBrush x:Key="WindowForeColor" Color="WhiteSmoke"/>
-    <SolidColorBrush x:Key="WindowForeHighlightColor" Color="WhiteSmoke"/>
+    <!--Color of the tittle of the Main form-->
+    <SolidColorBrush x:Key="WindowForeColor" Color="White"/>
+    <!--Color of the tittle of the Main form when hovered-->
+    <SolidColorBrush x:Key="WindowForeHighlightColor" Color="White"/>
+    <!--Color of the container of minimize, maximize and close buttons-->
     <SolidColorBrush x:Key="WindowButtonColor" Color="Gray"/>
-    <SolidColorBrush x:Key="WindowButtonOverColor" Color="LightBlue"/>
-    <SolidColorBrush x:Key="WindowButtonPressedColor" Color="DarkGray"/>
+    <!--Color of the container of minimize, maximize and close buttons when hovered-->
+    <SolidColorBrush x:Key="WindowButtonOverColor" Color="White" Opacity="0.5"/>
+    <!--Color of the container of minimize, maximize and close buttons when pressed-->
+    <SolidColorBrush x:Key="WindowButtonPressedColor" Color="White" Opacity="0.8"/>
+
 
     <!--The window template and it's components -->
-
     <sw:WindowMinimizeCommand x:Key="MinimizeCommand"></sw:WindowMinimizeCommand>
     <sw:WindowMaximizeCommand x:Key="MaximizeCommand"></sw:WindowMaximizeCommand>
     <sw:WindowCloseCommand x:Key="CloseCommand"></sw:WindowCloseCommand>
 
+    <!--Style for the close, maximize and minimize buttons-->
     <Style TargetType="{x:Type Button}" x:Key="WindowButton">
         <Setter Property="Height" Value="25"/>
         <Setter Property="Width" Value="25"/>
@@ -53,41 +59,55 @@
         </Setter>
     </Style>
 
+
+    <!--Size of the App logo-->
     <Style TargetType="{x:Type Image}" x:Key="WindowIcon">
         <Setter Property="Height" Value="25"/>
         <Setter Property="Width" Value="25"/>
     </Style>
 
+
+    <!--Control template for Main forms-->
     <ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type Window}">
         <Grid Background="{StaticResource WindowBackColor}">
             <Grid>
+
+
+                
+
+
                 <Grid.RowDefinitions>
+                    <!--Bar height-->
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Margin="5,0,1,0">
+                <Grid Grid.Row="0" Margin="0,0,0,0">
+                
                     
+
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="55"/>
-                        
+                        <ColumnDefinition Width="52"/>
+
                     </Grid.ColumnDefinitions>
-                    
+
+                    <!--Location Logo-->
                     <Label Grid.Column="0"                                           
                                     sw:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource CloseCommand}"                                               
                                     sw:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Padding="0">
                         <Image DockPanel.Dock="Left" Style="{StaticResource WindowIcon}" Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}},Path=Icon}"                                         
-                                    Width="16"                                           
+                                    Width="2"                                         
                                     sw:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"                                           
                                     sw:ShowSystemMenuBehavior.LeftButtonShowAt="{Binding ElementName=WindowContent}"/>
                     </Label>
-                    
-                    <Label Grid.Column="1" DockPanel.Dock="Left" Content="{TemplateBinding Property=Title}" Padding="3,0,0,0"                                                                                  
+
+                    <!--Location of tittle-->
+                    <Label Grid.Column="1" DockPanel.Dock="Left" Content="{TemplateBinding Property=Title}" Padding="25,0,0,0"                                                                                  
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Foreground="{StaticResource WindowForeColor}"                                           
                                     FontSize="16"
                                     sw:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
@@ -96,12 +116,12 @@
                                     sw:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                     sw:ShowSystemMenuBehavior.RightButtonShow="true">
                     </Label>
-
-
-                    <StackPanel Grid.Column="0" >
+                   
+                    <!--Engworks Logo-->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBlock>
-                            <Button Name="btnAnswer4" Background="Gray" BorderThickness="0" MouseDown="EngworksLink">
-                                <Image Height="28" Source="Resources/Icon.png" Stretch="UniformToFill" MouseDown="AddInLink" />
+                            <Button Style="{StaticResource WindowButton}" Name="btnAnswer4" BorderThickness="0" MouseDown="EngworksLink" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Image Height="25" Source="Resources/Icon.png" Stretch="UniformToFill" MouseDown="AddInLink" />
                             </Button>
                         </TextBlock>
                     </StackPanel>
@@ -109,21 +129,22 @@
                     <StackPanel Grid.Column="2" Orientation="Horizontal">
                         <!--Customization of the minimize button-->
                         <Button DockPanel.Dock="Right"  PreviewMouseDown="EngworksLink"  Style="{StaticResource WindowButton}"  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" IsCancel="True">?</Button>
-                        <!--Customization of the maximize button-->          
+                        <!--Customization of the maximize button-->
                         <!-- To allow maximize copy this command inside declaration Command="{StaticResource MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"-->
                         <!--Customization of the maximize button-->
                         <Button DockPanel.Dock="Right"  Style="{StaticResource WindowButton}" Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">X</Button>
                     </StackPanel>
                 </Grid>
-                <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                    
+                
+                <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1 0 1 1" Background="{TemplateBinding Background}">
                     <Grid>
                         <AdornerDecorator>
                             <ContentPresenter x:Name="WindowContent"/>
                         </AdornerDecorator>
-                        <ResizeGrip  x:Name="WindowResizeGrip" HorizontalAlignment="Right" IsTabStop="false" Visibility="Collapsed" VerticalAlignment="Bottom"/>
+                        <!--<ResizeGrip  x:Name="WindowResizeGrip" HorizontalAlignment="Right" IsTabStop="false" Visibility="Collapsed" VerticalAlignment="Bottom"/>-->
                     </Grid>
                 </Border>
+                
             </Grid>
             <Thumb x:Name="ThumbTop" Height="6" Margin="14,0" VerticalAlignment="Top" Cursor="SizeNS"  Opacity="0" sw:WindowResizeBehavior.TopResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Thumb x:Name="ThumbTopLeft" Height="6" Width="6" VerticalAlignment="Top" HorizontalAlignment="Left" Cursor="SizeNWSE"  Opacity="0" sw:WindowResizeBehavior.TopLeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
@@ -134,22 +155,23 @@
             <Thumb x:Name="ThumbLeft" HorizontalAlignment="Left" Margin="0,14" Width="6" Cursor="SizeWE"  Opacity="0" sw:WindowResizeBehavior.LeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Thumb x:Name="ThumbBottomLeft" Height="6" Width="6" VerticalAlignment="Bottom" HorizontalAlignment="Left" Cursor="SizeNESW"  Opacity="0" sw:WindowResizeBehavior.BottomLeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
         </Grid>
-        <ControlTemplate.Triggers>
+        <!--<ControlTemplate.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
+                    --><!--<Condition Property="ResizeMode" Value="NoResize"/>--><!--
                     <Condition Property="WindowState" Value="Normal"/>
                 </MultiTrigger.Conditions>
-                <Setter Property="Visibility" TargetName="WindowResizeGrip" Value="Visible"/>
+                --><!--<Setter Property="Visibility" TargetName="WindowResizeGrip" Value="Visible"/>--><!--
             </MultiTrigger>
-        </ControlTemplate.Triggers>
+        </ControlTemplate.Triggers>-->
     </ControlTemplate>
-    
-    
-    
-    
+
+
+ 
     <!--Customized Templace for the Warning windows-->
     <ControlTemplate x:Key="WarningTemplate" TargetType="{x:Type Window}">
+
+
         <Grid Background="{StaticResource WindowBackColor}">
             <Grid>
                 <Grid.RowDefinitions>
@@ -187,7 +209,7 @@
                                     sw:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                     sw:ShowSystemMenuBehavior.RightButtonShow="true">
                     </Label>
-                    
+
                     <!--Control of the Warning logo image-->
                     <StackPanel Grid.Column="0" >
                         <TextBlock>
@@ -199,9 +221,15 @@
                     <StackPanel Grid.Column="2" Orientation="Horizontal">
                         <Button DockPanel.Dock="Right"  Style="{StaticResource WindowButton}" Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">X</Button>
                     </StackPanel>
-                
+
                 </Grid>
+
                 <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+
+                    <Border.BitmapEffect>
+                        <DropShadowBitmapEffect Color="Black" Direction="320" 
+                                        ShadowDepth="10" Opacity=".5" Softness="9" />
+                    </Border.BitmapEffect>
 
                     <Grid>
                         <AdornerDecorator>
@@ -210,6 +238,7 @@
                         <ResizeGrip  x:Name="WindowResizeGrip" HorizontalAlignment="Right" IsTabStop="false" Visibility="Collapsed" VerticalAlignment="Bottom"/>
                     </Grid>
                 </Border>
+
             </Grid>
             <Thumb x:Name="ThumbTop" Height="6" Margin="14,0" VerticalAlignment="Top" Cursor="SizeNS"  Opacity="0" sw:WindowResizeBehavior.TopResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Thumb x:Name="ThumbTopLeft" Height="6" Width="6" VerticalAlignment="Top" HorizontalAlignment="Left" Cursor="SizeNWSE"  Opacity="0" sw:WindowResizeBehavior.TopLeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
@@ -220,6 +249,7 @@
             <Thumb x:Name="ThumbLeft" HorizontalAlignment="Left" Margin="0,14" Width="6" Cursor="SizeWE"  Opacity="0" sw:WindowResizeBehavior.LeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Thumb x:Name="ThumbBottomLeft" Height="6" Width="6" VerticalAlignment="Bottom" HorizontalAlignment="Left" Cursor="SizeNESW"  Opacity="0" sw:WindowResizeBehavior.BottomLeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
         </Grid>
+
         <ControlTemplate.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -231,13 +261,11 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    
+
     <!--Custom windows style of the Main window-->
     <Style x:Key="CustomWindowStyle" TargetType="{x:Type Window}">
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="AllowsTransparency" Value="True"/>
-        <Setter Property="MinWidth" Value="200"/>
-        <Setter Property="MinHeight" Value="46"/>
         <Setter Property="Background" Value="LightGray"/>
         <!--Color of the borders-->
         <Setter Property="BorderBrush" Value="LightGray"/>
@@ -245,9 +273,10 @@
         <Setter Property="Foreground" Value="DimGray"/>
         <Setter Property="Template" Value="{StaticResource WindowTemplate}"/>
         <Setter Property="ResizeMode" Value="NoResize"/>
+
     </Style>
-    
-    
+
+
     <!--Custom windows style of the warning window-->
     <Style x:Key="Warning" TargetType="{x:Type Window}">
         <Setter Property="WindowStyle" Value="None"/>
@@ -262,4 +291,296 @@
         <Setter Property="Template" Value="{StaticResource WarningTemplate}"/>
         <Setter Property="ResizeMode" Value="NoResize"/>
     </Style>
-</ResourceDictionary>
+
+    <!--MainButtons Custom template-->
+    <ControlTemplate  x:Key="MainButtonStyleTemplate" TargetType="Button">
+        <Border x:Name="border" 
+                    CornerRadius="3" 
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsDefaulted" Value="True">
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity"  TargetName="border" Value="0.5"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity"  TargetName="border" Value="0.2"/>
+
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--Customization of MainButtons template-->
+    <Style x:Key="MainButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Template" Value="{StaticResource MainButtonStyleTemplate}"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="FontSize" Value="14px"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="Gray"/>
+        <Setter Property="ToolTipService.ShowDuration" Value="2000"/>
+        <Setter Property="ToolTipService.InitialShowDelay" Value="1500"/>
+        <Setter Property="Height"  Value="38"/>
+        <Setter Property="Button.Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" Direction="220" ShadowDepth="3.6" BlurRadius="3" Opacity="0.25" />
+            </Setter.Value>
+            </Setter>
+    </Style>
+
+    
+
+    <!--SecondaryButtons Custom template-->
+    <ControlTemplate  x:Key="SecondaryButtonStyleTemplate" TargetType="Button">
+        <Border x:Name="border" 
+                    CornerRadius="3" 
+                    BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsDefaulted" Value="True">
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" TargetName="border" Value="LightGray"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" TargetName="border" Value="Gray"/>
+
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--Customization of SecondaryButtons template-->
+    <Style x:Key="SecondaryButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Template" Value="{StaticResource SecondaryButtonStyleTemplate}"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="FontSize" Value="14px"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="BorderThickness" Value="0.55"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="ToolTipService.ShowDuration" Value="2000"/>
+        <Setter Property="ToolTipService.InitialShowDelay" Value="1500"/>
+        <Setter Property="Height"  Value="28"/>
+    </Style>
+
+
+    
+    <!--SecondaryButtons Custom template-->
+    <ControlTemplate  x:Key="LabelsTemplate" TargetType="Label">
+ 
+            <Border>
+                <ContentPresenter HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            RecognizesAccessKey="True" />
+            </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled"
+                   Value="true">
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--Customization of labels template-->
+    <Style x:Key="Labels" TargetType="{x:Type Label}">
+        <Setter Property="Template" Value="{StaticResource LabelsTemplate}"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="FontSize" Value="12px"/>
+        <Setter Property="Foreground" Value="Gray"/>
+    </Style>
+
+    
+    
+    
+    <!--TitleLabels Custom template-->
+    <ControlTemplate  x:Key="LabelsTitleTemplate" TargetType="Label">
+        <Border>
+            <ContentPresenter HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            RecognizesAccessKey="True" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled"
+                   Value="true">
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--TitleLabels Custom template-->
+    <Style x:Key="LabelsTitle" TargetType="{x:Type Label}">
+        <Setter Property="Template" Value="{StaticResource LabelsTitleTemplate}"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="FontSize" Value="13px"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+
+
+    
+    
+    
+    
+    <!--TitleLabels Custom template-->
+    <ControlTemplate  x:Key="MainTextBoxTemplate" TargetType="TextBox">
+        <Grid x:Name="root" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
+            <!-- managing visual states to change controls styles on different states -->
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <!--<VisualState x:Name="Normal">
+                        <Storyboard>
+                            <DoubleAnimation BeginTime="00:00:00.000" Duration="00:00:00.500"
+                                             From="1" To="0"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="hoverBorder"/>
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="MouseOver">
+                        <Storyboard>
+                            <DoubleAnimation BeginTime="00:00:00.000" Duration="00:00:00.500"
+                                             From="0" To="1"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="hoverBorder"/>
+                        </Storyboard>
+                    </VisualState>-->
+                    <VisualState x:Name="Disabled">
+                        <Storyboard>
+                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="normalBorder"
+                                                          Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)">
+                                <EasingColorKeyFrame KeyTime="0" Value="Red" />
+                            </ColorAnimationUsingKeyFrames>
+                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="normalBorder"
+                                                          Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                <EasingColorKeyFrame KeyTime="0" Value="Red" />
+                            </ColorAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="ReadOnly">
+                        <Storyboard>
+                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="normalBorder"
+                                                          Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)">
+                                <EasingColorKeyFrame KeyTime="0" Value="Red" />
+                            </ColorAnimationUsingKeyFrames>
+                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="normalBorder"
+                                                          Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                <EasingColorKeyFrame KeyTime="0" Value="Red" />
+                            </ColorAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+                <VisualStateGroup x:Name="FocusStates">
+                    <VisualState x:Name="Focused">
+                        <Storyboard>
+                            <DoubleAnimation BeginTime="00:00:00.000" Duration="00:00:00.300"
+                                             From="0" To="1"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="focusBorder"/>
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="Unfocused">
+                        <Storyboard>
+                            <DoubleAnimation BeginTime="00:00:00.000" Duration="00:00:00.700"
+                                             From="1" To="0"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="focusBorder"/>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+
+            <!-- main border, styling the border-brush and background for Normal state -->
+            <Border x:Name="normalBorder" 
+                    Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="0.8 0.8 0.8 1"
+                    CornerRadius="3"/>
+
+            <!-- styling border-brush and background-color for MouseOver state -->
+            <!--<Border x:Name="hoverBorder" Opacity="0"
+                    BorderThickness="{TemplateBinding BorderThickness}">
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="Gray"/>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <SolidColorBrush Color="Gray"/>
+                </Border.Background>
+            </Border>-->
+
+            <!-- styling border-brush and background-color for Focused state -->
+            <Border x:Name="focusBorder" 
+                    Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="0.8 0.8 0.8 4"
+                    CornerRadius="3"/>
+            <!--<Border x:Name="focusBorder" Opacity="0"
+                    BorderThickness="1">
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="White"/>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <SolidColorBrush Color="White"/>
+                </Border.Background>
+            </Border>-->
+
+            <!-- TextBox uses a ScrollViewer named PART_ContentHost as its content-presenter -->
+            <ScrollViewer x:Name="PART_ContentHost"
+                          Padding="{TemplateBinding Padding}"
+                          BorderThickness="0" 
+                          IsTabStop="False" 
+                          Margin="2" 
+                          Background="{x:Null}"
+                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                          TextElement.Foreground="{TemplateBinding Foreground}"/>
+
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Red"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Red"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--TitleLabels Custom template-->
+    <Style x:Key="MainTextBox" TargetType="{x:Type TextBox}">
+        <Setter Property="Template" Value="{StaticResource MainTextBoxTemplate}"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="FontSize" Value="14px"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="White"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <SolidColorBrush Color="Black"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Padding" Value="8 4"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <SolidColorBrush Color="Gray"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary> 
