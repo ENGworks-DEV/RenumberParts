@@ -20,7 +20,8 @@ You can find this addin inside Autodesk app store
 
 ## Interface
 
-![](https://github.com/ENGworks-DEV/RenumberParts/blob/master/RenumberParts/Resources/Functionalities.png)
+
+![](https://github.com/ENGworks-DEV/RenumberParts/blob/master/RenumberParts/Resources/Functionalities.png width="650" height="200")
 
 ## Contribute ##
 
