@@ -272,7 +272,11 @@ namespace RenumberParts
 
             currentNumber = "";
 
-            if (element.Category.Name.Contains("MEP"))
+            Category category = element.Category;
+            BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;
+            List<BuiltInCategory> allBuiltinCategories = FabricationCategories();
+
+            if (allBuiltinCategories.Contains(enumCategory))
             {
                 try
                 {
@@ -429,6 +433,8 @@ namespace RenumberParts
         /// </summary>
         public static void resetValues()
         {
+            List<BuiltInCategory> allBuiltinCategories = FabricationCategories();
+
             LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
 
             var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(
@@ -441,11 +447,17 @@ namespace RenumberParts
                 string blankPrtnmbr = "";
                 foreach (var item in collector.ToElements())
                 {
-                    
                     item.get_Parameter(guid).Set(blankPrtnmbr);
+                    Category category = item.Category;
+                    BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;
+                    if (allBuiltinCategories.Contains(enumCategory))
+                    {
+                        item.get_Parameter(BuiltInParameter.FABRICATION_PART_ITEM_NUMBER).Set(blankPrtnmbr);
+                    }
                 }
 
                 ResetView.Commit();
+
             }
         }
 
@@ -503,14 +515,14 @@ namespace RenumberParts
         public static void AssingPartNumber(Element element, string partNumber)
         {
 
+            Category category = element.Category;
+            BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;     
+            List<BuiltInCategory> allBuiltinCategories = FabricationCategories();
 
-            //Check if element is Fab part or common mep element
-            //TODO: change to non local code 
-            if (element.Category.Name.Contains("MEP"))
+            if (allBuiltinCategories.Contains(enumCategory))
             {
                 try
                 {
-
                     element.get_Parameter(BuiltInParameter.FABRICATION_PART_ITEM_NUMBER).Set(partNumber);
                     ListOfElements.Add(element);
                     ActualCounter = partNumber;
@@ -563,6 +575,18 @@ namespace RenumberParts
             output.Add((BuiltInCategory.OST_DuctAccessory));
             output.Add((BuiltInCategory.OST_DuctCurves));
             output.Add((BuiltInCategory.OST_DuctFitting));
+            return output;
+        }
+
+        /// <summary>
+        /// Hard coded list of Fabricationparts categories to be used as a filter between fabrication and non fabrication parts
+        /// </summary>
+        /// <returns></returns>
+        public static List<BuiltInCategory> FabricationCategories()
+        {
+            var output = new List<BuiltInCategory>();
+            output.Add((BuiltInCategory.OST_FabricationDuctwork));
+            output.Add(BuiltInCategory.OST_FabricationPipework);
             return output;
         }
 
