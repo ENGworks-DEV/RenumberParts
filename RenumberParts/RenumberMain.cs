@@ -324,16 +324,19 @@ namespace RenumberParts
 
             public bool AllowElement(Element elem)
             {
-
-
                 if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_FabricationDuctwork) return true;
                 if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_FabricationPipework) return true;
+                if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_FabricationContainment) return true;
                 if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_PipeAccessory) return true;
                 if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_PipeCurves) return true;
                 if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_PipeFitting) return true;
                 if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_DuctAccessory) return true;
                 if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_DuctCurves) return true;
                 if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_DuctFitting) return true;
+                if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_Conduit) return true;
+                if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_ConduitFitting) return true;
+                if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_CableTray) return true;
+                if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_CableTrayFitting) return true;
 
                 return false;
             }
@@ -551,12 +554,17 @@ namespace RenumberParts
             var output = new List<ElementFilter>();
             output.Add(new ElementCategoryFilter(BuiltInCategory.OST_FabricationDuctwork));
             output.Add(new ElementCategoryFilter(BuiltInCategory.OST_FabricationPipework));
+            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_FabricationContainment));
             output.Add(new ElementCategoryFilter(BuiltInCategory.OST_PipeAccessory));
             output.Add(new ElementCategoryFilter(BuiltInCategory.OST_PipeCurves));
             output.Add(new ElementCategoryFilter(BuiltInCategory.OST_PipeFitting));
             output.Add(new ElementCategoryFilter(BuiltInCategory.OST_DuctAccessory));
             output.Add(new ElementCategoryFilter(BuiltInCategory.OST_DuctCurves));
             output.Add(new ElementCategoryFilter(BuiltInCategory.OST_DuctFitting));
+            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_Conduit));
+            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_ConduitFitting));
+            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_CableTray));
+            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_CableTrayFitting));
             return output;
         }
 
@@ -569,12 +577,17 @@ namespace RenumberParts
             var output = new List<BuiltInCategory>();
             output.Add((BuiltInCategory.OST_FabricationDuctwork));
             output.Add(BuiltInCategory.OST_FabricationPipework);
+            output.Add(BuiltInCategory.OST_FabricationContainment);
             output.Add((BuiltInCategory.OST_PipeAccessory));
             output.Add((BuiltInCategory.OST_PipeCurves));
             output.Add((BuiltInCategory.OST_PipeFitting));
             output.Add((BuiltInCategory.OST_DuctAccessory));
             output.Add((BuiltInCategory.OST_DuctCurves));
             output.Add((BuiltInCategory.OST_DuctFitting));
+            output.Add((BuiltInCategory.OST_Conduit));
+            output.Add((BuiltInCategory.OST_ConduitFitting));
+            output.Add((BuiltInCategory.OST_CableTray));
+            output.Add((BuiltInCategory.OST_CableTrayFitting));
             return output;
         }
 
@@ -587,6 +600,7 @@ namespace RenumberParts
             var output = new List<BuiltInCategory>();
             output.Add((BuiltInCategory.OST_FabricationDuctwork));
             output.Add(BuiltInCategory.OST_FabricationPipework);
+            output.Add(BuiltInCategory.OST_FabricationContainment);
             return output;
         }
 
