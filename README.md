@@ -21,7 +21,7 @@ You can find this addin inside Autodesk app store
 ## Interface
 
 
-<img src="https://github.com/ENGworks-DEV/RenumberParts/blob/master/RenumberParts/Resources/Functionalities.png" width="650" height="500">
+<img src="https://github.com/ENGworks-DEV/RenumberParts/blob/master/RenumberParts/Resources/Functionalities.png" width="650" height="350">
 
 ## Contribute ##
 
