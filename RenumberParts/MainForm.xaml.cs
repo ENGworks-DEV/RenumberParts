@@ -1,6 +1,4 @@
-﻿//if not exist "$(AppData)\Autodesk\REVIT\Addins\$(ConfigurationName)\ENGworks" mkdir  "$(AppData)\Autodesk\REVIT\Addins\$(ConfigurationName)\ENGworks\" 
-//if exist "$(AppData)\Autodesk\REVIT\Addins\$(ConfigurationName)" copy "$(ProjectDir)$(OutputPath)*.dll" "$(AppData)\Autodesk\REVIT\Addins\$(ConfigurationName)\ENGworks"
-//copy "$(ProjectDir)icons8-hashtag-52.png" "$(AppData)\Autodesk\REVIT\Addins\$(ConfigurationName)\ENGworks"
+﻿
 
 
 using System.Windows;
@@ -116,8 +114,8 @@ namespace RenumberParts
                         tools.AssingPartNumber(tools.selectedElement, partNumber);
                         tools.count += 1;
                         //count 5, pad left
-
-                        int leadingZeros = this.NumberBox.Text.Length - tools.count.ToString().Length;
+                        
+                        int leadingZeros = NumberBox.Text.Length >1 ? this.NumberBox.Text.Length - tools.count.ToString().Length : 0;
                         this.NumberBox.Text = (new string('0', leadingZeros)) + tools.count.ToString();
 
                         tools.writeConfig(this.PrefixBox.Text, this.NumberBox.Text);
