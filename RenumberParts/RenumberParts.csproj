@@ -117,7 +117,7 @@
     <EmbeddedResource Include="Resources\RenumberPartsLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\SP.txt" />
+    <EmbeddedResource Include="Resources\SP_RenumberParts.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

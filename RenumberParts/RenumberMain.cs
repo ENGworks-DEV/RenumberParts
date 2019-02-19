@@ -90,10 +90,10 @@ namespace RenumberParts
             var newpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
             //Create txt inside my documents
-            Extract("RenumberParts", newpath, "Resources", "SP.txt");
+            Extract("RenumberParts", newpath, "Resources", "SP_RenumberParts.txt");
 
             //Create variable with the location on SP.txt inside my documents
-            string tempFile = newpath + @"\SP.txt";
+            string tempFile = newpath + @"\SP_RenumberParts.txt";
 
             //Change the location of the shared parameters for the SP location
             app.SharedParametersFilename = tempFile;
