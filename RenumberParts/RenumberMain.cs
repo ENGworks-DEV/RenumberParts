@@ -469,7 +469,7 @@ namespace RenumberParts
         /// </summary>
         /// <param name="prefix"></param>
         /// <param name="number"></param>
-        public static void writeConfig(string prefix, string number)
+        public static void writeConfig(string prefix,string separator, string number)
         {
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\renumberConf";
@@ -477,6 +477,7 @@ namespace RenumberParts
             using (StreamWriter st = new StreamWriter(path))
             {
                 st.WriteLine(prefix);
+                st.WriteLine(separator);
                 st.WriteLine(number);
 
             }

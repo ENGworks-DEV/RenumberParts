@@ -31,10 +31,11 @@ namespace RenumberParts
             ColorSelected = System.Drawing.Color.FromArgb(1,255,0,0);
             
 
-            if (conf != null && conf.Count == 2)
+            if (conf != null && conf.Count == 3)
             {
                 this.PrefixBox.Text = conf[0];
-                this.NumberBox.Text = conf[1];
+                this.SeparatorBox.Text = conf[1];
+                this.NumberBox.Text = conf[2];
             }
         }
 
@@ -118,7 +119,7 @@ namespace RenumberParts
                         int leadingZeros = NumberBox.Text.Length >1 ? this.NumberBox.Text.Length - tools.count.ToString().Length : 0;
                         this.NumberBox.Text = (new string('0', leadingZeros)) + tools.count.ToString();
 
-                        tools.writeConfig(this.PrefixBox.Text, this.NumberBox.Text);
+                        tools.writeConfig(this.PrefixBox.Text,this.SeparatorBox.Text, this.NumberBox.Text);
 
                         AssingPartNumberT.Commit();
 
