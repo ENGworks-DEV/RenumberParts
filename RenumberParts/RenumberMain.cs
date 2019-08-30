@@ -199,12 +199,16 @@ namespace RenumberParts
 
         public static Element selectedElement { get; set; }
 
+        public static List<Element> selectedElements { get; set; } = new List<Element>();
+
 
         /// <summary>
         /// Save an element on a temporary list and override its color
         /// </summary>
         public static void AddToSelection()
         {
+
+            selectedElements.Clear();
 
             var filterS = new SelectionFilter();
             
@@ -213,6 +217,88 @@ namespace RenumberParts
             if (refElement != null)
             {
                 var element = uidoc.Document.GetElement(refElement);
+
+                Category category = element.Category;
+                BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;
+                
+
+                //Check for other rectangular ducts with the same parameters
+                if (enumCategory.ToString() == "OST_DuctCurves" 
+                    && element.get_Parameter(BuiltInParameter.RBS_CURVE_DIAMETER_PARAM)?.AsValueString() == null)
+                {
+                    filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_DuctCurves, BuiltInParameter.RBS_DUCT_SYSTEM_TYPE_PARAM, BuiltInParameter.SYMBOL_FAMILY_NAME_PARAM, BuiltInParameter.CURVE_ELEM_LENGTH,
+                        BuiltInParameter.RBS_CURVE_WIDTH_PARAM, BuiltInParameter.RBS_CURVE_HEIGHT_PARAM);   
+                }
+
+                //Check for other ducts fittings with the same parameters
+                if (enumCategory.ToString() == "OST_DuctFitting" 
+                    && element.get_Parameter(BuiltInParameter.RBS_CURVE_DIAMETER_PARAM)?.AsValueString() == null)
+                {
+              
+                    string elemParam01 = element.get_Parameter(BuiltInParameter.RBS_SYSTEM_CLASSIFICATION_PARAM).AsValueString();
+                    string elemParam02 = element.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString();
+                    string elemParam03 = element.get_Parameter(BuiltInParameter.RBS_REFERENCE_FREESIZE).AsString();
+                    string elemParam04 = element.get_Parameter(BuiltInParameter.RBS_REFERENCE_OVERALLSIZE).AsString();
+                    string elemParam05 = element.get_Parameter(BuiltInParameter.RBS_CALCULATED_SIZE).AsString();
+
+                    FilteredElementCollector viewCollector = new FilteredElementCollector(doc, uidoc.ActiveView.Id);
+                    List<Element> ducts = new FilteredElementCollector(doc, uidoc.ActiveView.Id)
+                        .OfCategory(Autodesk.Revit.DB.BuiltInCategory.OST_DuctFitting)
+                        .Where(a => a.get_Parameter(BuiltInParameter.RBS_SYSTEM_CLASSIFICATION_PARAM).AsValueString() == elemParam01)
+                        .Where(a => a.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString() == elemParam02)
+                        .Where(a => a.get_Parameter(BuiltInParameter.RBS_REFERENCE_FREESIZE).AsString() == elemParam03)
+                        .Where(a => a.get_Parameter(BuiltInParameter.RBS_REFERENCE_OVERALLSIZE).AsString() == elemParam04)
+                        .Where(a => a.get_Parameter(BuiltInParameter.RBS_CALCULATED_SIZE).AsString() == elemParam05)
+                        .ToList();
+
+                    foreach (Element x in ducts)
+                    {
+                        selectedElements.Add(x);
+                        ListOfElements.Add(x);
+                    }
+                }
+
+                //Check for other round ducts with the same parameters
+                if (enumCategory.ToString() == "OST_DuctCurves"
+                    && element.get_Parameter(BuiltInParameter.RBS_CURVE_DIAMETER_PARAM)?.AsValueString() != null)
+                {
+                    filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_DuctCurves, BuiltInParameter.RBS_DUCT_SYSTEM_TYPE_PARAM, BuiltInParameter.SYMBOL_FAMILY_NAME_PARAM, BuiltInParameter.CURVE_ELEM_LENGTH,
+                        BuiltInParameter.RBS_CURVE_SURFACE_AREA, BuiltInParameter.RBS_CURVE_DIAMETER_PARAM);
+                }
+
+                //Check for other rectangular fab ducts with the same parameters
+                if (enumCategory.ToString() == "OST_FabricationDuctwork"  
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_ANGLE)?.AsValueString() == null 
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_IN)?.AsValueString() == null)
+                {
+                    
+                    filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_FabricationDuctwork, BuiltInParameter.ELEM_FAMILY_PARAM, BuiltInParameter.FABRICATION_PART_LENGTH, BuiltInParameter.FABRICATION_PART_DEPTH_IN,
+                        BuiltInParameter.FABRICATION_PART_WIDTH_IN, BuiltInParameter.FABRICATION_SERVICE_PARAM);
+                }
+
+                //Check for other rectangular fab ducts fittings with the same parameters
+                if (enumCategory.ToString() == "OST_FabricationDuctwork"
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_ANGLE)?.AsValueString() != null)
+                {
+
+                    filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_FabricationDuctwork, BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM, BuiltInParameter.FABRICATION_PART_ANGLE, BuiltInParameter.FABRICATION_SERVICE_PARAM,
+                        BuiltInParameter.FABRICATION_PART_DEPTH_IN, BuiltInParameter.FABRICATION_PART_WIDTH_IN);
+
+                }
+
+                //Check for other round fab ducts with the same parameters
+                if (enumCategory.ToString() == "OST_FabricationDuctwork"
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_ANGLE)?.AsValueString() == null
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_IN)?.AsValueString() != null)
+                {
+
+                    filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_FabricationDuctwork, BuiltInParameter.ELEM_FAMILY_PARAM, BuiltInParameter.FABRICATION_PART_LENGTH, BuiltInParameter.FABRICATION_PART_DIAMETER_IN,
+                        BuiltInParameter.FABRICATION_PART_SHEETMETAL_AREA, BuiltInParameter.FABRICATION_SERVICE_PARAM);
+                }
+
+
+                selectedElements.Add(element);
+
                 //TODO: check if element is from the right category
                 OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
                 Color colorSelect = MainForm.ColorSelected;
@@ -226,9 +312,11 @@ namespace RenumberParts
                 overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(r, g, b));
                 overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(r, g, b));
 
+                foreach(Element x in selectedElements)
+                { 
                 //Override color of element
-                doc.ActiveView.SetElementOverrides(element.Id, overrideGraphicSettings);
-
+                doc.ActiveView.SetElementOverrides(x.Id, overrideGraphicSettings);
+                }
 
                 selectedElement = element;
 
@@ -239,6 +327,33 @@ namespace RenumberParts
 
         }
 
+
+        public static void filterParam(Element elementEx, Autodesk.Revit.DB.BuiltInCategory Cat, BuiltInParameter param01, BuiltInParameter param02,
+            BuiltInParameter param03, BuiltInParameter param04, BuiltInParameter param05)
+        {
+            
+            string elemParam01 = elementEx.get_Parameter(param01).AsValueString();
+            string elemParam02 = elementEx.get_Parameter(param02).AsValueString();
+            string elemParam03 = elementEx.get_Parameter(param03).AsValueString();
+            string elemParam04 = elementEx.get_Parameter(param04).AsValueString();
+            string elemParam05 = elementEx.get_Parameter(param05).AsValueString();
+
+            FilteredElementCollector viewCollector = new FilteredElementCollector(doc, uidoc.ActiveView.Id);
+            List<Element> ducts = new FilteredElementCollector(doc, uidoc.ActiveView.Id)
+                .OfCategory(Cat)
+                .Where(a => a.get_Parameter(param01).AsValueString() == elemParam01)
+                .Where(a => a.get_Parameter(param02).AsValueString() == elemParam02)
+                .Where(a => a.get_Parameter(param03).AsValueString() == elemParam03)
+                .Where(a => a.get_Parameter(param04).AsValueString() == elemParam04)
+                .Where(a => a.get_Parameter(param05).AsValueString() == elemParam05)
+                .ToList();
+
+            foreach (Element x in ducts)
+            {
+                selectedElements.Add(x);
+                ListOfElements.Add(x);
+            }
+        }
 
         /// <summary>
         /// Get selected elements
