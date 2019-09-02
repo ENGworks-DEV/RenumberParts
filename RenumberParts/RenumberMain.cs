@@ -220,21 +220,21 @@ namespace RenumberParts
 
                 Category category = element.Category;
                 BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;
-                
+
 
                 //Check for other rectangular ducts with the same parameters
-                if (enumCategory.ToString() == "OST_DuctCurves" 
+                if (enumCategory.ToString() == "OST_DuctCurves"
                     && element.get_Parameter(BuiltInParameter.RBS_CURVE_DIAMETER_PARAM)?.AsValueString() == null)
                 {
                     filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_DuctCurves, BuiltInParameter.RBS_DUCT_SYSTEM_TYPE_PARAM, BuiltInParameter.SYMBOL_FAMILY_NAME_PARAM, BuiltInParameter.CURVE_ELEM_LENGTH,
-                        BuiltInParameter.RBS_CURVE_WIDTH_PARAM, BuiltInParameter.RBS_CURVE_HEIGHT_PARAM);   
+                        BuiltInParameter.RBS_CURVE_WIDTH_PARAM, BuiltInParameter.RBS_CURVE_HEIGHT_PARAM);
                 }
 
                 //Check for other ducts fittings with the same parameters
-                if (enumCategory.ToString() == "OST_DuctFitting" 
+                if (enumCategory.ToString() == "OST_DuctFitting"
                     && element.get_Parameter(BuiltInParameter.RBS_CURVE_DIAMETER_PARAM)?.AsValueString() == null)
                 {
-              
+
                     string elemParam01 = element.get_Parameter(BuiltInParameter.RBS_SYSTEM_CLASSIFICATION_PARAM).AsValueString();
                     string elemParam02 = element.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString();
                     string elemParam03 = element.get_Parameter(BuiltInParameter.RBS_REFERENCE_FREESIZE).AsString();
@@ -258,27 +258,78 @@ namespace RenumberParts
                     }
                 }
 
+
+                bool boolTest = false;
+
+                var familyTypee = element.get_Parameter(BuiltInParameter.ELEM_FAMILY_PARAM).AsValueString();
+                if (familyTypee.Contains("Bend"))
+                {
+                    boolTest = true;
+                }
+
+
+                bool TapTest = false;
+
+                var familyTapType = element.get_Parameter(BuiltInParameter.ELEM_FAMILY_PARAM).AsValueString();
+                if (familyTapType.Contains("Tap"))
+                {
+                    TapTest = true;
+                }
+
+
                 //Check for other round ducts with the same parameters
                 if (enumCategory.ToString() == "OST_DuctCurves"
-                    && element.get_Parameter(BuiltInParameter.RBS_CURVE_DIAMETER_PARAM)?.AsValueString() != null)
+                    && element.get_Parameter(BuiltInParameter.RBS_CURVE_DIAMETER_PARAM)?.AsValueString() != null
+                    && TapTest != true)
                 {
                     filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_DuctCurves, BuiltInParameter.RBS_DUCT_SYSTEM_TYPE_PARAM, BuiltInParameter.SYMBOL_FAMILY_NAME_PARAM, BuiltInParameter.CURVE_ELEM_LENGTH,
                         BuiltInParameter.RBS_CURVE_SURFACE_AREA, BuiltInParameter.RBS_CURVE_DIAMETER_PARAM);
                 }
 
                 //Check for other rectangular fab ducts with the same parameters
-                if (enumCategory.ToString() == "OST_FabricationDuctwork"  
-                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_ANGLE)?.AsValueString() == null 
-                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_IN)?.AsValueString() == null)
+                if (enumCategory.ToString() == "OST_FabricationDuctwork"
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_ANGLE)?.AsValueString() == null
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_IN)?.AsValueString() == null
+                    && element.get_Parameter(BuiltInParameter.ELEM_FAMILY_PARAM)?.AsValueString() != "Generic Square Bend"
+                    && TapTest != true)
                 {
-                    
+
                     filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_FabricationDuctwork, BuiltInParameter.ELEM_FAMILY_PARAM, BuiltInParameter.FABRICATION_PART_LENGTH, BuiltInParameter.FABRICATION_PART_DEPTH_IN,
                         BuiltInParameter.FABRICATION_PART_WIDTH_IN, BuiltInParameter.FABRICATION_SERVICE_PARAM);
                 }
 
+
+                //Check for other rectangular fab ducts fittings of angle 90 with the same parameters
+                //if (enumCategory.ToString() == "OST_FabricationDuctwork"
+                //    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_ANGLE)?.AsValueString() == null
+                //    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_IN)?.AsValueString() == null
+                //    && element.get_Parameter(BuiltInParameter.ELEM_FAMILY_PARAM)?.AsValueString() == "Generic Square Bend"
+                //    )
+
+                //{  
+                //    filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_FabricationDuctwork, BuiltInParameter.ELEM_FAMILY_PARAM, BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM, BuiltInParameter.FABRICATION_PART_DEPTH_IN,
+                //      BuiltInParameter.FABRICATION_PART_WIDTH_IN, BuiltInParameter.FABRICATION_SERVICE_PARAM);
+                //}
+
+              
+
+                //Check for other rectangular fab ducts fittings of angle 90 with the same parameters
+                if (enumCategory.ToString() == "OST_FabricationDuctwork"
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_ANGLE)?.AsValueString() == null
+                    && boolTest == true
+                    && TapTest != true
+                    )
+                {
+                    filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_FabricationDuctwork, BuiltInParameter.ELEM_FAMILY_PARAM, BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM, BuiltInParameter.FABRICATION_PART_DEPTH_IN,
+                      BuiltInParameter.FABRICATION_PART_WIDTH_IN, BuiltInParameter.FABRICATION_SERVICE_PARAM);
+                }
+
+
                 //Check for other rectangular fab ducts fittings with the same parameters
                 if (enumCategory.ToString() == "OST_FabricationDuctwork"
-                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_ANGLE)?.AsValueString() != null)
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_ANGLE)?.AsValueString() != null
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_IN)?.AsValueString() == null
+                    )
                 {
 
                     filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_FabricationDuctwork, BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM, BuiltInParameter.FABRICATION_PART_ANGLE, BuiltInParameter.FABRICATION_SERVICE_PARAM,
@@ -286,16 +337,42 @@ namespace RenumberParts
 
                 }
 
+                //Check for other rectangular fab ducts fittings with the same parameters
+                if (enumCategory.ToString() == "OST_FabricationDuctwork"
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_ANGLE)?.AsValueString() != null
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_IN)?.AsValueString() != null
+                    )
+                {
+
+                    filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_FabricationDuctwork, BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM, BuiltInParameter.FABRICATION_PART_ANGLE, BuiltInParameter.FABRICATION_SERVICE_PARAM,
+                        BuiltInParameter.FABRICATION_PART_DIAMETER_IN, BuiltInParameter.RBS_REFERENCE_OVERALLSIZE);
+
+                }
+
                 //Check for other round fab ducts with the same parameters
                 if (enumCategory.ToString() == "OST_FabricationDuctwork"
                     && element.get_Parameter(BuiltInParameter.FABRICATION_PART_ANGLE)?.AsValueString() == null
-                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_IN)?.AsValueString() != null)
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_IN)?.AsValueString() != null
+                    && TapTest != true
+                    )
                 {
 
                     filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_FabricationDuctwork, BuiltInParameter.ELEM_FAMILY_PARAM, BuiltInParameter.FABRICATION_PART_LENGTH, BuiltInParameter.FABRICATION_PART_DIAMETER_IN,
                         BuiltInParameter.FABRICATION_PART_SHEETMETAL_AREA, BuiltInParameter.FABRICATION_SERVICE_PARAM);
                 }
 
+
+                //Check for other round fab ducts with the same parameters
+                if (enumCategory.ToString() == "OST_FabricationDuctwork"
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_ANGLE)?.AsValueString() == null
+                    && element.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_IN)?.AsValueString() != null
+                    && TapTest == true
+                    )
+                {
+
+                    filterParam(element, Autodesk.Revit.DB.BuiltInCategory.OST_FabricationDuctwork, BuiltInParameter.ELEM_FAMILY_PARAM, BuiltInParameter.FABRICATION_PART_LENGTH, BuiltInParameter.FABRICATION_PART_DIAMETER_IN,
+                        BuiltInParameter.RBS_REFERENCE_OVERALLSIZE, BuiltInParameter.FABRICATION_SERVICE_PARAM);
+                }
 
                 selectedElements.Add(element);
 
