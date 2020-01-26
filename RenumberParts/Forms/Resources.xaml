@@ -14,16 +14,17 @@
     <!-- Colors of the Title Bar-->
     <SolidColorBrush x:Key="WindowBackColor" Color="Gray"/>
     <!--Color of the tittle of the Main form-->
-    <SolidColorBrush x:Key="WindowForeColor" Color="White"/>
+    <!--Color of the tittle of the Main form-->
+    <SolidColorBrush x:Key="WindowForeColor" Color="Transparent"/>
     <!--Color of the tittle of the Main form when hovered-->
     <SolidColorBrush x:Key="WindowForeHighlightColor" Color="White"/>
     <!--Color of the container of minimize, maximize and close buttons-->
-    <SolidColorBrush x:Key="WindowButtonColor" Color="Gray"/>
+    <SolidColorBrush x:Key="WindowButtonColor" Color="#0B94D6"/>
     <!--Color of the container of minimize, maximize and close buttons when hovered-->
     <SolidColorBrush x:Key="WindowButtonOverColor" Color="White" Opacity="0.5"/>
     <!--Color of the container of minimize, maximize and close buttons when pressed-->
     <SolidColorBrush x:Key="WindowButtonPressedColor" Color="White" Opacity="0.8"/>
-    
+
 
 
     <!--The window template and it's components -->
@@ -82,13 +83,6 @@
                         <ColumnDefinition Width="63"/>
                     </Grid.ColumnDefinitions>
 
-                    <!--Tittle bar-->
-                    <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource WindowBackColor}" Margin="0,0,10,0">
-                        <Border.Effect>
-                            <DropShadowEffect BlurRadius="20" Color="Gray" Opacity="0.4" Direction="0" ShadowDepth="0"></DropShadowEffect>
-                        </Border.Effect>
-                    </Border>
-
                     <!--Location of title-->
                     <Label Grid.Column="1" DockPanel.Dock="Left" Content="{TemplateBinding Property=Title}" Padding="25,0,0,0"                                                                                  
                                     HorizontalContentAlignment="Center"
@@ -104,23 +98,6 @@
                                     sw:ShowSystemMenuBehavior.RightButtonShow="true">
                     </Label>
 
-                    <!--Engworks Logo-->
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,0,0">
-                        <TextBlock>
-                            <Button Style="{StaticResource WindowButton}" Name="btnAnswer4" BorderThickness="0" MouseDown="EngworksLink" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <Image Height="25" Source="Resources/Icon.png" Stretch="UniformToFill" MouseDown="AddInLink" />
-                            </Button>
-                        </TextBlock>
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="2" Orientation="Horizontal">
-                        <!--Customization of the minimize button-->
-                        <Button DockPanel.Dock="Right"  PreviewMouseDown="EngworksLink"  Style="{StaticResource WindowButton}"  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" IsCancel="True">?</Button>
-                        <!--Customization of the maximize button-->
-                        <!-- To allow maximize copy this command inside declaration Command="{StaticResource MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"-->
-                        <!--Customization of the maximize button-->
-                        <Button DockPanel.Dock="Right"  Style="{StaticResource WindowButton}" Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">X</Button>
-                    </StackPanel>
                 </Grid>
 
                 <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0 0 0 0" Background="{TemplateBinding Background}">
@@ -132,28 +109,24 @@
                     </Grid>
                 </Border>
 
-                <!--Tittle bar shadow effect-->
-                <Border BorderThickness="0,0,0,3" BorderBrush="{StaticResource WindowBackColor}" Margin="10,0,10,0" >
-                    <Border.Effect>
-                        <DropShadowEffect Opacity="0.5" Direction="270" Color="Gray" ShadowDepth="2" BlurRadius="8"></DropShadowEffect>
-                    </Border.Effect>
-                </Border>
-
             </Grid>
-            <Thumb x:Name="ThumbTop" Height="6" Margin="14,0" VerticalAlignment="Top" Cursor="SizeNS"  Opacity="0" sw:WindowResizeBehavior.TopResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+
+            <!--Use only in case that the you want to allow the user to resize the window-->
+
+            <!--<Thumb x:Name="ThumbTop" Height="6" Margin="14,0" VerticalAlignment="Top" Cursor="SizeNS"  Opacity="0" sw:WindowResizeBehavior.TopResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Thumb x:Name="ThumbTopLeft" Height="6" Width="6" VerticalAlignment="Top" HorizontalAlignment="Left" Cursor="SizeNWSE"  Opacity="0" sw:WindowResizeBehavior.TopLeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Thumb x:Name="ThumbBottom" Height="6" Margin="14,0" VerticalAlignment="Bottom" Cursor="SizeNS" Opacity="0" sw:WindowResizeBehavior.BottomResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Thumb x:Name="ThumbTopRight" Height="6" Width="6" VerticalAlignment="Top" HorizontalAlignment="Right" Cursor="SizeNESW"  Opacity="0" sw:WindowResizeBehavior.TopRightResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Thumb x:Name="ThumbRight" HorizontalAlignment="Right" Margin="0,14" Width="6" Cursor="SizeWE"  Opacity="0" sw:WindowResizeBehavior.RightResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Thumb x:Name="ThumbBottomRight" Height="6" Width="6" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="SizeNWSE"  Opacity="0" sw:WindowResizeBehavior.BottomRightResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Thumb x:Name="ThumbLeft" HorizontalAlignment="Left" Margin="0,14" Width="6" Cursor="SizeWE"  Opacity="0" sw:WindowResizeBehavior.LeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
-            <Thumb x:Name="ThumbBottomLeft" Height="6" Width="6" VerticalAlignment="Bottom" HorizontalAlignment="Left" Cursor="SizeNESW"  Opacity="0" sw:WindowResizeBehavior.BottomLeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Thumb x:Name="ThumbBottomLeft" Height="6" Width="6" VerticalAlignment="Bottom" HorizontalAlignment="Left" Cursor="SizeNESW"  Opacity="0" sw:WindowResizeBehavior.BottomLeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>-->
 
         </Grid>
     </ControlTemplate>
 
 
- 
+
     <!--Customized Templace for the Warning windows-->
     <ControlTemplate x:Key="WarningTemplate" TargetType="{x:Type Window}">
 
@@ -275,8 +248,8 @@
                     CornerRadius="3" 
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </Border>
+            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsDefaulted" Value="True">
             </Trigger>
@@ -305,10 +278,10 @@
             <Setter.Value>
                 <DropShadowEffect Color="Black" Direction="320" ShadowDepth="3.6" BlurRadius="3" Opacity="0.25" />
             </Setter.Value>
-            </Setter>
+        </Setter>
     </Style>
 
-    
+
 
     <!--SecondaryButtons Custom template-->
     <ControlTemplate  x:Key="SecondaryButtonStyleTemplate" TargetType="Button">
@@ -346,15 +319,15 @@
     </Style>
 
 
-    
+
     <!--SecondaryButtons Custom template-->
     <ControlTemplate  x:Key="LabelsTemplate" TargetType="Label">
- 
-            <Border>
-                <ContentPresenter HorizontalAlignment="Center"
+
+        <Border>
+            <ContentPresenter HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             RecognizesAccessKey="True" />
-            </Border>
+        </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled"
                    Value="true">
@@ -370,9 +343,9 @@
         <Setter Property="Foreground" Value="Gray"/>
     </Style>
 
-    
-    
-    
+
+
+
     <!--TitleLabels Custom template-->
     <ControlTemplate  x:Key="LabelsTitleTemplate" TargetType="Label">
         <Border>
@@ -396,10 +369,10 @@
     </Style>
 
 
-    
-    
-    
-    
+
+
+
+
     <!--TitleLabels Custom template-->
     <ControlTemplate  x:Key="MainTextBoxTemplate" TargetType="TextBox">
         <Grid x:Name="root" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
@@ -559,5 +532,89 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!--MainButtons Custom template-->
+    <ControlTemplate  x:Key="CloseButtonStyleTemplate" TargetType="Button">
+        <Border x:Name="border" 
+                    CornerRadius="3" 
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsDefaulted" Value="True">
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity"  TargetName="border" Value="0.5"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity"  TargetName="border" Value="0.2"/>
+
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+    <!--Customization of MainButtons template-->
+    <Style x:Key="CloseButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Template" Value="{StaticResource CloseButtonStyleTemplate}"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="FontSize" Value="12px"/>
+
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource WindowButtonColor}"/>
+        <Setter Property="ToolTipService.ShowDuration" Value="2000"/>
+        <Setter Property="ToolTipService.InitialShowDelay" Value="1500"/>
+        <Setter Property="Height"  Value="38"/>
+    </Style>
+
+
+    <!--MainButtons Custom template-->
+    <ControlTemplate  x:Key="SettingsButtonStyleTemplate" TargetType="Button">
+        <Border x:Name="border" 
+                    CornerRadius="3" 
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+            <Grid>
+                <Image
+                                            x:Name="buttonImage"
+                                            Source="Resources/Settings.png"
+                                            Stretch="UniformToFill" />
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsDefaulted" Value="True">
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity"  TargetName="border" Value="0.5"/>
+                <Setter TargetName="buttonImage" Property="Source" Value="Resources/Settings.png" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity"  TargetName="border" Value="0.2"/>
+
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+    <!--Customization of MainButtons template-->
+    <Style x:Key="SettingsButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Template" Value="{StaticResource SettingsButtonStyleTemplate}"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="FontSize" Value="12px"/>
+
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource WindowButtonColor}"/>
+        <Setter Property="ToolTipService.ShowDuration" Value="2000"/>
+        <Setter Property="ToolTipService.InitialShowDelay" Value="1500"/>
+        <Setter Property="Height"  Value="38"/>
+    </Style>
+
+
+
+
 
 </ResourceDictionary> 

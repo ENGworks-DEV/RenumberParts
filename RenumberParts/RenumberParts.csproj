@@ -84,39 +84,36 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="ConfirmDelete.xaml.cs">
+    <Compile Include="Forms\ConfirmDelete.xaml.cs">
       <DependentUpon>ConfirmDelete.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.xaml.cs">
+    <Compile Include="Forms\MainForm.xaml.cs">
       <DependentUpon>MainForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RenumberMain.cs" />
-    <Compile Include="Resources.xaml.cs">
+    <Compile Include="Core\RenumberMain.cs" />
+    <Compile Include="Forms\Resources.xaml.cs">
       <DependentUpon>Resources.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StyleableWindow\ControlDoubleClickBehavior.cs" />
-    <Compile Include="StyleableWindow\ShowSystemMenuBehavior.cs" />
-    <Compile Include="StyleableWindow\SystemMenuManager.cs" />
-    <Compile Include="StyleableWindow\WindowCloseCommand.cs" />
-    <Compile Include="StyleableWindow\WindowDragBehavior.cs" />
-    <Compile Include="StyleableWindow\WindowMaximizeCommand.cs" />
-    <Compile Include="StyleableWindow\WindowMinimizeCommand.cs" />
-    <Compile Include="StyleableWindow\WindowResizeBehavior.cs" />
-    <Compile Include="SuffixContent.xaml.cs">
+    <Compile Include="Forms\StyleableWindow\ControlDoubleClickBehavior.cs" />
+    <Compile Include="Forms\StyleableWindow\ShowSystemMenuBehavior.cs" />
+    <Compile Include="Forms\StyleableWindow\SystemMenuManager.cs" />
+    <Compile Include="Forms\StyleableWindow\WindowCloseCommand.cs" />
+    <Compile Include="Forms\StyleableWindow\WindowDragBehavior.cs" />
+    <Compile Include="Forms\StyleableWindow\WindowMaximizeCommand.cs" />
+    <Compile Include="Forms\StyleableWindow\WindowMinimizeCommand.cs" />
+    <Compile Include="Forms\StyleableWindow\WindowResizeBehavior.cs" />
+    <Compile Include="Forms\SuffixContent.xaml.cs">
       <DependentUpon>SuffixContent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\CommonAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RenumberParts.addin" />
-    <Resource Include="Resources\Icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Resources\Icon.png" />
     <Resource Include="Resources\winforms.html" />
     <Resource Include="Resources\WarningLogo.png" />
-    <EmbeddedResource Include="Resources\RenumberPartsLogo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\RenumberPartsLogo.png" />
     <EmbeddedResource Include="Resources\SP_RenumberParts.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -129,19 +126,19 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ConfirmDelete.xaml">
+    <Page Include="Forms\ConfirmDelete.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainForm.xaml">
+    <Page Include="Forms\MainForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources.xaml">
+    <Page Include="Forms\Resources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SuffixContent.xaml">
+    <Page Include="Forms\SuffixContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

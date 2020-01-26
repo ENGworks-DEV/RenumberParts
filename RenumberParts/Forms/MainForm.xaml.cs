@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using MessageBox = System.Windows.MessageBox;
 using System.Drawing;
 using System.Windows.Media;
+using System.Windows.Input;
 
 namespace RenumberParts
 {
@@ -22,8 +23,8 @@ namespace RenumberParts
 
         public MainForm()
         {
-            
 
+            this.DataContext = this;
             InitializeComponent();
             var conf = tools.readConfig();
 
@@ -39,7 +40,12 @@ namespace RenumberParts
             }
         }
 
-
+        public string projectVersion = CommonAssemblyInfo.Number;
+        public string ProjectVersion
+        {
+            get { return projectVersion; }
+            set { projectVersion = value; }
+        }
         /// <summary>
         /// Check if the suffix is a number or not
         /// </summary>
@@ -260,6 +266,23 @@ namespace RenumberParts
         public void SeparatorBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Separator = this.SeparatorBox.Text;
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+
+        {
+            this.DragMove();
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+
+        private void Title_Link(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://engworks.com/renumber-parts/");
         }
     }
 }
