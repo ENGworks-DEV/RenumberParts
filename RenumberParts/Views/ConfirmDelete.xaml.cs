@@ -16,19 +16,33 @@ using System.Windows.Shapes;
 namespace RenumberParts
 {
     /// <summary>
-    /// Interaction logic for SuffixContent.xaml
+    /// Interaction logic for ConfirmDelete.xaml
     /// </summary>
-    public partial class SuffixContent : Window
+    public partial class ConfirmDelete : Window
     {
-        public SuffixContent()
+        public ConfirmDelete()
         {
             InitializeComponent();
         }
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
+            //If yes reset all values and close form
+            tools.resetValues();
+            this.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
             //If no just close the form
             this.Close();
         }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+
+        {
+            this.DragMove();
+        }
+
     }
 }

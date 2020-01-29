@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:sw="clr-namespace:WpfStyleableWindow.StyleableWindow"      
              xmlns:local="clr-namespace:RenumberParts"
-        mc:Ignorable="d" Height="370" Width="280" MinHeight="430" MinWidth="280"  MaxHeight="430" MaxWidth="280" WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" Height="445" Width="280" MinHeight="442" MinWidth="280"  MaxHeight="430" MaxWidth="280" WindowStartupLocation="CenterScreen"
 
         ResizeMode="NoResize" 
         Title="RENUMBER PARTS" 
@@ -35,26 +35,26 @@
             <Label Style="{DynamicResource Labels}" Content="{Binding Path=ProjectVersion}" Margin="21,31,0,0" Height="15" VerticalAlignment="Top" FontFamily="Roboto" HorizontalAlignment="Left" Width="37" RenderTransformOrigin="0.776,0.792" Grid.ColumnSpan="2" />
 
             <!--Main Form elements-->
-            <Button Style="{DynamicResource MainButtonStyle}" Content="" Grid.Column="1" Margin="0,119,19,0" Click="Button_Click_2" VerticalAlignment="Top" ToolTip="Select default color" HorizontalAlignment="Right" Width="15" Height="38"/>
-            <Button Style="{DynamicResource MainButtonStyle}" x:Name="AddButton" Content="ADD" Margin="19,119,39,0" Click="AddButton_Click" Grid.Column="1" ToolTip="Add element to selection, use ctrl + A to select multiple" VerticalAlignment="Top"/>
+            <Button Style="{DynamicResource MainButtonStyle}" Content="" Margin="0,127,19,0" Click="Button_Click_2" VerticalAlignment="Top" ToolTip="Select default color" HorizontalAlignment="Right" Width="15" Height="38"/>
+            <Button Style="{DynamicResource MainButtonStyle}" x:Name="AddButton" Content="ADD" Margin="19,127,39,0" Click="AddButton_Click" ToolTip="Add element to selection, use ctrl + A to select multiple" VerticalAlignment="Top"/>
             <Button Style="{DynamicResource SecondaryButtonStyle}" x:Name="ResetColor" Content="COLOR" Margin="19,210,0,0" Click="Button_Click" Grid.Column="1" ToolTip="Reset Elements color" VerticalAlignment="Top" HorizontalAlignment="Left" Width="85"/>
             <Button Style="{DynamicResource SecondaryButtonStyle}" Content="VALUES" Margin="0,210,19,0" Width="77" Click="Button_Click_1" ToolTip="Reset Elements values" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1"/>
             <Button Style="{DynamicResource SecondaryButtonStyle}" Click="DiplaceUp_Click" x:Name="DiplaceUp" Content="UP" Margin="19,284,0,0" RenderTransformOrigin="0.44,0.595" Grid.Column="1" ToolTip="Displace all elements numbers up" VerticalAlignment="Top" HorizontalAlignment="Left" Width="85"/>
             <Button Style="{DynamicResource SecondaryButtonStyle}" Click="DiplaceDn_Click"  x:Name="DisplaceDN" Content="DOWN" Margin="0,284,19,0" IsCancel="True" IsDefault="True" Grid.Column="1" RenderTransformOrigin="0.477,0.461" ToolTip="Displace all elements numbers down" VerticalAlignment="Top" HorizontalAlignment="Right" Width="77"/>
             <Button Style="{DynamicResource MainButtonStyle}" x:Name="ColorByPrefix" Content="COLOR BY PREFIX" Grid.Column="1" Margin="19,341,19,-27" VerticalAlignment="Top" Click="ColorByPrefix_Click" ToolTip="Elements will be colorized by its prefix"/>
-            <TextBox Style="{DynamicResource MainTextBox}"  x:Name="PrefixBox" Margin="19,81,0,0" TextWrapping="Wrap" Text="ABCDEFGHIJK" Grid.Column="1" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="85"/>
+            <TextBox Style="{DynamicResource MainTextBox}"  x:Name="PrefixBox" Margin="19,81,0,0" TextWrapping="Wrap" Text="ABCDEFGHIJK" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="77"/>
             <TextBox Style="{DynamicResource MainTextBox}" x:Name="NumberBox"  TextChanged="textChangedEventHandler" Margin="0,81,19,0" TextWrapping="Wrap" Text="000" Grid.Column="1" Height="30" VerticalAlignment="Top" BorderThickness="0.6" HorizontalAlignment="Right" Width="58" />
-            <TextBox Style="{DynamicResource MainTextBox}" x:Name="SeparatorBox" Height="30" Margin="110,81,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" MaxLength="1" TextChanged="SeparatorBox_TextChanged" BorderThickness="0.6" Grid.Column="1" HorizontalAlignment="Left" Width="34"/>
-            <Label Style="{DynamicResource Labels}" Content="Number" Margin="150,61,29,0" Grid.Column="1" Height="24" VerticalAlignment="Top"/>
+            <TextBox Style="{DynamicResource MainTextBox}" x:Name="SeparatorBox" Height="30" Margin="107,81,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" MaxLength="1" TextChanged="SeparatorBox_TextChanged" BorderThickness="0.6" HorizontalAlignment="Left" Width="35"/>
+            <Label Style="{DynamicResource Labels}" Content="Number" Margin="151,57,28,0" Height="24" VerticalAlignment="Top"/>
             <Label Style="{DynamicResource Labels}" Content="Displace values"  Margin="19,245,0,0" Width="86" Grid.Column="1" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-            <Label Style="{DynamicResource Labels}" Content="Reset"  Margin="14,174,0,0" Width="44" Grid.Column="1" FontFamily="Roboto" Background="White" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-            <Label Style="{DynamicResource Labels}" Content="Prefix" Margin="16,61,0,0" Grid.Column="1" Height="24" VerticalAlignment="Top" FontFamily="Roboto" HorizontalAlignment="Left" Width="34"/>
-            <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Top" Fill="Gray" Height="2" Margin="63,187,17,0" Opacity="0.2" Grid.Column="1"/>
-            <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Top" Fill="Gray" Height="2" Margin="110,259,19,0" Opacity="0.2" Grid.Column="1"/>
-            <Label Style="{DynamicResource Labels}" Content="Sep" Margin="107,61,0,0" Grid.Column="1" Height="24" VerticalAlignment="Top" FontFamily="Roboto" HorizontalAlignment="Left" Width="30"/>
-            
-        </Grid>
+            <Label Style="{DynamicResource Labels}" Content="Reset"  Margin="18,179,0,0" Width="44" Background="White" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="14" Foreground="LightGray"/>
+            <Label Style="{DynamicResource Labels}" Content="Prefix" Margin="19,57,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="34"/>
+            <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Top" Fill="Gray" Height="1" Margin="63,187,17,0" Opacity="0.2" Grid.Column="1"/>
+            <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Top" Fill="Gray" Height="1" Margin="110,261,19,0" Opacity="0.2"/>
+            <Label Style="{DynamicResource Labels}" Content="Sep" Margin="107,57,0,0" Height="24" VerticalAlignment="Top" FontFamily="Roboto" HorizontalAlignment="Left" Width="30"/>
 
+        </Grid>
+ 
     </Border>
 
     <Window.Resources>

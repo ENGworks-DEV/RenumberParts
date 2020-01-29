@@ -339,8 +339,8 @@
     <Style x:Key="Labels" TargetType="{x:Type Label}">
         <Setter Property="Template" Value="{StaticResource LabelsTemplate}"/>
         <Setter Property="FontFamily" Value="Roboto"/>
-        <Setter Property="FontSize" Value="12px"/>
-        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="FontSize" Value="14px"/>
+        <Setter Property="Foreground" Value="LightGray"/>
     </Style>
 
 
