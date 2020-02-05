@@ -611,8 +611,8 @@ namespace RenumberParts
                 //Override colors following the already created schema of colors
                 foreach (var item in elemtNPrefix)
                 {
-
-                    overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
+                    //Commented method because is not valid anymore in Revit 2020
+                    //overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
                     overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
                     doc.ActiveView.SetElementOverrides(item.Key.Id, overrideGraphicSettings);
                  

@@ -26,44 +26,6 @@
     <SolidColorBrush x:Key="WindowButtonPressedColor" Color="White" Opacity="0.8"/>
 
 
-
-    <!--The window template and it's components -->
-    <sw:WindowMinimizeCommand x:Key="MinimizeCommand"></sw:WindowMinimizeCommand>
-    <sw:WindowMaximizeCommand x:Key="MaximizeCommand"></sw:WindowMaximizeCommand>
-    <sw:WindowCloseCommand x:Key="CloseCommand"></sw:WindowCloseCommand>
-
-    <!--Style for the close, maximize and minimize buttons-->
-    <Style TargetType="{x:Type Button}" x:Key="WindowButton">
-        <Setter Property="Height" Value="25"/>
-        <Setter Property="Width" Value="25"/>
-        <Setter Property="Background" Value="{StaticResource WindowBackColor}"/>
-        <Setter Property="Foreground" Value="{StaticResource WindowForeColor}"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" Value="{StaticResource WindowButtonColor}"/>
-                            <Setter Property="Foreground" Value="{StaticResource WindowColor}"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource WindowButtonOverColor}"/>
-                            <Setter Property="Foreground" Value="{StaticResource WindowForeHighlightColor}"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="{StaticResource WindowButtonPressedColor}"/>
-                            <Setter Property="Foreground" Value="{StaticResource WindowForeColor}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-
     <!--Control template for Main forms-->
     <ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type Window}">
         <Grid Background="Transparent">
@@ -92,7 +54,6 @@
                                     Foreground="{StaticResource WindowForeColor}"                                           
                                     FontSize="16"
                                     sw:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                                    sw:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource MaximizeCommand}"
                                     sw:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                     sw:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                     sw:ShowSystemMenuBehavior.RightButtonShow="true">
@@ -110,17 +71,6 @@
                 </Border>
 
             </Grid>
-
-            <!--Use only in case that the you want to allow the user to resize the window-->
-
-            <!--<Thumb x:Name="ThumbTop" Height="6" Margin="14,0" VerticalAlignment="Top" Cursor="SizeNS"  Opacity="0" sw:WindowResizeBehavior.TopResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
-            <Thumb x:Name="ThumbTopLeft" Height="6" Width="6" VerticalAlignment="Top" HorizontalAlignment="Left" Cursor="SizeNWSE"  Opacity="0" sw:WindowResizeBehavior.TopLeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
-            <Thumb x:Name="ThumbBottom" Height="6" Margin="14,0" VerticalAlignment="Bottom" Cursor="SizeNS" Opacity="0" sw:WindowResizeBehavior.BottomResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
-            <Thumb x:Name="ThumbTopRight" Height="6" Width="6" VerticalAlignment="Top" HorizontalAlignment="Right" Cursor="SizeNESW"  Opacity="0" sw:WindowResizeBehavior.TopRightResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
-            <Thumb x:Name="ThumbRight" HorizontalAlignment="Right" Margin="0,14" Width="6" Cursor="SizeWE"  Opacity="0" sw:WindowResizeBehavior.RightResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
-            <Thumb x:Name="ThumbBottomRight" Height="6" Width="6" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="SizeNWSE"  Opacity="0" sw:WindowResizeBehavior.BottomRightResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
-            <Thumb x:Name="ThumbLeft" HorizontalAlignment="Left" Margin="0,14" Width="6" Cursor="SizeWE"  Opacity="0" sw:WindowResizeBehavior.LeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
-            <Thumb x:Name="ThumbBottomLeft" Height="6" Width="6" VerticalAlignment="Bottom" HorizontalAlignment="Left" Cursor="SizeNESW"  Opacity="0" sw:WindowResizeBehavior.BottomLeftResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>-->
 
         </Grid>
     </ControlTemplate>
