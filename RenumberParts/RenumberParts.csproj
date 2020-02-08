@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RenumberParts</RootNamespace>
     <AssemblyName>RenumberParts</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -39,11 +39,37 @@
     <StartAction>Program</StartAction>
     <StartProgram>$(ProgramW6432)\Autodesk\Revit 2018\Revit.exe</StartProgram>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2018|AnyCPU' ">
-    <OutputPath>bin\2018\</OutputPath>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2017|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>REVIT2017;TRACE</DefineConstants>
     <OutputPath>bin\2017\</OutputPath>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(ProgramW6432)\Autodesk\Revit 2017\Revit.exe</StartProgram>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2018|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>REVIT2018;TRACE</DefineConstants>
+    <OutputPath>bin\2018\</OutputPath>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(ProgramW6432)\Autodesk\Revit 2018\Revit.exe</StartProgram>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2019|AnyCPU'">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>REVIT2019;TRACE</DefineConstants>
+    <OutputPath>bin\2019\</OutputPath>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(ProgramW6432)\Autodesk\Revit 2019\Revit.exe</StartProgram>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2020|AnyCPU'">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>REVIT2020;TRACE</DefineConstants>
+    <OutputPath>bin\2020\</OutputPath>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(ProgramW6432)\Autodesk\Revit 2020\Revit.exe</StartProgram>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AdWindows, Version=2016.11.4.0, Culture=neutral, processorArchitecture=MSIL">
@@ -52,24 +78,36 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="RevitAPI, Version=18.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>C:\Program Files\Autodesk\Revit 2018\RevitAPI.dll</HintPath>
+    <Reference Include="RevitAPI" Condition="'$(Configuration)' == '2017'">
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2017\RevitAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="RevitAPIIFC, Version=18.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\Revit-2018.1-x64.Base.1.0.0\lib\net46\RevitAPIIFC.dll</HintPath>
+    <Reference Include="RevitAPIUI" Condition="'$(Configuration)' == '2017'">
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2017\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="RevitAPIMacros, Version=18.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\Revit-2018.1-x64.Base.1.0.0\lib\net46\RevitAPIMacros.dll</HintPath>
+    <Reference Include="RevitAPI" Condition="'$(Configuration)' == '2018'">
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2018\RevitAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="RevitAPIUI, Version=18.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\Revit-2018.1-x64.Base.1.0.0\lib\net46\RevitAPIUI.dll</HintPath>
+    <Reference Include="RevitAPIUI" Condition="'$(Configuration)' == '2018'">
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2018\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="RevitAPIUIMacros, Version=18.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\Revit-2018.1-x64.Base.1.0.0\lib\net46\RevitAPIUIMacros.dll</HintPath>
+    <Reference Include="RevitAPI" Condition="'$(Configuration)' == '2019'">
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2019\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI" Condition="'$(Configuration)' == '2019'">
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2019\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPI" Condition="'$(Configuration)' == '2020'">
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2020\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI" Condition="'$(Configuration)' == '2020'">
+      <HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2020\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -98,10 +136,7 @@
     <Compile Include="Views\StyleableWindow\ControlDoubleClickBehavior.cs" />
     <Compile Include="Views\StyleableWindow\ShowSystemMenuBehavior.cs" />
     <Compile Include="Views\StyleableWindow\SystemMenuManager.cs" />
-    <Compile Include="Views\StyleableWindow\WindowCloseCommand.cs" />
     <Compile Include="Views\StyleableWindow\WindowDragBehavior.cs" />
-    <Compile Include="Views\StyleableWindow\WindowMaximizeCommand.cs" />
-    <Compile Include="Views\StyleableWindow\WindowMinimizeCommand.cs" />
     <Compile Include="Views\StyleableWindow\WindowResizeBehavior.cs" />
     <Compile Include="Views\SuffixContent.xaml.cs">
       <DependentUpon>SuffixContent.xaml</DependentUpon>
@@ -146,11 +181,17 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Debug if exist "$(AppData)\Autodesk\REVIT\Addins\2018" copy "$(ProjectDir)*.addin" "$(AppData)\Autodesk\REVIT\Addins\2018"
-if $(ConfigurationName) == Debug if exist "$(AppData)\Autodesk\REVIT\Addins\2018" copy "$(ProjectDir)$(OutputPath)*.dll" "$(AppData)\Autodesk\REVIT\Addins\2018"
-if $(ConfigurationName) == Release if exist "$(ProjectDir)\Engworks.pfx" "C:\Program Files (x86)\Windows Kits\10\App Certification Kit\signtool.exe" sign /f  "$(ProjectDir)\Engworks.pfx" /p Engw123. /t http://timestamp.verisign.com/scripts/timstamp.dll "$(ProjectDir)$(OutputPath)*.dll"
-if $(ConfigurationName) == Release copy "$(ProjectDir)*.addin" "$(ProjectDir)$(OutputPath)"
-if $(ConfigurationName) == Release (powershell Compress-Archive -Path '$(ProjectDir)$(OutputPath)*.dll', '$(ProjectDir)$(OutputPath)*.addin' -DestinationPath '$(ProjectDir)$(OutputPath)$(ProjectName)' -Force)</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == 2017 if exist "$(AppData)\Autodesk\REVIT\Addins\2017" copy "$(ProjectDir)*.addin" "$(AppData)\Autodesk\REVIT\Addins\2017"
+if $(ConfigurationName) == 2017 if exist "$(AppData)\Autodesk\REVIT\Addins\2017" copy "$(ProjectDir)$(OutputPath)*.dll" "$(AppData)\Autodesk\REVIT\Addins\2017"
+if $(ConfigurationName) == 2018 if exist "$(AppData)\Autodesk\REVIT\Addins\2018" copy "$(ProjectDir)*.addin" "$(AppData)\Autodesk\REVIT\Addins\2018"
+if $(ConfigurationName) == 2018 if exist "$(AppData)\Autodesk\REVIT\Addins\2018" copy "$(ProjectDir)$(OutputPath)*.dll" "$(AppData)\Autodesk\REVIT\Addins\2018"
+if $(ConfigurationName) == 2019 if exist "$(AppData)\Autodesk\REVIT\Addins\2019" copy "$(ProjectDir)*.addin" "$(AppData)\Autodesk\REVIT\Addins\2019"
+if $(ConfigurationName) == 2019 if exist "$(AppData)\Autodesk\REVIT\Addins\2019" copy "$(ProjectDir)$(OutputPath)*.dll" "$(AppData)\Autodesk\REVIT\Addins\2019"
+if $(ConfigurationName) == 2020 if exist "$(AppData)\Autodesk\REVIT\Addins\2020" copy "$(ProjectDir)*.addin" "$(AppData)\Autodesk\REVIT\Addins\2020"
+if $(ConfigurationName) == 2020 if exist "$(AppData)\Autodesk\REVIT\Addins\2020" copy "$(ProjectDir)$(OutputPath)*.dll" "$(AppData)\Autodesk\REVIT\Addins\2020"
+if not $(ConfigurationName) == Debug if exist "$(ProjectDir)\Engworks.pfx" "C:\Program Files (x86)\Windows Kits\10\App Certification Kit\signtool.exe" sign /f  "$(ProjectDir)\Engworks.pfx" /p Engw123. /t http://timestamp.verisign.com/scripts/timstamp.dll "$(ProjectDir)$(OutputPath)*.dll"
+if not $(ConfigurationName) == Debug copy "$(ProjectDir)*.addin" "$(ProjectDir)$(OutputPath)"
+if not $(ConfigurationName) == Debug (powershell Compress-Archive -Path '$(ProjectDir)$(OutputPath)*.dll', '$(ProjectDir)$(OutputPath)*.addin' -DestinationPath '$(ProjectDir)$(OutputPath)$(ProjectName)' -Force)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

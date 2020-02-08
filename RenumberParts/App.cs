@@ -50,10 +50,6 @@ namespace RenumberParts
             // Combine path with \
             string newpath = Path.GetFullPath(Path.Combine(path, @"..\"));
 
-            // Set the contextual help to point Help.html
-            //ContextualHelp contextHelp = new ContextualHelp(
-            //    ContextualHelpType.ChmFile,
-            //    newpath + "Resources\\Help.html");
 
             ContextualHelp contextHelp = new ContextualHelp(
                 ContextualHelpType.Url,

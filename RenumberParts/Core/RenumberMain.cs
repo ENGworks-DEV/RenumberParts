@@ -207,7 +207,6 @@ namespace RenumberParts
         /// </summary>
         public static void AddToSelection()
         {
-
             selectedElements.Clear();
 
             var filterS = new SelectionFilter();
@@ -384,9 +383,27 @@ namespace RenumberParts
                 byte r = colorSelect.R;
                 byte b = colorSelect.B;
                 byte g = colorSelect.G;
-                
-                //Set override properties to fill and line colors
+
+
+
+                #if REVIT2020 || REVIT2019
+                var patternCollector = new FilteredElementCollector(doc);
+                patternCollector.OfClass(typeof(FillPatternElement));
+                FillPatternElement fpe = patternCollector.ToElements()
+                    .Cast<FillPatternElement>().First(x => x.GetFillPattern().Name == "<Solid fill>");
+                overrideGraphicSettings.SetSurfaceForegroundPatternId(fpe.Id);
+                overrideGraphicSettings.SetSurfaceForegroundPatternVisible(true);
+                overrideGraphicSettings.SetSurfaceForegroundPatternColor(new Autodesk.Revit.DB.Color(r, g, b));
+                #else
+                var patternCollector = new FilteredElementCollector(doc);
+                patternCollector.OfClass(typeof(FillPatternElement));
+                FillPatternElement fpe = patternCollector.ToElements()
+                    .Cast<FillPatternElement>().First(x => x.GetFillPattern().Name == "Solid fill");
+                overrideGraphicSettings.SetProjectionFillPatternId(fpe.Id);
+                overrideGraphicSettings.SetProjectionFillPatternVisible(true);
                 overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(r, g, b));
+                #endif
+
                 overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(r, g, b));
 
                 foreach(Element x in selectedElements)
@@ -512,7 +529,7 @@ namespace RenumberParts
 
         public class SelectionFilter : ISelectionFilter
         {
-            #region ISelectionFilter Members
+#region ISelectionFilter Members
 
             public bool AllowElement(Element elem)
             {
@@ -538,7 +555,7 @@ namespace RenumberParts
                 return false;
             }
 
-            #endregion
+#endregion
         }
 
         /// <summary>
@@ -611,9 +628,22 @@ namespace RenumberParts
                 //Override colors following the already created schema of colors
                 foreach (var item in elemtNPrefix)
                 {
-                    //Commented method because is not valid anymore in Revit 2020
-                    //overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
-                    overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
+
+                    #if REVIT2020 || REVIT2019
+                    overrideGraphicSettings.SetSurfaceForegroundPatternColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
+                    #else
+                    var patternCollector = new FilteredElementCollector(doc);
+                    patternCollector.OfClass(typeof(FillPatternElement));
+                    FillPatternElement fpe = patternCollector.ToElements()
+                        .Cast<FillPatternElement>().First(x => x.GetFillPattern().Name == "Solid fill");
+                    overrideGraphicSettings.SetProjectionFillPatternId(fpe.Id);
+                    overrideGraphicSettings.SetProjectionFillPatternVisible(true);
+                    overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value]
+                        .R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
+                    #endif
+
+                    overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value]
+                        .R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
                     doc.ActiveView.SetElementOverrides(item.Key.Id, overrideGraphicSettings);
                  
                 }

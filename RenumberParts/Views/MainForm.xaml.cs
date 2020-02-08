@@ -1,6 +1,4 @@
 ﻿
-
-
 using System.Windows;
 using System.Windows.Controls;
 using System.Diagnostics;
@@ -9,6 +7,7 @@ using MessageBox = System.Windows.MessageBox;
 using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Input;
+using System.Configuration;
 
 namespace RenumberParts
 {
@@ -19,7 +18,6 @@ namespace RenumberParts
     {
         public static System.Drawing.Color ColorSelected;
         public System.Windows.Forms.ColorDialog colorDialog = new ColorDialog();
-        
 
         public MainForm()
         {
@@ -115,6 +113,7 @@ namespace RenumberParts
                     using (Autodesk.Revit.DB.Transaction AssingPartNumberT = new Autodesk.Revit.DB.Transaction(tools.uidoc.Document, "Assing Part Number"))
                     {
                         AssingPartNumberT.Start();
+
                         tools.AddToSelection();
 
                         var partNumber = tools.createNumbering(this.PrefixBox.Text,this.SeparatorBox.Text, tools.count, this.NumberBox.Text.Length);
@@ -142,9 +141,8 @@ namespace RenumberParts
                         
                     }
                 }
-                catch (System.Exception ex)
+                catch
                 {
-                    //MessageBox.Show(ex.Message);
                 }
 
             }
