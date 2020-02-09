@@ -9,6 +9,9 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System.Resources;
+using System.Diagnostics;
+using RenumberParts.Model;
+
 #endregion
 
 namespace RenumberParts
@@ -75,5 +78,45 @@ namespace RenumberParts
         {
             return Result.Succeeded;
         }
+    }
+
+
+    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    public class RenumberMain : IExternalCommand
+    {
+        static AddInId appId = new AddInId(new Guid("3256F49C-7F76-4734-8992-3F1CF468BE9B"));
+
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            //Define Uiapp and current document
+            tools.uiapp = commandData.Application;
+            tools.uidoc = tools.uiapp.ActiveUIDocument;
+            tools.doc = tools.uidoc.Document;
+
+            //Create project parameter from existing shared parameter
+            using (Transaction t = new Transaction(tools.doc, "set Shared Parameters"))
+            {
+                t.Start();
+                tools.RawCreateProjectParameterFromExistingSharedParameter(tools.doc.Application, 
+                    "Item Number", ShareParamCategories.listCat(), BuiltInParameterGroup.PG_IDENTITY_DATA, true);
+                t.Commit();
+            }
+
+            //Create an instance of the MainForm.xaml
+            var mainForm = new MainForm();
+            Process process = Process.GetCurrentProcess();
+
+            var h = process.MainWindowHandle;
+
+            //Show MainForm.xaml on top of any other forms
+            mainForm.Topmost = true;
+
+            //Show the WPF MainForm.xaml
+            mainForm.ShowDialog();
+
+            return 0;
+
+        }
+
     }
 }

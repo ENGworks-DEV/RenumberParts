@@ -122,6 +122,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Model\ColorByPrefix.cs" />
+    <Compile Include="Model\FabricationCategories.cs" />
+    <Compile Include="Model\MEPCategories.cs" />
+    <Compile Include="Model\OverrideElemtColor.cs" />
+    <Compile Include="Model\ResetColors.cs" />
+    <Compile Include="Model\ResetValues.cs" />
+    <Compile Include="Model\ShareParamCategories.cs" />
     <Compile Include="Views\ConfirmDelete.xaml.cs">
       <DependentUpon>ConfirmDelete.xaml</DependentUpon>
     </Compile>

@@ -13,51 +13,10 @@ using System.Windows;
 using System.Drawing;
 using Color = System.Drawing.Color;
 using System.Timers;
+using RenumberParts.Model;
 
 namespace RenumberParts
 {
-
-    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
-    public class RenumberMain : IExternalCommand
-    {
-        static AddInId appId = new AddInId(new Guid("3256F49C-7F76-4734-8992-3F1CF468BE9B"));
-
-        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
-        {
-            //Define Uiapp and current document
-            tools.uiapp = commandData.Application;
-            tools.uidoc = tools.uiapp.ActiveUIDocument;
-            tools.doc = tools.uidoc.Document;
-
-            //Create project parameter from existing shared parameter
-            using (Transaction t = new Transaction(tools.doc, "set Shared Parameters"))
-            {
-                t.Start();
-                tools.RawCreateProjectParameterFromExistingSharedParameter(tools.doc.Application, "Item Number", tools.CategorySetList(), BuiltInParameterGroup.PG_IDENTITY_DATA, true);
-                t.Commit();
-            }
-
-            //Create an instance of the MainForm.xaml
-            var mainForm = new MainForm();
-            Process process = Process.GetCurrentProcess();
-            
-            var h = process.MainWindowHandle;
-
-            //Show MainForm.xaml on top of any other forms
-            mainForm.Topmost = true;
-
-            //Show the WPF MainForm.xaml
-            mainForm.ShowDialog();
-
-            return 0;
-
-        }
-
-
-    }
-
-
-
     public static class tools
     {
         public static Transaction Transaction { get; set; }
@@ -173,26 +132,6 @@ namespace RenumberParts
 
             BindingMap map = (new UIApplication(app)).ActiveUIDocument.Document.ParameterBindings;
             map.Insert(def, binding, group);
-        }
-
-
-        /// <summary>
-        /// Categories used when creating shared parameters / project parameters
-        /// </summary>
-        /// <returns></returns>
-        public static CategorySet CategorySetList()
-        {
-            CategorySet categorySet = new CategorySet();
-            foreach (Category c in doc.Settings.Categories)
-            {
-                if (c.CategoryType == CategoryType.Model
-                    && c.AllowsBoundParameters
-                    )
-                { categorySet.Insert(c); }
-
-            }
-
-            return categorySet;
         }
 
         public static List<Element> ListOfElements { get; set; } = new List<Element>();
@@ -387,26 +326,13 @@ namespace RenumberParts
 
 
                 #if REVIT2020 || REVIT2019
-                var patternCollector = new FilteredElementCollector(doc);
-                patternCollector.OfClass(typeof(FillPatternElement));
-                FillPatternElement fpe = patternCollector.ToElements()
-                    .Cast<FillPatternElement>().First(x => x.GetFillPattern().Name == "<Solid fill>");
-                overrideGraphicSettings.SetSurfaceForegroundPatternId(fpe.Id);
-                overrideGraphicSettings.SetSurfaceForegroundPatternVisible(true);
-                overrideGraphicSettings.SetSurfaceForegroundPatternColor(new Autodesk.Revit.DB.Color(r, g, b));
+                OverrideElemtColor.Graphics20192020(doc,ref overrideGraphicSettings, r, b, g);
                 #else
-                var patternCollector = new FilteredElementCollector(doc);
-                patternCollector.OfClass(typeof(FillPatternElement));
-                FillPatternElement fpe = patternCollector.ToElements()
-                    .Cast<FillPatternElement>().First(x => x.GetFillPattern().Name == "Solid fill");
-                overrideGraphicSettings.SetProjectionFillPatternId(fpe.Id);
-                overrideGraphicSettings.SetProjectionFillPatternVisible(true);
-                overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(r, g, b));
+                OverrideElemtColor.Graphics20172018(doc,ref overrideGraphicSettings, r, b, g);
                 #endif
 
-                overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(r, g, b));
 
-                foreach(Element x in selectedElements)
+                foreach (Element x in selectedElements)
                 { 
                 //Override color of element
                 doc.ActiveView.SetElementOverrides(x.Id, overrideGraphicSettings);
@@ -449,27 +375,6 @@ namespace RenumberParts
             }
         }
 
-        /// <summary>
-        /// Get selected elements
-        /// </summary>
-        /// <returns></returns>
-        public static List<Element> getSelection()
-        {
-            var output = new List<Element>();
-            var selection = uidoc.Selection.GetElementIds();
-            foreach (var item in selection)
-            {
-                try
-                {
-                    Element element = doc.GetElement(item);
-                    output.Add(element);
-                }
-                catch (Exception e) { MessageBox.Show(e.Message); }
-            }
-
-            return output;
-        }
-
 
         /// <summary>
         /// Get number from element as string
@@ -483,7 +388,8 @@ namespace RenumberParts
 
             Category category = element.Category;
             BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;
-            List<BuiltInCategory> allBuiltinCategories = FabricationCategories();
+            
+            List<BuiltInCategory> allBuiltinCategories = FabCategories.listCat();
 
             if (allBuiltinCategories.Contains(enumCategory))
             {
@@ -558,133 +464,6 @@ namespace RenumberParts
 #endregion
         }
 
-        /// <summary>
-        /// Resets override on all elements in current view
-        /// </summary>
-        public static void resetView()
-        {
-            using (Transaction ResetView = new Transaction(tools.uidoc.Document, "Reset view"))
-            {
-                ResetView.Start();
-                OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
-                
-                LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
-
-                var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(
-                    logicalOrFilter).WhereElementIsNotElementType();
-
-                foreach (var item in collector.ToElements())
-                {
-                    if (item.IsValidObject && doc.GetElement(item.Id) != null)
-                    { 
-                    doc.ActiveView.SetElementOverrides(item.Id, overrideGraphicSettings);
-                    }
-                    
-                }
-
-                ResetView.Commit();
-            }
-        }
-
-
-        /// <summary>
-        /// Override colors in view by prefix
-        /// </summary>
-        public static void ColorInView()
-        {
-            using (Transaction ResetView = new Transaction(tools.uidoc.Document, "Reset view"))
-            {
-                ResetView.Start();
-                OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
-
-                LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
-
-                var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(
-                    logicalOrFilter).WhereElementIsNotElementType();
-
-                Dictionary<Element, string> elemtNPrefix = new Dictionary<Element, string>();
-                Dictionary<string, Color> colorNPrefix = new Dictionary<string, Color>();
-
-                //Create a Dictionary with Elements and its prefixes
-                foreach (var item in collector.ToElements())
-                {
-                    var number = getNumber(item);
-                    var itemNumber = GetNumberAndPrexif(number);
-                    if (itemNumber != null) { elemtNPrefix.Add(item, itemNumber.Item1); }
-                    
-                }
-
-                //Create a unique prefixes and an assigned color
-                foreach (var prefix in elemtNPrefix.Values.Distinct())
-                {
-                    //Chanchada
-                    System.Threading.Thread.Sleep(50);
-                    Random randonGen = new Random();
-                    Color randomColor = Color.FromArgb(1, randonGen.Next(255), randonGen.Next(255), randonGen.Next(255));
-                    colorNPrefix.Add(prefix, randomColor);
-                    
-                }
-
-                //Override colors following the already created schema of colors
-                foreach (var item in elemtNPrefix)
-                {
-
-                    #if REVIT2020 || REVIT2019
-                    overrideGraphicSettings.SetSurfaceForegroundPatternColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
-                    #else
-                    var patternCollector = new FilteredElementCollector(doc);
-                    patternCollector.OfClass(typeof(FillPatternElement));
-                    FillPatternElement fpe = patternCollector.ToElements()
-                        .Cast<FillPatternElement>().First(x => x.GetFillPattern().Name == "Solid fill");
-                    overrideGraphicSettings.SetProjectionFillPatternId(fpe.Id);
-                    overrideGraphicSettings.SetProjectionFillPatternVisible(true);
-                    overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value]
-                        .R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
-                    #endif
-
-                    overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(colorNPrefix[item.Value]
-                        .R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B));
-                    doc.ActiveView.SetElementOverrides(item.Key.Id, overrideGraphicSettings);
-                 
-                }
-
-                    ResetView.Commit();
-            }
-        }
-
-
-        /// <summary>
-        /// Reset prefix values on all elements visible on current view
-        /// </summary>
-        public static void resetValues()
-        {
-            List<BuiltInCategory> allBuiltinCategories = FabricationCategories();
-
-            LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
-
-            var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(
-                logicalOrFilter).WhereElementIsNotElementType();
-            using (Transaction ResetView = new Transaction(tools.uidoc.Document, "Reset view"))
-            {
-                ResetView.Start();
-                OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
-                Guid guid = new Guid("460e0a79-a970-4b03-95f1-ac395c070beb");
-                string blankPrtnmbr = "";
-                foreach (var item in collector.ToElements())
-                {
-                    item.get_Parameter(guid).Set(blankPrtnmbr);
-                    Category category = item.Category;
-                    BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;
-                    if (allBuiltinCategories.Contains(enumCategory))
-                    {
-                        item.get_Parameter(BuiltInParameter.FABRICATION_PART_ITEM_NUMBER).Set(blankPrtnmbr);
-                    }
-                }
-
-                ResetView.Commit();
-
-            }
-        }
 
         /// <summary>
         /// Write configuration file saved on user document 
@@ -701,7 +480,6 @@ namespace RenumberParts
                 st.WriteLine(prefix);
                 st.WriteLine(separator);
                 st.WriteLine(number);
-
             }
         }
 
@@ -725,8 +503,6 @@ namespace RenumberParts
                         output.Add(line);
                         counter++;
                     }
-
-
                 }
             }
             return output;
@@ -743,7 +519,7 @@ namespace RenumberParts
 
             Category category = element.Category;
             BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;     
-            List<BuiltInCategory> allBuiltinCategories = FabricationCategories();
+            List<BuiltInCategory> allBuiltinCategories = FabCategories.listCat();
 
             if (allBuiltinCategories.Contains(enumCategory))
             {
@@ -768,65 +544,7 @@ namespace RenumberParts
 
         }
 
-        /// <summary>
-        /// Hard coded list of categories to be used as a filter, only pipes, ducts and FabParts should be included when selecting and filter
-        /// </summary>
-        /// <returns></returns>
-        public static List<ElementFilter> filters()
-        {
-            var output = new List<ElementFilter>();
-            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_FabricationDuctwork));
-            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_FabricationPipework));
-            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_FabricationContainment));
-            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_PipeAccessory));
-            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_PipeCurves));
-            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_PipeFitting));
-            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_DuctAccessory));
-            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_DuctCurves));
-            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_DuctFitting));
-            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_Conduit));
-            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_ConduitFitting));
-            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_CableTray));
-            output.Add(new ElementCategoryFilter(BuiltInCategory.OST_CableTrayFitting));
-            return output;
-        }
-
-        /// <summary>
-        /// Hard coded list of categories to be used as a filter on selection, only pipes, ducts and FabParts should be included when selecting and filter
-        /// </summary>
-        /// <returns></returns>
-        public static List<BuiltInCategory> SelectionFilters()
-        {
-            var output = new List<BuiltInCategory>();
-            output.Add((BuiltInCategory.OST_FabricationDuctwork));
-            output.Add(BuiltInCategory.OST_FabricationPipework);
-            output.Add(BuiltInCategory.OST_FabricationContainment);
-            output.Add((BuiltInCategory.OST_PipeAccessory));
-            output.Add((BuiltInCategory.OST_PipeCurves));
-            output.Add((BuiltInCategory.OST_PipeFitting));
-            output.Add((BuiltInCategory.OST_DuctAccessory));
-            output.Add((BuiltInCategory.OST_DuctCurves));
-            output.Add((BuiltInCategory.OST_DuctFitting));
-            output.Add((BuiltInCategory.OST_Conduit));
-            output.Add((BuiltInCategory.OST_ConduitFitting));
-            output.Add((BuiltInCategory.OST_CableTray));
-            output.Add((BuiltInCategory.OST_CableTrayFitting));
-            return output;
-        }
-
-        /// <summary>
-        /// Hard coded list of Fabricationparts categories to be used as a filter between fabrication and non fabrication parts
-        /// </summary>
-        /// <returns></returns>
-        public static List<BuiltInCategory> FabricationCategories()
-        {
-            var output = new List<BuiltInCategory>();
-            output.Add((BuiltInCategory.OST_FabricationDuctwork));
-            output.Add(BuiltInCategory.OST_FabricationPipework);
-            output.Add(BuiltInCategory.OST_FabricationContainment);
-            return output;
-        }
-
+      
         /// <summary>
         /// Adds 1 to all elements with the same prefix and bigger number than the one on selection
         /// </summary>
@@ -846,7 +564,7 @@ namespace RenumberParts
                 var limit = GetNumberAndPrexif(startNumber);
 
                 //Get filter with all the MEP categories
-                LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
+                LogicalOrFilter logicalOrFilter = new LogicalOrFilter(MEPCategories.listCat());
 
                 //Get all MEP elements in active view
                 var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(logicalOrFilter).WhereElementIsNotElementType();
@@ -903,7 +621,7 @@ namespace RenumberParts
             {
                 Element element = tools.selectedElement;
 
-                LogicalOrFilter logicalOrFilter = new LogicalOrFilter(filters());
+                LogicalOrFilter logicalOrFilter = new LogicalOrFilter(MEPCategories.listCat());
 
                 var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(logicalOrFilter).WhereElementIsNotElementType();
                 var startNumber = getNumber(element);

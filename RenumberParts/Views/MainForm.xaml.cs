@@ -1,13 +1,9 @@
 ﻿
 using System.Windows;
 using System.Windows.Controls;
-using System.Diagnostics;
 using System.Windows.Forms;
-using MessageBox = System.Windows.MessageBox;
-using System.Drawing;
-using System.Windows.Media;
 using System.Windows.Input;
-using System.Configuration;
+using RenumberParts.Model;
 
 namespace RenumberParts
 {
@@ -76,8 +72,9 @@ namespace RenumberParts
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
-        {    
-            tools.resetView();
+        {
+            ResetColors.reset();
+            
         }
 
 
@@ -258,7 +255,7 @@ namespace RenumberParts
         /// <param name="e"></param>
         private void ColorByPrefix_Click(object sender, RoutedEventArgs e)
         {
-            tools.ColorInView();
+            ColorByPrfx.ColorInView();
         }
 
         public void SeparatorBox_TextChanged(object sender, TextChangedEventArgs e)

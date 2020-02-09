@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RenumberParts.Model;
+
 
 namespace RenumberParts
 {
@@ -28,7 +30,7 @@ namespace RenumberParts
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
             //If yes reset all values and close form
-            tools.resetValues();
+            ResetValues.reset();
             this.Close();
         }
 
