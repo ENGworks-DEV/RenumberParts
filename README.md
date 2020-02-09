@@ -1,4 +1,4 @@
-![](https://github.com/ENGworks-DEV/RenumberParts/blob/master/RenumberParts/Resources/LogoAndName-01.jpg)
+![][(https://github.com/ENGworks-DEV/RenumberParts/blob/master/RenumberParts/Resources/LogoAndName-01.jpg)](https://engworks.com/renumber-parts/)
 
 This is a Revit add-in that help you numbering parts for MEP elements for spooling
 
@@ -18,7 +18,7 @@ The only externaL dependency is RevitAPI.dll and RevitAPIUI.dll
 
 ## Installation
 
-You can find this addin inside Autodesk app store
+You can find this addin inside [Autodesk app store] (https://apps.autodesk.com/RVT/en/Detail/Index?id=6406217177150473185&appLang=en&os=Win64)
 
 ## Contribute ##
 
