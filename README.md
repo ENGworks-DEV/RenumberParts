@@ -18,7 +18,7 @@ The only externaL dependency is RevitAPI.dll and RevitAPIUI.dll
 
 ## Installation
 
-You can find this addin inside [Autodesk app store] (https://apps.autodesk.com/RVT/en/Detail/Index?id=6406217177150473185&appLang=en&os=Win64)
+You can find this addin inside [Autodesk app store](https://apps.autodesk.com/RVT/en/Detail/Index?id=6406217177150473185&appLang=en&os=Win64)
 
 ## Contribute ##
 
