@@ -1,4 +1,4 @@
-![][(https://github.com/ENGworks-DEV/RenumberParts/blob/master/RenumberParts/Resources/LogoAndName-01.jpg)](https://engworks.com/renumber-parts/)
+[<img src="https://github.com/ENGworks-DEV/RenumberParts/blob/master/RenumberParts/Resources/LogoAndName-01.jpg" width="650" height="200">](https://engworks.com/renumber-parts/)
 
 This is a Revit add-in that help you numbering parts for MEP elements for spooling
 
