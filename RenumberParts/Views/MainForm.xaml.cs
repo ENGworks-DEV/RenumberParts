@@ -47,7 +47,7 @@ namespace RenumberParts
         /// <param name="args"></param>
         private void textChangedEventHandler(object sender, TextChangedEventArgs args)
         {
-
+            this.NumberBox.Select(this.NumberBox.Text.Length, 0);
             int c;
             bool isNumeric = int.TryParse(this.NumberBox.Text, out c);
 
@@ -236,16 +236,6 @@ namespace RenumberParts
             ColorSelected = colorDialog.Color;
         }
 
-     
-        /// <summary>
-        /// Writes string used as separator to an internal field
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //        Separator = this.SeparatorBox.Text;    
-        //}
 
 
         /// <summary>
@@ -260,6 +250,7 @@ namespace RenumberParts
 
         public void SeparatorBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            this.SeparatorBox.Select(this.SeparatorBox.Text.Length, 0);
             Separator = this.SeparatorBox.Text;
         }
 
@@ -278,6 +269,11 @@ namespace RenumberParts
         private void Title_Link(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://engworks.com/renumber-parts/");
+        }
+
+        private void PrefixBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.PrefixBox.Select(this.PrefixBox.Text.Length, 0);
         }
     }
 }
