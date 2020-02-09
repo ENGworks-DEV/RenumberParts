@@ -7,12 +7,14 @@ This is a Revit add-in that help you numbering parts for MEP elements for spooli
 
 ## Revit tested versions
 
-* Revit 2019
+* Revit 2017
 * Revit 2018
+* Revit 2019
+* Revit 2020
 
 ## Dependencies
 
-The only externaL dependency is RevitAPI.dll
+The only externaL dependency is RevitAPI.dll and RevitAPIUI.dll
 
 ## Installation
 
