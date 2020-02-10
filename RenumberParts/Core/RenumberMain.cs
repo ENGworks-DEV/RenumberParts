@@ -320,15 +320,14 @@ namespace RenumberParts
 
                 //Split coloSelect in R,G,B to be transformed to a Revit color later
                 byte r = colorSelect.R;
-                byte b = colorSelect.B;
                 byte g = colorSelect.G;
-
+                byte b = colorSelect.B;
 
 
                 #if REVIT2020 || REVIT2019
-                OverrideElemtColor.Graphics20192020(doc,ref overrideGraphicSettings, r, b, g);
+                OverrideElemtColor.Graphics20192020(doc,ref overrideGraphicSettings, r, g, b);
                 #else
-                OverrideElemtColor.Graphics20172018(doc,ref overrideGraphicSettings, r, b, g);
+                OverrideElemtColor.Graphics20172018(doc,ref overrideGraphicSettings, r, g, b);
                 #endif
 
 
