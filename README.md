@@ -30,3 +30,5 @@ RenumberParts is an open-source project. You can make suggestions or track and s
 
 [<img src="https://github.com/ENGworks-DEV/RenumberParts/blob/master/RenumberParts/Resources/EngLogo-01.png" width="650" height="200">](https://engworks.com/)
 
+## License ##
+
