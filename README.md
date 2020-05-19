@@ -26,7 +26,7 @@ RenumberParts is an open-source project. You can make suggestions or track and s
 
 ## License ##
 
-The MIT License (MIT)
+[The MIT License (MIT)](https://github.com/ENGworks-DEV/RenumberParts/blob/master/LICENSE)
 
 Copyright (c) 2020 Engworks
 
