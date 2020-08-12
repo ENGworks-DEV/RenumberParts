@@ -8,7 +8,7 @@ namespace RenumberParts
 {
     public class CommonAssemblyInfo
     {
-        private static string number = "1.1.0.0";
+        private static string number = "1.2.0.0";
 
         public static string Number
         {

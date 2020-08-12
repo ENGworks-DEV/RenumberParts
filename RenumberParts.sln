@@ -3,21 +3,38 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenumberParts", "RenumberParts\RenumberParts.csproj", "{41DDBA86-1632-47E9-96E4-592460F51EC5}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "RenumberParts_Shared", "RenumberParts_Shared\RenumberParts_Shared.shproj", "{773CA806-BA48-42FD-BA3E-B4F2B35A4808}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenumberParts_2020", "RenumberParts_2020\RenumberParts_2020.csproj", "{41DDBA86-1632-47E9-96E4-592460F51EC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenumberParts_2018", "RenumberParts_2018\RenumberParts_2018.csproj", "{128840D8-E09D-414C-A208-0200BFC01CB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenumberParts_2019", "RenumberParts_2019\RenumberParts_2019.csproj", "{378DD64F-C035-4C7B-B1F0-7D88F238E35E}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		RenumberParts_Shared\RenumberParts_Shared.projitems*{128840d8-e09d-414c-a208-0200bfc01cb1}*SharedItemsImports = 4
+		RenumberParts_Shared\RenumberParts_Shared.projitems*{378dd64f-c035-4c7b-b1f0-7d88f238e35e}*SharedItemsImports = 4
+		RenumberParts_Shared\RenumberParts_Shared.projitems*{41ddba86-1632-47e9-96e4-592460f51ec5}*SharedItemsImports = 4
+		RenumberParts_Shared\RenumberParts_Shared.projitems*{773ca806-ba48-42fd-ba3e-b4f2b35a4808}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		2017|Any CPU = 2017|Any CPU
-		2018|Any CPU = 2018|Any CPU
-		2019|Any CPU = 2019|Any CPU
-		2020|Any CPU = 2020|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{41DDBA86-1632-47E9-96E4-592460F51EC5}.2017|Any CPU.ActiveCfg = 2017|Any CPU
-		{41DDBA86-1632-47E9-96E4-592460F51EC5}.2017|Any CPU.Build.0 = 2017|Any CPU
-		{41DDBA86-1632-47E9-96E4-592460F51EC5}.2018|Any CPU.ActiveCfg = 2018|Any CPU
-		{41DDBA86-1632-47E9-96E4-592460F51EC5}.2019|Any CPU.ActiveCfg = 2019|Any CPU
-		{41DDBA86-1632-47E9-96E4-592460F51EC5}.2020|Any CPU.ActiveCfg = 2020|Any CPU
+		{41DDBA86-1632-47E9-96E4-592460F51EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41DDBA86-1632-47E9-96E4-592460F51EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41DDBA86-1632-47E9-96E4-592460F51EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41DDBA86-1632-47E9-96E4-592460F51EC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{128840D8-E09D-414C-A208-0200BFC01CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{128840D8-E09D-414C-A208-0200BFC01CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{128840D8-E09D-414C-A208-0200BFC01CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{128840D8-E09D-414C-A208-0200BFC01CB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{378DD64F-C035-4C7B-B1F0-7D88F238E35E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{378DD64F-C035-4C7B-B1F0-7D88F238E35E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{378DD64F-C035-4C7B-B1F0-7D88F238E35E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{378DD64F-C035-4C7B-B1F0-7D88F238E35E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

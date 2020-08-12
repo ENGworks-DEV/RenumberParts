@@ -6,8 +6,8 @@
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{B827E3D1-F82E-45B9-9352-53C8EF41399F}
-AppName=ENG RenumberParts 2018 Setup
-AppVersion=0.1.2
+AppName=ENG RenumberParts 2019 Setup
+AppVersion=1.2.0.0
 
 AppPublisher=PRD
 AppPublisherURL=-
@@ -15,9 +15,9 @@ AppSupportURL=-
 AppUpdatesURL=-
 DefaultDirName={pf}\RenumberParts
 DisableDirPage=yes
-DefaultGroupName=ENGworks RenumberParts 2018
+DefaultGroupName=ENGworks RenumberParts 2019
 DisableProgramGroupPage=yes
-OutputBaseFilename=ENG RenumberParts 2018 Setup 0.1.2
+OutputBaseFilename=ENG RenumberParts 2019 Setup 1.2.0.0
 Compression=lzma
 SolidCompression=yes
 OutputManifestFile=Setup-Manifest.txt
@@ -26,14 +26,14 @@ OutputDir=bin\Install
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Dirs]
-Name: "{userappdata}\Autodesk\Revit\Addins\2018\RenumberParts\"
+Name: "{userappdata}\Autodesk\Revit\Addins\2019\RenumberParts\"
 [InstallDelete]
-Type: filesandordirs; Name: "{userappdata}\Autodesk\Revit\Addins\2018\RenumberParts\"
+Type: filesandordirs; Name: "{userappdata}\Autodesk\Revit\Addins\2019\RenumberParts\"
     
 
 [Files]
-Source: "C:\Users\pderendinger\AppData\Roaming\Autodesk\Revit\Addins\2018\RenumberParts\*.*"; DestDir: "{userappdata}\Autodesk\Revit\Addins\2018\RenumberParts\"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\pderendinger\AppData\Roaming\Autodesk\Revit\Addins\2018\RenumberParts.addin"; DestDir: "{userappdata}\Autodesk\Revit\Addins\2018\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\pderendinger\AppData\Roaming\Autodesk\Revit\Addins\2019\RenumberParts\*.*"; DestDir: "{userappdata}\Autodesk\Revit\Addins\2019\RenumberParts\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\pderendinger\AppData\Roaming\Autodesk\Revit\Addins\2019\RenumberParts.addin"; DestDir: "{userappdata}\Autodesk\Revit\Addins\2019\"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

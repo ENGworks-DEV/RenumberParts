@@ -22,7 +22,7 @@ namespace RenumberParts.Model
 
         public static void Graphics20192020(Document doc, ref OverrideGraphicSettings overrideGraphicSettings, byte r, byte g, byte b)
         {
-            #if REVIT2020 || REVIT2019
+#if REVIT2020
             var patternCollector = new FilteredElementCollector(doc);
             patternCollector.OfClass(typeof(FillPatternElement));
             FillPatternElement fpe = patternCollector.ToElements()
@@ -31,13 +31,12 @@ namespace RenumberParts.Model
             overrideGraphicSettings.SetSurfaceForegroundPatternVisible(true);
             overrideGraphicSettings.SetSurfaceForegroundPatternColor(new Autodesk.Revit.DB.Color(r, g, b));
             overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(r, g, b));
-            #else
-            #endif
+#endif    
         }
 
-        public static void Graphics20172018(Document doc, ref OverrideGraphicSettings overrideGraphicSettings, byte r, byte g, byte b)
+        public static void Graphics20172020(Document doc, ref OverrideGraphicSettings overrideGraphicSettings, byte r, byte g, byte b)
         {
-            #if REVIT2017 || REVIT2018
+#if REVIT2019
             var patternCollector = new FilteredElementCollector(doc);
             patternCollector.OfClass(typeof(FillPatternElement));
             FillPatternElement fpe = patternCollector.ToElements()
@@ -46,8 +45,7 @@ namespace RenumberParts.Model
             overrideGraphicSettings.SetProjectionFillPatternVisible(true);
             overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(r, g, b));
             overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(r, g, b));
-            #else
-            #endif
+#endif
         }
     }
 }

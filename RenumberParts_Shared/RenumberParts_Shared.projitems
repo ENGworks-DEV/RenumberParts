@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>773ca806-ba48-42fd-ba3e-b4f2b35a4808</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>RenumberParts_Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\RenumberMain.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ColorByPrefix.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\FabricationCategories.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\MEPCategories.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\OverrideElemtColor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ResetColors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ResetValues.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ShareParamCategories.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\CommonAssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ConfirmDelete.xaml.cs">
+      <DependentUpon>ConfirmDelete.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MainForm.xaml.cs">
+      <DependentUpon>MainForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Resources.xaml.cs">
+      <DependentUpon>Resources.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StyleableWindow\ControlDoubleClickBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StyleableWindow\ShowSystemMenuBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StyleableWindow\SystemMenuManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StyleableWindow\WindowDragBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StyleableWindow\WindowResizeBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SuffixContent.xaml.cs">
+      <DependentUpon>SuffixContent.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\Icon.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\WarningLogo.png" />
+    <Resource Include="$(MSBuildThisFileDirectory)Resources\winforms.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\RenumberPartsLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SP_RenumberParts.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\ConfirmDelete.xaml" />
+    <Page Include="$(MSBuildThisFileDirectory)Views\MainForm.xaml" />
+    <Page Include="$(MSBuildThisFileDirectory)Views\Resources.xaml" />
+    <Page Include="$(MSBuildThisFileDirectory)Views\SuffixContent.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)RenumberParts.addin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>

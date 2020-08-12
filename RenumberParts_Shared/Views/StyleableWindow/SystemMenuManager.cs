@@ -29,7 +29,7 @@ namespace WpfStyleableWindow.StyleableWindow
                 y = 0;
             }
 
-            uint WM_SYSCOMMAND = 0x112, TPM_LEFTALIGN = 0x0000, TPM_RETURNCMD = 0x0100;           
+            uint WM_SYSCOMMAND = 0, TPM_LEFTALIGN = 0x0000, TPM_RETURNCMD = 0x0100;           
 
             IntPtr window = new WindowInteropHelper(targetWindow).Handle;
 

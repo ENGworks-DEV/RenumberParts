@@ -54,7 +54,7 @@ namespace RenumberParts.Model
                     #if REVIT2020 || REVIT2019
                     OverrideElemtColor.Graphics20192020(tools.uidoc.Document, ref overrideGraphicSettings, colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B);
                     #else
-                    OverrideElemtColor.Graphics20172018(tools.uidoc.Document, ref overrideGraphicSettings, colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B);
+                    OverrideElemtColor.Graphics20172020(tools.uidoc.Document, ref overrideGraphicSettings, colorNPrefix[item.Value].R, colorNPrefix[item.Value].G, colorNPrefix[item.Value].B);
                     #endif
 
                     tools.doc.ActiveView.SetElementOverrides(item.Key.Id, overrideGraphicSettings);
