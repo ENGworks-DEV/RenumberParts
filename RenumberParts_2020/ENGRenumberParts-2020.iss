@@ -5,7 +5,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{B827E3D1-F82E-45B9-9352-53C8EF41399F}
+AppId={{73501E9E-A656-409C-9513-5AD783406A24}
 AppName=ENG RenumberParts 2020 Setup
 AppVersion=1.2.0.0
 
