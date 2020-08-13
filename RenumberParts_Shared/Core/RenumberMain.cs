@@ -373,7 +373,7 @@ namespace RenumberParts
                     ListOfElements.Add(element);
                     ActualCounter = partNumber;
                     uidoc.RefreshActiveView();
-                    uidoc.Selection.SetElementIds(new List<ElementId>() { element.Id });
+                    //uidoc.Selection.SetElementIds(new List<ElementId>() { element.Id });
                 }
                 catch (Exception ex) { MessageBox.Show(ex.Message); }
             }
@@ -383,7 +383,7 @@ namespace RenumberParts
                 Guid guid = new Guid("460e0a79-a970-4b03-95f1-ac395c070beb");
                 element.get_Parameter(guid).Set(partNumber);
                 ListOfElements.Add(element);
-                uidoc.Selection.SetElementIds(new List<ElementId>() { element.Id });
+                //uidoc.Selection.SetElementIds(new List<ElementId>() { element.Id });
             }
 
         }
