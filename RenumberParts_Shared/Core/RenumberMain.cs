@@ -191,6 +191,178 @@ namespace RenumberParts
 
         }
 
+        /// <summary>
+        /// Save an element on a temporary list and override its color
+        /// </summary>
+        public static void AddToSelection(ElementId ReferenceElem, List<Element> completeList)
+        {
+
+                foreach (Element elem in completeList)
+                {
+                selectedElements.Add(elem);
+                //Category cat = elem.Category;
+                //    BuiltInCategory enumCat = (BuiltInCategory)cat.Id.IntegerValue;
+
+                //    if (getNumber(elem) == "" && elem.get_Parameter(BuiltInParameter.FABRICATION_PART_DEPTH_IN) != null)
+                //    {
+
+
+                //        if (filterParam(ReferenceElem, elem, BuiltInParameter.ELEM_FAMILY_PARAM,
+                //            BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM, BuiltInParameter.FABRICATION_PART_DEPTH_IN,
+                //            BuiltInParameter.FABRICATION_PART_WIDTH_IN, BuiltInParameter.FABRICATION_SERVICE_PARAM,
+                //            BuiltInParameter.FABRICATION_PART_LENGTH))
+                //        {
+                //            selectedElements.Add(elem);
+                //        }
+                //    }
+
+                }
+                    selectedElements.Add(tools.doc.GetElement(ReferenceElem));
+
+            OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
+            System.Drawing.Color colorSelect = MainForm.ColorSelected;
+            byte r = colorSelect.R;
+            byte b = colorSelect.B;
+            byte g = colorSelect.G;
+            //overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(r, g, b));
+            overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(r, g, b));
+            foreach (Element x in tools.selectedElements)
+            {
+                tools.doc.ActiveView.SetElementOverrides(x.Id, overrideGraphicSettings);
+            }
+            //Category category = ReferenceElem.Category;
+            //BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;
+            //BuiltInCategory builtCategory = (BuiltInCategory)Enum.Parse(typeof(BuiltInCategory), ReferenceElem.Category.Id.ToString());
+
+            //foreach (Element elem in completeList)
+            //{
+            //    Category cat = elem.Category;
+            //    BuiltInCategory enumCat = (BuiltInCategory)cat.Id.IntegerValue;
+
+            //    if (//enumCat.ToString() == "OST_FabricationDuctwork"
+            //        &&
+            //        getNumber(elem) == "" && elem.get_Parameter(BuiltInParameter.FABRICATION_PART_DEPTH_IN) != null)
+            //    {
+
+
+            //        if (filterParam(ReferenceElem, elem, BuiltInParameter.ELEM_FAMILY_PARAM,
+            //            BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM, BuiltInParameter.FABRICATION_PART_DEPTH_IN,
+            //            BuiltInParameter.FABRICATION_PART_WIDTH_IN, BuiltInParameter.FABRICATION_SERVICE_PARAM,
+            //            BuiltInParameter.FABRICATION_PART_LENGTH))
+            //        {
+            //            selectedElements.Add(elem);
+            //        }
+            //    }
+            //    ListOfElements.Add(elem);
+
+            //}
+            //if (!selectedElements.Contains(ReferenceElem) && tools.getNumber(ReferenceElem) == "")
+            //{
+            //    selectedElements.Add(ReferenceElem);
+            //}
+
+
+            //OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
+            //System.Drawing.Color colorSelect = MainForm.ColorSelected;
+            //byte r = colorSelect.R;
+            //byte b = colorSelect.B;
+            //byte g = colorSelect.G;
+            ////overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(r, g, b));
+            //overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(r, g, b));
+            //foreach (Element x in tools.selectedElements)
+            //{
+            //    tools.doc.ActiveView.SetElementOverrides(x.Id, overrideGraphicSettings);
+            //}
+            //var element = ReferenceElem;
+
+
+            //selectedElements = completeList;
+
+            //TODO: check if element is from the right category
+            //OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
+            //Color colorSelect = MainForm.ColorSelected;
+
+            ////Split coloSelect in R,G,B to be transformed to a Revit color later
+            //byte r = colorSelect.R;
+            //byte g = colorSelect.G;
+            //byte b = colorSelect.B;
+
+
+#if REVIT2020
+                OverrideElemtColor.Graphics20192020(doc,ref overrideGraphicSettings, r, g, b);
+#elif REVIT2019
+            OverrideElemtColor.Graphics20172020(doc, ref overrideGraphicSettings, r, g, b);
+#endif
+
+
+            foreach (Element x in selectedElements)
+            {
+                //Override color of element
+                doc.ActiveView.SetElementOverrides(x.Id, overrideGraphicSettings);
+            }
+
+        }
+
+
+        public static bool filterParam(Element elementEx, Element elementExP, BuiltInParameter param01, BuiltInParameter param02,
+            BuiltInParameter param03, BuiltInParameter param04, BuiltInParameter param05, BuiltInParameter param06)
+        {
+            bool result = false;
+
+            string elemParam06 = "n";
+
+            string elemParam01 = elementEx.get_Parameter(param01).AsValueString();
+            string elemParam02 = elementEx.get_Parameter(param02).AsValueString();
+            string elemParam03 = elementEx.get_Parameter(param03).AsValueString();
+            string elemParam04 = elementEx.get_Parameter(param04).AsValueString();
+            string elemParam05 = elementEx.get_Parameter(param05).AsValueString();
+            try
+            {
+                elemParam06 = elementEx.get_Parameter(param06).AsValueString();
+            }
+            catch
+            {
+
+            }
+            string elemParam06P = "";
+
+            string elemParam01P = elementExP.get_Parameter(param01).AsValueString();
+            string elemParam02P = elementExP.get_Parameter(param02).AsValueString();
+            string elemParam03P = elementExP.get_Parameter(param03).AsValueString();
+            string elemParam04P = elementExP.get_Parameter(param04).AsValueString();
+            string elemParam05P = elementExP.get_Parameter(param05).AsValueString();
+            try
+            {
+                elemParam06P = elementExP.get_Parameter(param06).AsValueString();
+            }
+            catch
+            {
+
+            }
+
+
+            if (elemParam01 == elemParam01P)
+            {
+                if (elemParam02 == elemParam02P)
+                {
+                    if (elemParam03 == elemParam03P)
+                    {
+                        if (elemParam04 == elemParam04P)
+                        {
+                            if (elemParam05 == elemParam05P)
+                            {
+                                if (elemParam06 == elemParam06P)
+                                {
+                                    result = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
 
         public static void filterParam(Element elementEx, Autodesk.Revit.DB.BuiltInCategory Cat, BuiltInParameter param01, BuiltInParameter param02,
             BuiltInParameter param03, BuiltInParameter param04, BuiltInParameter param05)
@@ -539,6 +711,22 @@ namespace RenumberParts
 
             }
             else { return null; }
+        }
+
+        public static Element NewSelection()
+        {
+            tools.selectedElements.Clear();
+            tools.SelectionFilter filterS = new tools.SelectionFilter();
+            try
+            {
+                Reference refElement = tools.uidoc.Selection.PickObject(ObjectType.Element, new tools.SelectionFilter());
+                return tools.doc.GetElement(refElement);
+            }
+            catch
+            {
+                return null;
+            }
+
         }
     }
 }
