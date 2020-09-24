@@ -33,10 +33,5 @@ namespace RenumberParts
         {
             System.Diagnostics.Process.Start("https://engworks.com/renumber-parts/");
         }
-
-        private void PrefixBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            this.PrefixBox.Select(this.PrefixBox.Text.Length, 0);
-        }
     }
 }
