@@ -149,7 +149,7 @@ namespace RenumberParts
             selectedElements.Clear();
 
             var filterS = new SelectionFilter();
-            
+
             var refElement = uidoc.Selection.PickObject(Autodesk.Revit.UI.Selection.ObjectType.Element, new SelectionFilter());
 
             if (refElement != null)
@@ -169,17 +169,17 @@ namespace RenumberParts
                 byte b = colorSelect.B;
 
 
-                #if REVIT2020
+#if REVIT2020
                 OverrideElemtColor.Graphics20192020(doc,ref overrideGraphicSettings, r, g, b);
-                #elif REVIT2019
-                OverrideElemtColor.Graphics20172020(doc,ref overrideGraphicSettings, r, g, b);
-                #endif
+#elif REVIT2019
+                OverrideElemtColor.Graphics20172020(doc, ref overrideGraphicSettings, r, g, b);
+#endif
 
 
                 foreach (Element x in selectedElements)
-                { 
-                //Override color of element
-                doc.ActiveView.SetElementOverrides(x.Id, overrideGraphicSettings);
+                {
+                    //Override color of element
+                    doc.ActiveView.SetElementOverrides(x.Id, overrideGraphicSettings);
                 }
 
                 selectedElement = element;
@@ -197,27 +197,12 @@ namespace RenumberParts
         public static void AddToSelection(ElementId ReferenceElem, List<Element> completeList)
         {
 
-                foreach (Element elem in completeList)
-                {
+            foreach (Element elem in completeList)
+            {
                 selectedElements.Add(elem);
-                //Category cat = elem.Category;
-                //    BuiltInCategory enumCat = (BuiltInCategory)cat.Id.IntegerValue;
 
-                //    if (getNumber(elem) == "" && elem.get_Parameter(BuiltInParameter.FABRICATION_PART_DEPTH_IN) != null)
-                //    {
-
-
-                //        if (filterParam(ReferenceElem, elem, BuiltInParameter.ELEM_FAMILY_PARAM,
-                //            BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM, BuiltInParameter.FABRICATION_PART_DEPTH_IN,
-                //            BuiltInParameter.FABRICATION_PART_WIDTH_IN, BuiltInParameter.FABRICATION_SERVICE_PARAM,
-                //            BuiltInParameter.FABRICATION_PART_LENGTH))
-                //        {
-                //            selectedElements.Add(elem);
-                //        }
-                //    }
-
-                }
-                    selectedElements.Add(tools.doc.GetElement(ReferenceElem));
+            }
+            selectedElements.Add(tools.doc.GetElement(ReferenceElem));
 
             OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
             System.Drawing.Color colorSelect = MainForm.ColorSelected;
@@ -230,63 +215,6 @@ namespace RenumberParts
             {
                 tools.doc.ActiveView.SetElementOverrides(x.Id, overrideGraphicSettings);
             }
-            //Category category = ReferenceElem.Category;
-            //BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;
-            //BuiltInCategory builtCategory = (BuiltInCategory)Enum.Parse(typeof(BuiltInCategory), ReferenceElem.Category.Id.ToString());
-
-            //foreach (Element elem in completeList)
-            //{
-            //    Category cat = elem.Category;
-            //    BuiltInCategory enumCat = (BuiltInCategory)cat.Id.IntegerValue;
-
-            //    if (//enumCat.ToString() == "OST_FabricationDuctwork"
-            //        &&
-            //        getNumber(elem) == "" && elem.get_Parameter(BuiltInParameter.FABRICATION_PART_DEPTH_IN) != null)
-            //    {
-
-
-            //        if (filterParam(ReferenceElem, elem, BuiltInParameter.ELEM_FAMILY_PARAM,
-            //            BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM, BuiltInParameter.FABRICATION_PART_DEPTH_IN,
-            //            BuiltInParameter.FABRICATION_PART_WIDTH_IN, BuiltInParameter.FABRICATION_SERVICE_PARAM,
-            //            BuiltInParameter.FABRICATION_PART_LENGTH))
-            //        {
-            //            selectedElements.Add(elem);
-            //        }
-            //    }
-            //    ListOfElements.Add(elem);
-
-            //}
-            //if (!selectedElements.Contains(ReferenceElem) && tools.getNumber(ReferenceElem) == "")
-            //{
-            //    selectedElements.Add(ReferenceElem);
-            //}
-
-
-            //OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
-            //System.Drawing.Color colorSelect = MainForm.ColorSelected;
-            //byte r = colorSelect.R;
-            //byte b = colorSelect.B;
-            //byte g = colorSelect.G;
-            ////overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(r, g, b));
-            //overrideGraphicSettings.SetProjectionLineColor(new Autodesk.Revit.DB.Color(r, g, b));
-            //foreach (Element x in tools.selectedElements)
-            //{
-            //    tools.doc.ActiveView.SetElementOverrides(x.Id, overrideGraphicSettings);
-            //}
-            //var element = ReferenceElem;
-
-
-            //selectedElements = completeList;
-
-            //TODO: check if element is from the right category
-            //OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
-            //Color colorSelect = MainForm.ColorSelected;
-
-            ////Split coloSelect in R,G,B to be transformed to a Revit color later
-            //byte r = colorSelect.R;
-            //byte g = colorSelect.G;
-            //byte b = colorSelect.B;
-
 
 #if REVIT2020
                 OverrideElemtColor.Graphics20192020(doc,ref overrideGraphicSettings, r, g, b);
@@ -303,95 +231,6 @@ namespace RenumberParts
 
         }
 
-
-        public static bool filterParam(Element elementEx, Element elementExP, BuiltInParameter param01, BuiltInParameter param02,
-            BuiltInParameter param03, BuiltInParameter param04, BuiltInParameter param05, BuiltInParameter param06)
-        {
-            bool result = false;
-
-            string elemParam06 = "n";
-
-            string elemParam01 = elementEx.get_Parameter(param01).AsValueString();
-            string elemParam02 = elementEx.get_Parameter(param02).AsValueString();
-            string elemParam03 = elementEx.get_Parameter(param03).AsValueString();
-            string elemParam04 = elementEx.get_Parameter(param04).AsValueString();
-            string elemParam05 = elementEx.get_Parameter(param05).AsValueString();
-            try
-            {
-                elemParam06 = elementEx.get_Parameter(param06).AsValueString();
-            }
-            catch
-            {
-
-            }
-            string elemParam06P = "";
-
-            string elemParam01P = elementExP.get_Parameter(param01).AsValueString();
-            string elemParam02P = elementExP.get_Parameter(param02).AsValueString();
-            string elemParam03P = elementExP.get_Parameter(param03).AsValueString();
-            string elemParam04P = elementExP.get_Parameter(param04).AsValueString();
-            string elemParam05P = elementExP.get_Parameter(param05).AsValueString();
-            try
-            {
-                elemParam06P = elementExP.get_Parameter(param06).AsValueString();
-            }
-            catch
-            {
-
-            }
-
-
-            if (elemParam01 == elemParam01P)
-            {
-                if (elemParam02 == elemParam02P)
-                {
-                    if (elemParam03 == elemParam03P)
-                    {
-                        if (elemParam04 == elemParam04P)
-                        {
-                            if (elemParam05 == elemParam05P)
-                            {
-                                if (elemParam06 == elemParam06P)
-                                {
-                                    result = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public static void filterParam(Element elementEx, Autodesk.Revit.DB.BuiltInCategory Cat, BuiltInParameter param01, BuiltInParameter param02,
-            BuiltInParameter param03, BuiltInParameter param04, BuiltInParameter param05)
-        {
-            
-            string elemParam01 = elementEx.get_Parameter(param01).AsValueString();
-            string elemParam02 = elementEx.get_Parameter(param02).AsValueString();
-            string elemParam03 = elementEx.get_Parameter(param03).AsValueString();
-            string elemParam04 = elementEx.get_Parameter(param04).AsValueString();
-            string elemParam05 = elementEx.get_Parameter(param05).AsValueString();
-
-            FilteredElementCollector viewCollector = new FilteredElementCollector(doc, uidoc.ActiveView.Id);
-            List<Element> ducts = new FilteredElementCollector(doc, uidoc.ActiveView.Id)
-                .OfCategory(Cat)
-                .Where(a => a.get_Parameter(param01).AsValueString() == elemParam01)
-                .Where(a => a.get_Parameter(param02).AsValueString() == elemParam02)
-                .Where(a => a.get_Parameter(param03).AsValueString() == elemParam03)
-                .Where(a => a.get_Parameter(param04).AsValueString() == elemParam04)
-                .Where(a => a.get_Parameter(param05).AsValueString() == elemParam05)
-                .ToList();
-
-            foreach (Element x in ducts)
-            {
-                selectedElements.Add(x);
-                ListOfElements.Add(x);
-            }
-        }
-
-
         /// <summary>
         /// Get number from element as string
         /// </summary>
@@ -404,7 +243,7 @@ namespace RenumberParts
 
             Category category = element.Category;
             BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;
-            
+
             List<BuiltInCategory> allBuiltinCategories = FabCategories.listCat();
 
             if (allBuiltinCategories.Contains(enumCategory))
@@ -437,7 +276,7 @@ namespace RenumberParts
         /// <param name="number">Current number</param>
         /// <param name="chars">Amount of digits the number should have</param>
         /// <returns></returns>
-        public static string createNumbering(string prefix,string separator, int number, int chars)
+        public static string createNumbering(string prefix, string separator, int number, int chars)
         {
 
             var num = number.ToString().PadLeft(chars, '0');
@@ -451,7 +290,7 @@ namespace RenumberParts
 
         public class SelectionFilter : ISelectionFilter
         {
-#region ISelectionFilter Members
+            #region ISelectionFilter Members
 
             public bool AllowElement(Element elem)
             {
@@ -477,7 +316,7 @@ namespace RenumberParts
                 return false;
             }
 
-#endregion
+            #endregion
         }
 
 
@@ -486,7 +325,7 @@ namespace RenumberParts
         /// </summary>
         /// <param name="prefix"></param>
         /// <param name="number"></param>
-        public static void writeConfig(string prefix,string separator, string number)
+        public static void writeConfig(string prefix, string separator, string number)
         {
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\renumberConf";
@@ -534,7 +373,7 @@ namespace RenumberParts
         {
 
             Category category = element.Category;
-            BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;     
+            BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;
             List<BuiltInCategory> allBuiltinCategories = FabCategories.listCat();
 
             if (allBuiltinCategories.Contains(enumCategory))
@@ -560,7 +399,7 @@ namespace RenumberParts
 
         }
 
-      
+
         /// <summary>
         /// Adds 1 to all elements with the same prefix and bigger number than the one on selection
         /// </summary>
@@ -585,7 +424,7 @@ namespace RenumberParts
                 //Get all MEP elements in active view
                 var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(logicalOrFilter).WhereElementIsNotElementType();
 
-                
+
 
                 if (limit != null)
                 {
@@ -659,7 +498,7 @@ namespace RenumberParts
 
                                     if (limitNumber < currentNumber)
                                     {
-                                        var newnumber = createNumbering(itemNumber.Item1,MainForm.Separator, currentNumber - 1, itemNumber.Item2.Count());
+                                        var newnumber = createNumbering(itemNumber.Item1, MainForm.Separator, currentNumber - 1, itemNumber.Item2.Count());
 
                                         AssingPartNumber(item, newnumber);
 
@@ -680,7 +519,7 @@ namespace RenumberParts
                 MessageBox.Show("Please select an element");
             }
         }
-        
+
 
         /// <summary>
         /// Get number and prefix from string using the separator

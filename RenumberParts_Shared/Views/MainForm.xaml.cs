@@ -18,7 +18,7 @@ namespace RenumberParts
     /// </summary>
     public partial class MainForm : Window
     {
-        static List<ElementId>  elemIds = new List<ElementId>();
+        static List<ElementId> elemIds = new List<ElementId>();
 
         public static System.Drawing.Color ColorSelected;
         public System.Windows.Forms.ColorDialog colorDialog = new ColorDialog();
@@ -182,8 +182,6 @@ namespace RenumberParts
         /// <param name="e"></param>
         private void AutoButton_Click(object sender, RoutedEventArgs e)
         {
-
-            Connector CurrentConnector = null;
             List<Element> RunElements = new List<Element>();
             List<ElementId> RunElementsId = new List<ElementId>();
             this.Hide();
@@ -207,161 +205,17 @@ namespace RenumberParts
 
             elemIds.Add(elem.Id);
 
-            int countElem=getElementConected(ref elem);
+            int countElem = getElementConnected(ref elem);
             if (countElem > 1)
             {
                 elemIds.RemoveAt(elemIds.Count() - 1);
-                System.Windows.MessageBox.Show("The elements has more than one conection", "warning");
+                System.Windows.MessageBox.Show("The element has more than one connection path", "warning");
             }
 
-                while (countElem==1)
+            while (countElem == 1)
             {
-                countElem = getElementConected(ref elem);
+                countElem = getElementConnected(ref elem);
             }
-
-            //ConnectorSet connectors = this.getConnectorSetFromElement(elem);
-            //int connectCount = 0;
-
-
-            ////Get the numbers of connectors of the element
-            //foreach (Connector c in connectors)
-            //{
-            //    //Conector must be connected, must be a End conector and should have another element connected to it.
-            //    if (c.IsConnected && c.ConnectorType.ToString() != "Curve" && this.ConnectionCheck(c) != 0)
-            //    {
-            //        connectCount += 1;
-            //        CurrentConnector = c;
-            //    }
-            //}
-
-            ////Check if the element is isolated
-            //if (connectCount == 0)
-            //{
-            //    RunElements.Add(elem);
-            //    connectCount = 0;
-            //}
-
-            ////Check if the element has more than 2 connections
-            //if (connectCount >= 2)
-            //{
-            //    //check if the element is a false positive
-            //    this.CheckDoubleConn(ref connectCount, ref connectors, ref CurrentConnector);
-
-            //    if (connectCount >= 2)
-            //    {
-            //        System.Windows.MessageBox.Show("The elements is not an endpoint", "warning");
-            //        goto CloseApp;
-            //    }
-            //}
-
-            ////Check if the element has 1 connection
-            //if (connectCount == 1)
-            //{
-            //    int tempValue = 1;
-            //    ConnectorSet TempConnectors = null;
-            //    List<Connector> TempConnectorsList = new List<Connector>();
-            //    Element tempElem = elem;
-            //    int iterationsCount = 0;
-            //    TempConnectors = connectors;
-
-            //    while (tempValue == 1)
-            //    {
-            //        int countConnect = 0;
-
-            //        if (checkRoundDucts(RoundDuctsBool, tempElem))
-            //        {
-            //            RunElements.Add(tempElem);
-            //        }
-
-            //        RunElementsId.Add(tempElem.Id);
-
-            //        //Make sure that the elements are conected if connectors
-            //        //are geometrically aligned
-            //        foreach (Connector fcon in TempConnectors)
-            //        {
-            //            if (ConnectorsHelper.ConnStatus(fcon))
-            //            {
-            //                if (this.ConnectionCheck(fcon) != 0)
-            //                {
-            //                    countConnect++;
-            //                }
-            //            }
-            //        }
-
-            //        //Check if the element is a tee
-            //        if (ConnectorsHelper.TeeDetect(TempConnectors))
-            //        {
-            //            tempValue = 2;
-            //            goto EndLoop;
-            //        }
-
-            //        if (countConnect == 1 && iterationsCount != 0)
-            //        {
-            //            tempValue = 2;
-            //            goto EndLoop;
-            //        }
-            //        else
-            //        {
-            //            ConnectorSet secondary = CurrentConnector.AllRefs;
-            //            foreach (Connector cone in secondary)
-            //            {
-
-            //                if (!RunElementsId.Contains(cone.Owner.Id))
-            //                {
-            //                    //Check if the following element is connected from the side
-            //                    tempElem = this._doc.GetElement(cone.Owner.Id);
-
-            //                    Category cat = tempElem.Category;
-            //                    BuiltInCategory enumCat = (BuiltInCategory)cat.Id.IntegerValue;
-
-            //                    //if (enumCat.ToString() != "OST_FabricationDuctwork")
-            //                    //{
-            //                    //    tempValue = 2;
-            //                    //    goto EndLoop;
-            //                    //}
-
-            //                }
-            //            }
-
-
-
-            //            TempConnectors = this.getConnectorSetFromElement(tempElem);
-
-            //            foreach (Connector connec in TempConnectors)
-            //            {
-            //                //Check that the previous element is not connecting from side
-            //                if (!ConnectorsHelper.ConnStatus(connec))
-            //                {
-            //                    foreach (Connector con in connec.AllRefs)
-            //                    {
-            //                        if (RunElementsId.Contains(con.Owner.Id))
-            //                        {
-            //                            tempValue = 2;
-            //                            goto EndLoop;
-            //                        }
-            //                    }
-            //                }
-
-            //                //Get the next useful connector
-            //                if (ConnectorsHelper.ConnStatus(connec))
-            //                {
-            //                    foreach (Connector con in connec.AllRefs)
-            //                    {
-            //                        if (!RunElementsId.Contains(con.Owner.Id))
-            //                        {
-            //                            CurrentConnector = connec;
-            //                        }
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    EndLoop:
-            //        iterationsCount++;
-            //    }
-            //}
-
-
-            //List<string> listToStringComplete = this.listToString(RunElements);
 
             if (elemIds.Count != 0)
             {
@@ -447,15 +301,15 @@ namespace RenumberParts
                 if (categorias.Contains(enumCat.ToString()))
                 {
                     TempConnectors = this.getConnectorSetFromElement(tempElem);
-                foreach (Connector connec in TempConnectors)
-                {
-                    if (MainForm.CloseEnoughForMe(connec.Origin.X, con.Origin.X) &&
-                        MainForm.CloseEnoughForMe(connec.Origin.Y, con.Origin.Y) &&
-                        MainForm.CloseEnoughForMe(connec.Origin.Z, con.Origin.Z))
+                    foreach (Connector connec in TempConnectors)
                     {
-                        tempInt = 1;
+                        if (MainForm.CloseEnoughForMe(connec.Origin.X, con.Origin.X) &&
+                            MainForm.CloseEnoughForMe(connec.Origin.Y, con.Origin.Y) &&
+                            MainForm.CloseEnoughForMe(connec.Origin.Z, con.Origin.Z))
+                        {
+                            tempInt = 1;
+                        }
                     }
-                }
                 }
             }
 
@@ -589,7 +443,7 @@ namespace RenumberParts
             //}
 
             ConnectorSet tempConnectors = new ConnectorSet();
-            foreach(Connector con in connectors)
+            foreach (Connector con in connectors)
             {
                 if (!elemIds.Contains(con.Owner.Id))
                 {
@@ -609,9 +463,9 @@ namespace RenumberParts
         /// Get The connector set of an element
         /// </summary>
         /// <param name="elem"></param>
-        private int getElementConected(ref Element elem)
+        private int getElementConnected(ref Element elem)
         {
-            List<string> categorias = new List<string>(new string[] { "OST_CableTrayFitting", "OST_CableTray", "OST_ConduitFitting", "OST_Conduit", "OST_DuctFitting", "OST_DuctCurves", "OST_DuctAccessory", "OST_FabricationParts", "OST_FabricationPipework", "OST_FabricationHangers", "OST_PipeAccessory", "OST_PipeFitting", "OST_PipeCurves", "OST_FabricationDuctwork" });
+            List<string> categories = new List<string>(new string[] { "OST_CableTrayFitting", "OST_CableTray", "OST_ConduitFitting", "OST_Conduit", "OST_DuctFitting", "OST_DuctCurves", "OST_DuctAccessory", "OST_FabricationParts", "OST_FabricationPipework", "OST_FabricationHangers", "OST_PipeAccessory", "OST_PipeFitting", "OST_PipeCurves", "OST_FabricationDuctwork" });
             ConnectorSet connectors = null;
             int countElemToContinue = 0;
             //elemIds.Add(elem.Id);
@@ -658,16 +512,16 @@ namespace RenumberParts
                         Category cat = tempElem.Category;
                         BuiltInCategory enumCat = (BuiltInCategory)cat.Id.IntegerValue;
 
-                        if (categorias.Contains(enumCat.ToString()))
+                        if (categories.Contains(enumCat.ToString()))
                         {
 
                             if (con.Owner.Id != elem.Id && string.IsNullOrEmpty(tempElem.LookupParameter("Item Number").AsString()))
-                            { 
-                                if(countElemToContinue==0)
+                            {
+                                if (countElemToContinue == 0)
                                     elemIds.Add(con.Owner.Id);
                                 else
                                    if (countElemToContinue == 1)
-                                    elemIds.RemoveAt(elemIds.Count()-1);
+                                    elemIds.RemoveAt(elemIds.Count() - 1);
 
                                 countElemToContinue++;
                                 tempConnectors.Insert(con);
@@ -750,7 +604,6 @@ namespace RenumberParts
                     DisplaceUp.Commit();
                 }
 
-
             }
             catch
             {
@@ -773,6 +626,23 @@ namespace RenumberParts
             confirmDeleteForm.ShowDialog();
         }
 
+        /// <summary>
+        /// Show Color dialog and set selected color to variable
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            ColorForm colorForm = new ColorForm();
+            this.Hide();
+            colorForm.ShowDialog();
+            if ((bool)colorForm.DialogResult.Value)
+            {
+                ColorSelected = colorForm.colorSelected;
+                this.ShowDialog();
+            }
+            ColorSelected = colorDialog.Color;
+        }
 
         /// <summary>
         /// Show Color dialog and set selected color to variable
@@ -784,18 +654,6 @@ namespace RenumberParts
 
             colorDialog.ShowDialog();
             ColorSelected = colorDialog.Color;
-        }
-
-
-
-        /// <summary>
-        /// Colorize all elements in view grouping them by its prefix
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ColorByPrefix_Click(object sender, RoutedEventArgs e)
-        {
-            ColorByPrfx.ColorInView();
         }
 
         public void SeparatorBox_TextChanged(object sender, TextChangedEventArgs e)

@@ -10,6 +10,7 @@ using System.Windows.Input;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using RenumberParts.Model;
+using Xceed.Wpf.Toolkit;
 
 namespace RenumberParts
 {
@@ -18,6 +19,22 @@ namespace RenumberParts
     /// </summary>
     public partial class ColorForm : Window
     {
+        public System.Drawing.Color colorSelected;
+        public ColorForm()
+        {
+             
+        }
+
+        /// <summary>
+        /// Colorize all elements in view grouping them by its prefix
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ColorByPrefix_Click(object sender, RoutedEventArgs e)
+        {
+            ColorByPrfx.ColorInView();
+        }
+
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
@@ -25,6 +42,7 @@ namespace RenumberParts
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
+            DialogResult = true;
             this.Close();
         }
 

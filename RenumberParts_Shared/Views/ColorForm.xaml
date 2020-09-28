@@ -1,8 +1,9 @@
-﻿<Window x:Class="RenumberParts.MainForm"
+﻿<Window x:Class="RenumberParts.ColorForm"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:sw="clr-namespace:WpfStyleableWindow.StyleableWindow"      
              xmlns:local="clr-namespace:RenumberParts"
         mc:Ignorable="d" Height="385.667" Width="280" MinHeight="442" MinWidth="280"  MaxHeight="430" MaxWidth="280" WindowStartupLocation="CenterScreen"
@@ -12,59 +13,22 @@
         Style="{DynamicResource CustomWindowStyle}"
         WindowStyle="None"  >
 
-
-    <Window.InputBindings>
-        <KeyBinding Key="A" Modifiers="Control" Command="SelectAll" />
-    </Window.InputBindings>
-
-    <Window.CommandBindings>
-        <CommandBinding Command="SelectAll" Executed="ManualButton_Click" />
-    </Window.CommandBindings>
-
-    <Border Background="White" BorderBrush="Transparent" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5" Margin="15,-20,15,23" MouseDown="Border_MouseDown">
+    <Border Background="White" BorderBrush="Transparent" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5" Margin="10" MouseDown="Border_MouseDown">
         <Border.Effect>
             <DropShadowEffect BlurRadius="20" Color="Gray" Opacity="0.3" ShadowDepth="0" Direction="0"></DropShadowEffect>
         </Border.Effect>
 
 
-        <Grid Margin="9,9,11,-1" Background="Transparent" Height="399" VerticalAlignment="Top">
+        <Grid Margin="9,0,11,9" Background="Transparent" Height="402" VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
                 <RowDefinition Height="337*"/>
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
-
-            <!--Title Bar elements-->
-            <Button Style="{DynamicResource CloseButtonStyle}" Name="TtitleButton" Foreground="Black" BorderThickness="0" Click="Title_Link" Background="Transparent" VerticalAlignment="Top" Height="24" FontSize="20" FontWeight="Bold" Margin="17,7,98,0">RENUMBER</Button>
-            <Button Style="{DynamicResource CloseButtonStyle}" Name="CloseButton" Foreground="Black" BorderThickness="0" Click="Close_Click" Background="Transparent" VerticalAlignment="Top" Height="21" FontSize="16" FontWeight="Bold" Margin="191,10,17,0">X</Button>
-            <Label Style="{DynamicResource Labels}" Content="{Binding Path=ProjectVersion}" Margin="21,31,0,0" Height="15" VerticalAlignment="Top" FontFamily="Roboto" HorizontalAlignment="Left" Width="44" RenderTransformOrigin="0.776,0.792" />
-
-
             <!--Main Form elements-->
-            <Button Style="{DynamicResource SecondaryButtonStyle}"  Content="..." Margin="0,126,19,0" Click="Button_Click_2" VerticalAlignment="Top" ToolTip="Select default color" HorizontalAlignment="Right" Width="18" Height="18"/>
-            <Button Style="{DynamicResource MainButtonStyle}" x:Name="ManualButton" Content="MANUAL" Margin="19,197,124,0" Click="ManualButton_Click" ToolTip="Add element to selection, use ctrl + A to select multiple" VerticalAlignment="Top"/>
-            <Button Style="{DynamicResource SecondaryButtonStyle}" x:Name="ResetColor" Content="COLOR" Margin="19,346,0,0" Click="Button_Click" ToolTip="Reset Elements color" VerticalAlignment="Top" HorizontalAlignment="Left" Width="85"/>
-            <Button Style="{DynamicResource SecondaryButtonStyle}" Content="VALUES" Margin="0,346,19,0" Width="77" Click="Button_Click_1" ToolTip="Reset Elements values" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-            <Button Style="{DynamicResource SecondaryButtonStyle}" Click="DiplaceUp_Click" x:Name="DiplaceUp" Content="UP" Margin="19,276,0,0" RenderTransformOrigin="0.44,0.595" ToolTip="Displace all elements numbers up" VerticalAlignment="Top" HorizontalAlignment="Left" Width="85"/>
-            <Button Style="{DynamicResource SecondaryButtonStyle}" Click="DiplaceDn_Click"  x:Name="DisplaceDN" Content="DOWN" Margin="0,276,19,0" IsCancel="True" IsDefault="True" RenderTransformOrigin="0.477,0.461" ToolTip="Displace all elements numbers down" VerticalAlignment="Top" HorizontalAlignment="Right" Width="77"/>
-            <Button Style="{DynamicResource MainButtonStyle}" x:Name="ColorByPrefix" Content="COLOR BY PREFIX" Margin="21,123,17,-154" VerticalAlignment="Top" Click="ColorByPrefix_Click" ToolTip="Elements will be colorized by its prefix" Grid.Row="1"/>
-            <TextBox Style="{DynamicResource MainTextBox}"  x:Name="PrefixBox" Margin="19,81,0,0" TextWrapping="Wrap" Text="ABCDEFGHIJK" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="77" TextChanged="PrefixBox_TextChanged"/>
-            <TextBox Style="{DynamicResource MainTextBox}" x:Name="NumberBox"  TextChanged="textChangedEventHandler" Margin="0,81,19,0" TextWrapping="Wrap" Text="000" Height="30" VerticalAlignment="Top" BorderThickness="0.6" HorizontalAlignment="Right" Width="58" />
-            <TextBox Style="{DynamicResource MainTextBox}" x:Name="SeparatorBox" Height="30" Margin="107,81,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" MaxLength="1" TextChanged="SeparatorBox_TextChanged" BorderThickness="0.6" HorizontalAlignment="Left" Width="35"/>
-
-            <Label Style="{DynamicResource Labels}" Content="Number" Margin="151,57,28,0" Height="24" VerticalAlignment="Top"/>
-            <Label Style="{DynamicResource Labels}" Content="Displace values"  Margin="19,237,0,0" Width="98" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-            <Label Style="{DynamicResource Labels}" Content="Reset"  Margin="18,315,0,0" Width="44" Background="White" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="14" Foreground="LightGray"/>
-            <Label Style="{DynamicResource Labels}" Content="Prefix" Margin="19,57,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="38"/>
-            <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Top" Fill="Gray" Height="1" Margin="122,252,19,0" Opacity="0.2"/>
-            <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Top" Fill="Gray" Height="1" Margin="67,323,19,0" Opacity="0.2"/>
-            <Label Style="{DynamicResource Labels}" Content="Sep" Margin="107,57,0,0" Height="24" VerticalAlignment="Top" FontFamily="Roboto" HorizontalAlignment="Left" Width="30"/>
-            <Button Style="{DynamicResource MainButtonStyle}" x:Name="AutoButton" Content="AUTO" Margin="124,197,19,0" Click="AutoButton_Click" ToolTip="Add element to selection, use ctrl + A to select multiple" VerticalAlignment="Top"/>
-            <Label Style="{DynamicResource Labels}" Content="COLOR NUMBERED" Margin="19,121,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="123"/>
-            <Label Style="{DynamicResource Labels}" Content="Setup"  Margin="19,38,0,0" Width="38" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-            <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Top" Fill="Gray" Height="1" Margin="67,53,19,0" Opacity="0.2"/>
-            <Button Style="{DynamicResource MainButtonStyle}" x:Name="ManualButton_Copy" Content="COLOR" Margin="19,122,19,0" Click="ManualButton_Click" ToolTip="Add element to selection, use ctrl + A to select multiple" VerticalAlignment="Top"/>
-            <Label Style="{DynamicResource Labels}" Content="Process"  Margin="18,172,0,0" Width="54" Background="White" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="14" Foreground="LightGray"/>
-            <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Top" Fill="Gray" Height="1" Margin="86,180,19,0" Opacity="0.2"/>
+            <CheckBox Content="..." Margin="0,28,19,0" VerticalAlignment="Top" ToolTip="Select default color" HorizontalAlignment="Right" Width="18" Height="18"/>
+            <Label Style="{DynamicResource Labels}" Content="Use Color" Margin="19,23,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="68"/>
+            <xctk:ColorPicker Name="ClrPcker_Selector" Height="27" DisplayColorAndName="True" VerticalAlignment="Top" Margin="10,69,10,0"/>
+            <Button Style="{DynamicResource MainButtonStyle}" x:Name="ColorByPrefix" Content="COLOR BY PREFIX" Margin="19,113,19,0" VerticalAlignment="Top" Click="ColorByPrefix_Click" ToolTip="Elements will be colorized by its prefix"/>
 
         </Grid>
 
@@ -73,8 +37,55 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <ControlTemplate  x:Key="SecondaryButtonStyleTemplate" TargetType="{x:Type Button}">
+                <Border x:Name="border" 
+                    CornerRadius="3" 
+                    BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                    <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsDefaulted" Value="True"/>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" TargetName="border" Value="LightGray"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" TargetName="border" Value="Gray"/>
+
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <Style x:Key="SecondaryButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Template" Value="{StaticResource SecondaryButtonStyleTemplate}"/>
+                <Setter Property="FontFamily" Value="Roboto"/>
+                <Setter Property="FontSize" Value="14px"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0.55"/>
+                <Setter Property="BorderBrush" Value="Gray"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="ToolTipService.ShowDuration" Value="2000"/>
+                <Setter Property="ToolTipService.InitialShowDelay" Value="1500"/>
+                <Setter Property="Height"  Value="28"/>
+            </Style>
+            <ControlTemplate  x:Key="LabelsTemplate" TargetType="{x:Type Label}">
+
+                <Border>
+                    <ContentPresenter HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        RecognizesAccessKey="True" />
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsEnabled"
+                        Value="true"/>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <Style x:Key="Labels" TargetType="{x:Type Label}">
+                <Setter Property="Template" Value="{StaticResource LabelsTemplate}"/>
+                <Setter Property="FontFamily" Value="Roboto"/>
+                <Setter Property="FontSize" Value="14px"/>
+                <Setter Property="Foreground" Value="LightGray"/>
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
 
