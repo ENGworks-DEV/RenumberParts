@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\RenumberMain.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ColorByPrefix.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Connectors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\FabricationCategories.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\MEPCategories.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\OverrideElemtColor.cs" />
@@ -19,6 +20,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\ResetValues.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ShareParamCategories.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\CommonAssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ColorForm.xaml.cs">
+      <DependentUpon>ColorForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ConfirmDelete.xaml.cs">
       <DependentUpon>ConfirmDelete.xaml</DependentUpon>
     </Compile>
@@ -51,6 +55,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\ColorForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\ConfirmDelete.xaml" />
     <Page Include="$(MSBuildThisFileDirectory)Views\MainForm.xaml" />
     <Page Include="$(MSBuildThisFileDirectory)Views\Resources.xaml" />

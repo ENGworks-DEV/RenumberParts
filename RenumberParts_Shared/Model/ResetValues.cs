@@ -26,13 +26,12 @@ namespace RenumberParts.Model
                 string blankPrtnmbr = "";
                 foreach (var item in collector.ToElements())
                 {
-                    item.get_Parameter(guid).Set(blankPrtnmbr);
-                    Category category = item.Category;
-                    BuiltInCategory enumCategory = (BuiltInCategory)category.Id.IntegerValue;
-                    if (allBuiltinCategories.Contains(enumCategory))
+                    Parameter param= item.get_Parameter(guid);
+                    if (param is null)
                     {
-                        item.get_Parameter(BuiltInParameter.FABRICATION_PART_ITEM_NUMBER).Set(blankPrtnmbr);
+                        param = item.get_Parameter(BuiltInParameter.FABRICATION_PART_ITEM_NUMBER);
                     }
+                    param.Set(blankPrtnmbr);
                 }
 
                 ResetView.Commit();

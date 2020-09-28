@@ -40,7 +40,7 @@ namespace RenumberParts.Model
             var patternCollector = new FilteredElementCollector(doc);
             patternCollector.OfClass(typeof(FillPatternElement));
             FillPatternElement fpe = patternCollector.ToElements()
-                .Cast<FillPatternElement>().First(x => x.GetFillPattern().Name == "Solid fill");
+                .Cast<FillPatternElement>().First(x => x.GetFillPattern().Name.Contains("Solid fill"));
             overrideGraphicSettings.SetProjectionFillPatternId(fpe.Id);
             overrideGraphicSettings.SetProjectionFillPatternVisible(true);
             overrideGraphicSettings.SetProjectionFillColor(new Autodesk.Revit.DB.Color(r, g, b));

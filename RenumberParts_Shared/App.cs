@@ -103,7 +103,7 @@ namespace RenumberParts
             }
 
             //Create an instance of the MainForm.xaml
-            var mainForm = new MainForm();
+            var mainForm = new MainForm(commandData);
             Process process = Process.GetCurrentProcess();
 
             var h = process.MainWindowHandle;
