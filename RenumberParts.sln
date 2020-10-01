@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenumberParts_2018", "Renum
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenumberParts_2019", "RenumberParts_2019\RenumberParts_2019.csproj", "{378DD64F-C035-4C7B-B1F0-7D88F238E35E}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "RenumberParts.Installer", "RenumberParts.Installer\RenumberParts.Installer.vdproj", "{33F46AA0-60D1-42F5-B553-D9BC6DA5C216}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		RenumberParts_Shared\RenumberParts_Shared.projitems*{128840d8-e09d-414c-a208-0200bfc01cb1}*SharedItemsImports = 4
@@ -35,6 +37,8 @@ Global
 		{378DD64F-C035-4C7B-B1F0-7D88F238E35E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{378DD64F-C035-4C7B-B1F0-7D88F238E35E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{378DD64F-C035-4C7B-B1F0-7D88F238E35E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33F46AA0-60D1-42F5-B553-D9BC6DA5C216}.Debug|Any CPU.ActiveCfg = Debug
+		{33F46AA0-60D1-42F5-B553-D9BC6DA5C216}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
