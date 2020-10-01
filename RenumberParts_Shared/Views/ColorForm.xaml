@@ -3,11 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:sw="clr-namespace:WpfStyleableWindow.StyleableWindow"      
-             xmlns:local="clr-namespace:RenumberParts"
-        mc:Ignorable="d" Height="385.667" Width="280" MinHeight="442" MinWidth="280"  MaxHeight="430" MaxWidth="280" WindowStartupLocation="CenterScreen"
-
+             xmlns:local="clr-namespace:RenumberParts" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d" Height="500" Width="300" MinHeight="500" MinWidth="300"  MaxHeight="500" MaxWidth="300" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" 
         Title="RENUMBER PARTS" 
         Style="{DynamicResource CustomWindowStyle}"
@@ -19,17 +17,20 @@
         </Border.Effect>
 
 
-        <Grid Margin="9,0,11,9" Background="Transparent" Height="402" VerticalAlignment="Bottom">
+        <Grid Margin="9,0,9,9" Background="Transparent" Height="460" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="337*"/>
+                <RowDefinition Height="460*"/>
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
             <!--Main Form elements-->
-            <CheckBox Content="..." Margin="0,28,19,0" VerticalAlignment="Top" ToolTip="Select default color" HorizontalAlignment="Right" Width="18" Height="18"/>
+            <Button Style="{DynamicResource CloseButtonStyle}" Name="CloseButton" Foreground="Black" BorderThickness="0" Click="Close_Click" Background="Transparent" VerticalAlignment="Top" Height="21" FontSize="16" FontWeight="Bold" Margin="110,1,5,0" Grid.Column="1">X</Button>
+            <CheckBox x:Name="chkColor" Click="chkColor_Checked"  Margin="0,28,5,0" VerticalAlignment="Top" ToolTip="Select default color" HorizontalAlignment="Right" Width="18" Height="18" Grid.Column="1"/>
             <Label Style="{DynamicResource Labels}" Content="Use Color" Margin="19,23,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="68"/>
-            <xctk:ColorPicker Name="ClrPcker_Selector" Height="27" DisplayColorAndName="True" VerticalAlignment="Top" Margin="10,69,10,0"/>
-            <Button Style="{DynamicResource MainButtonStyle}" x:Name="ColorByPrefix" Content="COLOR BY PREFIX" Margin="19,113,19,0" VerticalAlignment="Top" Click="ColorByPrefix_Click" ToolTip="Elements will be colorized by its prefix"/>
-
+            <xctk:ColorPicker x:Name="ClrPcker" Margin="0,52,0,367" DisplayColorAndName="false" ShowTabHeaders="False" ColorMode="ColorPalette" IsEnabled="False" Grid.ColumnSpan="2"></xctk:ColorPicker>
         </Grid>
 
     </Border>

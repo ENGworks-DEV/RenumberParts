@@ -40,8 +40,6 @@
 
 
             <!--Main Form elements-->
-            <Label Style="{DynamicResource Labels}" Content="Select Color" Margin="19,135,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="77"/>
-            <Button Style="{DynamicResource MainButtonStyle}" Content="" Margin="0,135,19,0" Click="Button_Click_2" VerticalAlignment="Top" ToolTip="Select default color" HorizontalAlignment="Right" Width="27" Height="24"/>
             <Button Style="{DynamicResource MainButtonStyle}" x:Name="ManualButton" Content="MANUAL" Margin="19,206,124,0" Click="ManualButton_Click" ToolTip="Add element to selection, use ctrl + A to select multiple" VerticalAlignment="Top"/>
             <Button Style="{DynamicResource SecondaryButtonStyle}" x:Name="ResetColor" Content="COLOR" Margin="19,346,0,0" Click="Button_Click" ToolTip="Reset Elements color" VerticalAlignment="Top" HorizontalAlignment="Left" Width="85"/>
             <Button Style="{DynamicResource SecondaryButtonStyle}" Content="VALUES" Margin="0,346,19,0" Width="77" Click="Button_Click_1" ToolTip="Reset Elements values" VerticalAlignment="Top" HorizontalAlignment="Right"/>
@@ -61,7 +59,7 @@
             <Button Style="{DynamicResource MainButtonStyle}" x:Name="AutoButton" Content="AUTO" Margin="124,206,19,0" Click="AutoButton_Click" ToolTip="Add element to selection, use ctrl + A to select multiple" VerticalAlignment="Top"/>
             <Label Style="{DynamicResource Labels}" Content="Setup"  Margin="19,46,0,0" Width="38" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left"/>
             <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Top" Fill="Gray" Height="1" Margin="67,61,19,0" Opacity="0.2"/>
-            <Button Style="{DynamicResource MainButtonStyle}" x:Name="ColorButton" Content="COLOR" Margin="19,128,19,0" Click="ColorButton_Click" Visibility="Hidden" ToolTip="Add element to selection, use ctrl + A to select multiple" VerticalAlignment="Top"/>
+            <Button Style="{DynamicResource MainButtonStyle}" x:Name="ColorButton" Content="COLOR" Margin="19,128,19,0" Click="ColorButton_Click" ToolTip="Add element to selection, use ctrl + A to select multiple" VerticalAlignment="Top"/>
             <Label Style="{DynamicResource Labels}" Content="Process"  Margin="18,181,0,0" Width="54" Background="White" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="14" Foreground="LightGray"/>
             <Rectangle  HorizontalAlignment="Stretch"  VerticalAlignment="Top" Fill="Gray" Height="1" Margin="86,189,19,0" Opacity="0.2"/>
 
