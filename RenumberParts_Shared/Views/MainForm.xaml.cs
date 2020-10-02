@@ -31,6 +31,8 @@ namespace RenumberParts
 
         public UIApplication uiApp;
 
+        ColorForm colorForm = new ColorForm();
+
         public MainForm(ExternalCommandData cmddata_p)
         {
 
@@ -633,12 +635,13 @@ namespace RenumberParts
         /// <param name="e"></param>
         private void ColorButton_Click(object sender, RoutedEventArgs e)
         {
-            ColorForm colorForm = new ColorForm();
+            ColorForm.colorSelected = System.Windows.Media.Color.FromArgb(ColorSelected.A, ColorSelected.R, ColorSelected.G, ColorSelected.B);
             this.Hide();
+            colorForm = new ColorForm();
             colorForm.ShowDialog();
             if ((bool)colorForm.DialogResult.Value)
             {
-                ColorSelected = colorForm.colorSelected;
+                ColorSelected = System.Drawing.Color.FromArgb(ColorForm.colorSelected.A, ColorForm.colorSelected.R, ColorForm.colorSelected.G, ColorForm.colorSelected.B);
                 this.ShowDialog();
             }
             ColorSelected = colorDialog.Color;

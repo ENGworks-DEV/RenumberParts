@@ -19,10 +19,13 @@ namespace RenumberParts
     /// </summary>
     public partial class ColorForm : Window
     {
-        public System.Drawing.Color colorSelected;
+        public static System.Windows.Media.Color colorSelected;
+        public static bool check;
         public ColorForm()
         {
-             
+            InitializeComponent();
+            chkColor.IsChecked = check;
+            ClrPcker.IsOpen = check;
         }
 
         /// <summary>
@@ -34,7 +37,6 @@ namespace RenumberParts
         {
             ColorByPrfx.ColorInView();
         }
-
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
@@ -42,11 +44,27 @@ namespace RenumberParts
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
+            if (this.chkColor.IsChecked.HasValue && this.chkColor.IsChecked.Value)
+            {
+                if (ClrPcker.SelectedColor.HasValue)
+                {
+                    colorSelected = ClrPcker.SelectedColor.Value;
+                }
+            }
             DialogResult = true;
-            this.Close();
+            this.Hide();
         }
 
-
+        private void chkColor_Checked(object sender, EventArgs e)
+        {
+            check=chkColor.IsChecked.Value;
+            ClrPcker.IsEnabled = check;
+            ClrPcker.IsOpen = check;
+            if (!check)
+            {
+                colorSelected=System.Windows.Media.Color.FromArgb(1, 255, 0, 0);
+            }
+        }
         private void Title_Link(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://engworks.com/renumber-parts/");
