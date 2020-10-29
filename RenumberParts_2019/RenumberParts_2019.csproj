@@ -42,23 +42,29 @@
   <ItemGroup>
     <Reference Include="AdWindows, Version=2017.11.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Revit.2019.Assemblies.1.0.0\lib\AdWindows.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="RevitAPI, Version=19.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\Revit.2019.Assemblies.1.0.0\lib\RevitAPI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIIFC, Version=19.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\Revit.2019.Assemblies.1.0.0\lib\RevitAPIIFC.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIMacros, Version=19.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\Revit.2019.Assemblies.1.0.0\lib\RevitAPIMacros.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUI, Version=19.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\Revit.2019.Assemblies.1.0.0\lib\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUIMacros, Version=19.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\Revit.2019.Assemblies.1.0.0\lib\RevitAPIUIMacros.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
