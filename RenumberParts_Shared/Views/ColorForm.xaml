@@ -32,6 +32,7 @@
             <Label Style="{DynamicResource Labels}" Content="Use Color" Margin="19,23,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="68"/>
             <xctk:ColorPicker x:Name="ClrPcker" Margin="0,52,0,367" DisplayColorAndName="false" ShowTabHeaders="False" ColorMode="ColorPalette" IsEnabled="False" Grid.ColumnSpan="2"></xctk:ColorPicker>
             <Button Style="{DynamicResource MainButtonStyle}" x:Name="OkButton" Content="OK" Margin="10,393,10,0" Click="OkButton_Click" ToolTip="Add element to selection, use ctrl + A to select multiple" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+
         </Grid>
 
     </Border>

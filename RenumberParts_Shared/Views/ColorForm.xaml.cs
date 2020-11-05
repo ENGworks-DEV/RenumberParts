@@ -55,6 +55,7 @@ namespace RenumberParts
             this.Hide();
         }
 
+
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.chkColor.IsChecked.HasValue && this.chkColor.IsChecked.Value)
@@ -67,6 +68,7 @@ namespace RenumberParts
             DialogResult = true;
             this.Hide();
         }
+
 
         private void chkColor_Checked(object sender, EventArgs e)
         {
