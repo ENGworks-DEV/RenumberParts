@@ -31,6 +31,8 @@
             <CheckBox x:Name="chkColor" Click="chkColor_Checked"  Margin="0,28,5,0" VerticalAlignment="Top" ToolTip="Select default color" HorizontalAlignment="Right" Width="18" Height="18" Grid.Column="1"/>
             <Label Style="{DynamicResource Labels}" Content="Use Color" Margin="19,23,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="68"/>
             <xctk:ColorPicker x:Name="ClrPcker" Margin="0,52,0,367" DisplayColorAndName="false" ShowTabHeaders="False" ColorMode="ColorPalette" IsEnabled="False" Grid.ColumnSpan="2"></xctk:ColorPicker>
+            <Button Style="{DynamicResource MainButtonStyle}" x:Name="OkButton" Content="OK" Margin="10,393,10,0" Click="OkButton_Click" ToolTip="Add element to selection, use ctrl + A to select multiple" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+
         </Grid>
 
     </Border>
@@ -86,6 +88,41 @@
                 <Setter Property="FontFamily" Value="Roboto"/>
                 <Setter Property="FontSize" Value="14px"/>
                 <Setter Property="Foreground" Value="LightGray"/>
+            </Style>
+            <ControlTemplate  x:Key="MainButtonStyleTemplate" TargetType="{x:Type Button}">
+                <Border x:Name="border" 
+                    CornerRadius="3" 
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                    <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsDefaulted" Value="True"/>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Opacity"  TargetName="border" Value="0.5"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Opacity"  TargetName="border" Value="0.2"/>
+
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <SolidColorBrush x:Key="WindowButtonColor" Color="#0B94D6"/>
+            <Style x:Key="MainButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Template" Value="{StaticResource MainButtonStyleTemplate}"/>
+                <Setter Property="FontFamily" Value="Roboto"/>
+                <Setter Property="FontSize" Value="14px"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Background" Value="{StaticResource WindowButtonColor}"/>
+                <Setter Property="ToolTipService.ShowDuration" Value="2000"/>
+                <Setter Property="ToolTipService.InitialShowDelay" Value="1500"/>
+                <Setter Property="Height"  Value="38"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="Black" Direction="320" ShadowDepth="3.6" BlurRadius="3" Opacity="0.25" />
+                    </Setter.Value>
+                </Setter>
             </Style>
         </ResourceDictionary>
     </Window.Resources>
