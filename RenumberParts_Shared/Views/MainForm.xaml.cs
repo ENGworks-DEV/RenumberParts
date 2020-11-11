@@ -99,7 +99,7 @@ namespace RenumberParts
         /// <param name="e"></param>
         private void ColorOverride_Button(object sender, RoutedEventArgs e)
         {
-            ConfirmDelete confirmDeleteForm = new ConfirmDelete("Are you sure you want to reset &#xD;&#xA;all color override?");
+            ConfirmDelete confirmDeleteForm = new ConfirmDelete("Are you sure you want to reset" + Environment.NewLine + "all color override?");
             confirmDeleteForm.Topmost = true;
             confirmDeleteForm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             var result = confirmDeleteForm.ShowDialog();
@@ -631,7 +631,7 @@ namespace RenumberParts
         /// <param name="e"></param>
         private void ResetValues_Button(object sender, RoutedEventArgs e)
         {
-            ConfirmDelete confirmDeleteForm = new ConfirmDelete("Are you sure you want to delete &#xD;&#xA;all values?");
+            ConfirmDelete confirmDeleteForm = new ConfirmDelete("Are you sure you want to delete" + Environment.NewLine + "all values?");
             confirmDeleteForm.Topmost = true;
             confirmDeleteForm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             var result = confirmDeleteForm.ShowDialog();
