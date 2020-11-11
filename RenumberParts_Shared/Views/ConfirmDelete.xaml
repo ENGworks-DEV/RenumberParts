@@ -13,8 +13,9 @@
         <Grid Margin="-1" Background="Transparent">
 
             <Button Style="{DynamicResource SecondaryButtonStyle}" Margin="21,82,0,0" x:Name="Button1" Content="Yes" HorizontalAlignment="Left" Width="80" Click="Button1_Click" Height="23" VerticalAlignment="Top"/>
-            <Label Style="{DynamicResource LabelsTitle}" Content="Are you sure you want to delete &#xD;&#xA;all values?" HorizontalAlignment="Left" Margin="17,23,0,0" VerticalAlignment="Top" Width="191" HorizontalContentAlignment="Center"/>
+
             <Button Style="{DynamicResource SecondaryButtonStyle}" Content="No" IsCancel="True" Margin="122,82,0,0" VerticalAlignment="Top" Width="80" Height="23" Click="Button_Click" HorizontalAlignment="Left"/>
+            <TextBlock Name="Message" HorizontalAlignment="Left" Margin="21,20,0,0" TextWrapping="WrapWithOverflow" Text="fddfdfdf" VerticalAlignment="Top" Height="47" Width="181" Foreground="#FF060606"/>
         </Grid>
     </Border>
     <Window.Resources>

@@ -21,9 +21,11 @@ namespace RenumberParts
         static List<ElementId> elemIds = new List<ElementId>();
 
         public static System.Drawing.Color ColorSelected;
-        public System.Windows.Forms.ColorDialog colorDialog = new ColorDialog();
-
+        public ColorDialog colorDialog = new ColorDialog();
+        private bool checkBoxDuplicates;
         public bool RoundDuctsBool = true;
+
+        public bool SnglElmtButton { get; private set; }
 
         private ExternalCommandData p_commanddata;
 
@@ -36,15 +38,15 @@ namespace RenumberParts
         public MainForm(ExternalCommandData cmddata_p)
         {
 
-            this.DataContext = this;
+            DataContext = this;
             InitializeComponent();
             var conf = tools.readConfig();
-            this.DataContext = this;
-            this.p_commanddata = cmddata_p;
-            this.InitializeComponent();
-            this.uiApp = cmddata_p.Application;
-            UIDocument uiDoc = this.uiApp.ActiveUIDocument;
-            this._doc = uiDoc.Document;
+            DataContext = this;
+            p_commanddata = cmddata_p;
+            InitializeComponent();
+            uiApp = cmddata_p.Application;
+            UIDocument uiDoc = uiApp.ActiveUIDocument;
+            _doc = uiDoc.Document;
 
             //Set as default red color
             ColorSelected = System.Drawing.Color.FromArgb(1, 255, 0, 0);
@@ -52,9 +54,9 @@ namespace RenumberParts
 
             if (conf != null && conf.Count == 3)
             {
-                this.PrefixBox.Text = conf[0];
-                this.SeparatorBox.Text = conf[1];
-                this.NumberBox.Text = conf[2];
+                PrefixBox.Text = conf[0];
+                SeparatorBox.Text = conf[1];
+                NumberBox.Text = conf[2];
             }
         }
 
@@ -71,9 +73,9 @@ namespace RenumberParts
         /// <param name="args"></param>
         private void textChangedEventHandler(object sender, TextChangedEventArgs args)
         {
-            this.NumberBox.Select(this.NumberBox.Text.Length, 0);
+            NumberBox.Select(NumberBox.Text.Length, 0);
             int c;
-            bool isNumeric = int.TryParse(this.NumberBox.Text, out c);
+            bool isNumeric = int.TryParse(NumberBox.Text, out c);
 
             if (isNumeric)
             {
@@ -95,10 +97,17 @@ namespace RenumberParts
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ColorOverride_Button(object sender, RoutedEventArgs e)
         {
-            ResetColors.reset();
+            ConfirmDelete confirmDeleteForm = new ConfirmDelete("Are you sure you want to reset &#xD;&#xA;all color override?");
+            confirmDeleteForm.Topmost = true;
+            confirmDeleteForm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            var result = confirmDeleteForm.ShowDialog();
 
+            if ((bool)result)
+            {
+                ResetColors.reset();
+            }
         }
 
 
@@ -115,31 +124,31 @@ namespace RenumberParts
 
             System.Drawing.Color color = ColorSelected;
 
-            this.Hide();
+            Hide();
             int c;
-            bool isNumeric = int.TryParse(this.NumberBox.Text, out c);
+            bool isNumeric = int.TryParse(NumberBox.Text, out c);
 
             if (isNumeric)
             {
-                if (tools.count < int.Parse(this.NumberBox.Text))
+                if (tools.count < int.Parse(NumberBox.Text))
                 {
                     tools.count = c;
                 }
 
                 try
                 {
-                    using (Autodesk.Revit.DB.Transaction AssingPartNumberT = new Autodesk.Revit.DB.Transaction(tools.uidoc.Document, "Assing Part Number"))
+                    using (Transaction AssingPartNumberT = new Transaction(tools.uidoc.Document, "Assing Part Number"))
                     {
                         AssingPartNumberT.Start();
 
-                        tools.AddToSelection();
+                        tools.AddToSelection(checkBoxDuplicates);
 
-                        var partNumber = tools.createNumbering(this.PrefixBox.Text, this.SeparatorBox.Text, tools.count, this.NumberBox.Text.Length);
+                        var partNumber = tools.createNumbering(PrefixBox.Text, SeparatorBox.Text, tools.count, NumberBox.Text.Length);
 
 
                         //tools.AssingPartNumber(tools.selectedElement, partNumber);
 
-                        foreach (Autodesk.Revit.DB.Element x in tools.selectedElements)
+                        foreach (Element x in tools.selectedElements)
                         {
                             tools.AssingPartNumber(x, partNumber);
                         }
@@ -148,10 +157,10 @@ namespace RenumberParts
                         tools.count += 1;
                         //count 5, pad left
 
-                        int leadingZeros = NumberBox.Text.Length > 1 ? this.NumberBox.Text.Length - tools.count.ToString().Length : 0;
-                        this.NumberBox.Text = (new string('0', leadingZeros)) + tools.count.ToString();
+                        int leadingZeros = NumberBox.Text.Length > 1 ? NumberBox.Text.Length - tools.count.ToString().Length : 0;
+                        NumberBox.Text = (new string('0', leadingZeros)) + tools.count.ToString();
 
-                        tools.writeConfig(this.PrefixBox.Text, this.SeparatorBox.Text, this.NumberBox.Text);
+                        tools.writeConfig(PrefixBox.Text, SeparatorBox.Text, NumberBox.Text);
 
                         AssingPartNumberT.Commit();
 
@@ -174,7 +183,7 @@ namespace RenumberParts
                 //MessageBox.Show("Number field should contain only numbers");
             }
 
-            this.ShowDialog();
+            ShowDialog();
         }
 
         /// <summary>
@@ -186,7 +195,7 @@ namespace RenumberParts
         {
             List<Element> RunElements = new List<Element>();
             List<ElementId> RunElementsId = new List<ElementId>();
-            this.Hide();
+            Hide();
             Element elem;
 
 
@@ -233,7 +242,7 @@ namespace RenumberParts
                         tools.AddToSelection(elmnt, RunElements);
 
                         //Generate the part number
-                        string partNumber = tools.createNumbering(this.PrefixBox.Text, this.SeparatorBox.Text, tools.count, this.NumberBox.Text.Length);
+                        string partNumber = tools.createNumbering(PrefixBox.Text, SeparatorBox.Text, tools.count, NumberBox.Text.Length);
 
                         //Assign the part number to each selected element
                         foreach (Element x in tools.selectedElements)
@@ -247,26 +256,26 @@ namespace RenumberParts
                             tools.count++;
                         }
 
-                        int leadingZeros = (this.NumberBox.Text.Length > 1) ? (this.NumberBox.Text.Length - tools.count.ToString().Length) : 0;
+                        int leadingZeros = (NumberBox.Text.Length > 1) ? (NumberBox.Text.Length - tools.count.ToString().Length) : 0;
 
                         if (leadingZeros >= 0)
                         {
-                            this.NumberBox.Text = new string('0', leadingZeros) + tools.count.ToString();
+                            NumberBox.Text = new string('0', leadingZeros) + tools.count.ToString();
                         }
                         else
                         {
-                            this.NumberBox.Text = tools.count.ToString();
+                            NumberBox.Text = tools.count.ToString();
                         }
 
-                        tools.writeConfig(this.PrefixBox.Text, this.SeparatorBox.Text, this.NumberBox.Text);
-                        Options options = this.uiApp.Application.Create.NewGeometryOptions();
+                        tools.writeConfig(PrefixBox.Text, SeparatorBox.Text, NumberBox.Text);
+                        Options options = uiApp.Application.Create.NewGeometryOptions();
                         AssingPartNumberT2.Commit();
                     }
                 }
             }
 
         CloseApp:;
-            this.ShowDialog();
+            ShowDialog();
 
         }
 
@@ -296,13 +305,13 @@ namespace RenumberParts
 
             foreach (Connector f in secondary)
             {
-                Element tempElem = this._doc.GetElement(f.Owner.Id);
+                Element tempElem = _doc.GetElement(f.Owner.Id);
                 Category cat = tempElem.Category;
                 BuiltInCategory enumCat = (BuiltInCategory)cat.Id.IntegerValue;
 
                 if (categorias.Contains(enumCat.ToString()))
                 {
-                    TempConnectors = this.getConnectorSetFromElement(tempElem);
+                    TempConnectors = getConnectorSetFromElement(tempElem);
                     foreach (Connector connec in TempConnectors)
                     {
                         if (MainForm.CloseEnoughForMe(connec.Origin.X, con.Origin.X) &&
@@ -358,13 +367,13 @@ namespace RenumberParts
 
             foreach (ElementId elemId in adjacentElement)
             {
-                Element elem = this._doc.GetElement(elemId);
+                Element elem = _doc.GetElement(elemId);
 
                 if (string.IsNullOrEmpty(elem.LookupParameter("Item Number").AsValueString()))
                 {
                     foreach (Connector c3 in connectorList)
                     {
-                        if (this.isAdjacentValidElmt(elem, c3))
+                        if (isAdjacentValidElmt(elem, c3))
                         {
                             count++;
                             tempConnector = c3;
@@ -389,7 +398,7 @@ namespace RenumberParts
         {
             bool validation = false;
             List<string> originConnectors = new List<string>();
-            ConnectorSet TempConnectors = this.getConnectorSetFromElement(elm);
+            ConnectorSet TempConnectors = getConnectorSetFromElement(elm);
             foreach (Connector connec in TempConnectors)
             {
                 if (connec.IsConnected && connec.ConnectorType.ToString() != "Curve")
@@ -450,7 +459,7 @@ namespace RenumberParts
                 if (!elemIds.Contains(con.Owner.Id))
                 {
                     elemIds.Add(con.Owner.Id);
-                    Element tempElem = this._doc.GetElement(con.Owner.Id);
+                    Element tempElem = _doc.GetElement(con.Owner.Id);
 
                     if (string.IsNullOrEmpty(tempElem.LookupParameter("Item Number").AsString()))
                     {
@@ -510,7 +519,7 @@ namespace RenumberParts
                 {
                     if (!elemIds.Contains(con.Owner.Id))
                     {
-                        Element tempElem = this._doc.GetElement(con.Owner.Id);
+                        Element tempElem = _doc.GetElement(con.Owner.Id);
                         Category cat = tempElem.Category;
                         BuiltInCategory enumCat = (BuiltInCategory)cat.Id.IntegerValue;
 
@@ -569,13 +578,13 @@ namespace RenumberParts
         /// <param name="e"></param>
         private void DiplaceUp_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            Hide();
             try
             {
-                using (Autodesk.Revit.DB.Transaction DisplaceUp = new Autodesk.Revit.DB.Transaction(tools.uidoc.Document, "Displace Up Part Number"))
+                using (Transaction DisplaceUp = new Transaction(tools.uidoc.Document, "Displace Up Part Number"))
                 {
                     DisplaceUp.Start();
-                    tools.SetElementsUpStream();
+                    tools.SetElementsUpStream(checkBoxDuplicates);
                     DisplaceUp.Commit();
                 }
             }
@@ -584,7 +593,7 @@ namespace RenumberParts
 
             }
 
-            this.ShowDialog();
+            ShowDialog();
         }
 
 
@@ -596,13 +605,13 @@ namespace RenumberParts
         /// <param name="e"></param>
         private void DiplaceDn_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            Hide();
             try
             {
-                using (Autodesk.Revit.DB.Transaction DisplaceUp = new Autodesk.Revit.DB.Transaction(tools.uidoc.Document, "Displace Up Part Number"))
+                using (Transaction DisplaceUp = new Transaction(tools.uidoc.Document, "Displace Up Part Number"))
                 {
                     DisplaceUp.Start();
-                    tools.SetElementsDnStream();
+                    tools.SetElementsDnStream(checkBoxDuplicates);
                     DisplaceUp.Commit();
                 }
 
@@ -611,7 +620,7 @@ namespace RenumberParts
             {
 
             }
-            this.ShowDialog();
+            ShowDialog();
         }
 
 
@@ -620,12 +629,18 @@ namespace RenumberParts
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ResetValues_Button(object sender, RoutedEventArgs e)
         {
-            ConfirmDelete confirmDeleteForm = new ConfirmDelete();
+            ConfirmDelete confirmDeleteForm = new ConfirmDelete("Are you sure you want to delete &#xD;&#xA;all values?");
             confirmDeleteForm.Topmost = true;
             confirmDeleteForm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            confirmDeleteForm.ShowDialog();
+            var result = confirmDeleteForm.ShowDialog();
+
+            if ((bool)result)
+            {
+                ResetValues.reset();
+            }
+
         }
 
         /// <summary>
@@ -636,44 +651,32 @@ namespace RenumberParts
         private void ColorButton_Click(object sender, RoutedEventArgs e)
         {
             ColorForm.colorSelected = System.Windows.Media.Color.FromArgb(ColorSelected.A, ColorSelected.R, ColorSelected.G, ColorSelected.B);
-            this.Hide();
+            Hide();
             colorForm = new ColorForm();
             colorForm.ShowDialog();
             if ((bool)colorForm.DialogResult.Value)
             {
                 ColorSelected = System.Drawing.Color.FromArgb(ColorForm.colorSelected.A, ColorForm.colorSelected.R, ColorForm.colorSelected.G, ColorForm.colorSelected.B);
-                this.ShowDialog();
+                ShowDialog();
             }
-            ColorSelected = colorDialog.Color;
-        }
-
-        /// <summary>
-        /// Show Color dialog and set selected color to variable
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-
-            colorDialog.ShowDialog();
             ColorSelected = colorDialog.Color;
         }
 
         public void SeparatorBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            this.SeparatorBox.Select(this.SeparatorBox.Text.Length, 0);
-            Separator = this.SeparatorBox.Text;
+            SeparatorBox.Select(SeparatorBox.Text.Length, 0);
+            Separator = SeparatorBox.Text;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
 
         {
-            this.DragMove();
+            DragMove();
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
 
@@ -684,7 +687,24 @@ namespace RenumberParts
 
         private void PrefixBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            this.PrefixBox.Select(this.PrefixBox.Text.Length, 0);
+            PrefixBox.Select(PrefixBox.Text.Length, 0);
+        }
+
+        /// <summary>
+        /// Button close form when clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            MainFormSettings SettingsForm = new MainFormSettings(p_commanddata);
+            SettingsForm.Topmost = true;
+            SettingsForm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            SettingsForm.ShowDialog();
+
+            checkBoxDuplicates = SettingsForm.checkBoxDuplicates.IsChecked.Value;
+            //RoundDuctsBool = SettingsForm.Round_Ducts.IsChecked.Value;
+            //SnglElmtButton = SettingsForm.SnglElmtButton.IsChecked.Value;
         }
     }
 }

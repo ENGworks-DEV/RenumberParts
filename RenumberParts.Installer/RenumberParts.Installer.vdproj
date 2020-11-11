@@ -705,7 +705,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -736,7 +736,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -767,7 +767,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -798,7 +798,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -829,7 +829,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -860,7 +860,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -953,7 +953,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -984,7 +984,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -1097,7 +1097,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -1179,7 +1179,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -1241,7 +1241,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -1303,7 +1303,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -1385,7 +1385,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -1447,7 +1447,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -1478,7 +1478,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -1648,15 +1648,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RenumberParts"
-        "ProductCode" = "8:{EB1CE612-E79A-41B9-A7AA-AEF41F1F6A82}"
-        "PackageCode" = "8:{9E5C53AA-D484-4879-AAEF-2DA40A70CE5D}"
+        "ProductCode" = "8:{197C5759-243F-464A-9D6F-BC596FA86D16}"
+        "PackageCode" = "8:{E73F3B11-C027-4A7E-BED8-FBC823711441}"
         "UpgradeCode" = "8:{9F3F7F42-70FB-41D8-AB64-3B21871E85E9}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.3.0"
+        "ProductVersion" = "8:1.4.0"
         "Manufacturer" = "8:Default Company Name"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -2198,7 +2198,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_14FF71F0721042A998F4A311B3F07ED7"
             {
-            "SourcePath" = "8:..\\RenumberParts_2018\\obj\\Release\\RenumberParts.dll"
+            "SourcePath" = "8:..\\RenumberParts_2018\\obj\\Debug\\RenumberParts.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_9BB4164EF94D4790A5FE1503171C198D"
@@ -2226,7 +2226,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1A548E3EEB88427490FC4BEB91CDAAD2"
             {
-            "SourcePath" = "8:..\\RenumberParts_2020\\obj\\Release\\RenumberParts.dll"
+            "SourcePath" = "8:..\\RenumberParts_2020\\obj\\Debug\\RenumberParts.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_31DABA7DAB0F4CDC93C797C6BD9D4956"
@@ -2310,7 +2310,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_EE3634DE793A42818D1964A05CF5F066"
             {
-            "SourcePath" = "8:..\\RenumberParts_2019\\obj\\Release\\RenumberParts.dll"
+            "SourcePath" = "8:..\\RenumberParts_2019\\obj\\Debug\\RenumberParts.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_C795510564C14A3599C6D708CA643912"
