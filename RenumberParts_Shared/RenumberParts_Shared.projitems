@@ -32,6 +32,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Resources.xaml.cs">
       <DependentUpon>Resources.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\StyleableWindow\ControlDoubleClickBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\StyleableWindow\ShowSystemMenuBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\StyleableWindow\SystemMenuManager.cs" />
@@ -62,6 +65,10 @@
     <Page Include="$(MSBuildThisFileDirectory)Views\ConfirmDelete.xaml" />
     <Page Include="$(MSBuildThisFileDirectory)Views\MainForm.xaml" />
     <Page Include="$(MSBuildThisFileDirectory)Views\Resources.xaml" />
+    <Page Include="$(MSBuildThisFileDirectory)Views\Settings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\SuffixContent.xaml" />
   </ItemGroup>
   <ItemGroup>

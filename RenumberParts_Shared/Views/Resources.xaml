@@ -254,6 +254,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+   
+
     <!--Customization of SecondaryButtons template-->
     <Style x:Key="SecondaryButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Template" Value="{StaticResource SecondaryButtonStyleTemplate}"/>
@@ -520,33 +522,7 @@
     </Style>
 
 
-    <!--MainButtons Custom template-->
-    <ControlTemplate  x:Key="SettingsButtonStyleTemplate" TargetType="Button">
-        <Border x:Name="border" 
-                    CornerRadius="3" 
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-            <Grid>
-                <Image
-                                            x:Name="buttonImage"
-                                            Source="Resources/Settings.png"
-                                            Stretch="UniformToFill" />
-                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </Grid>
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsDefaulted" Value="True">
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Opacity"  TargetName="border" Value="0.5"/>
-                <Setter TargetName="buttonImage" Property="Source" Value="Resources/Settings.png" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Opacity"  TargetName="border" Value="0.2"/>
-
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
+    
 
 
     <!--Customization of MainButtons template-->

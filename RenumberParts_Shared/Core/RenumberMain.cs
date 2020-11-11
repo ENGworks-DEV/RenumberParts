@@ -1,19 +1,14 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using RenumberParts.Model;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
-using System.Drawing;
 using Color = System.Drawing.Color;
-using System.Timers;
-using RenumberParts.Model;
 
 namespace RenumberParts
 {
@@ -144,19 +139,22 @@ namespace RenumberParts
         /// <summary>
         /// Save an element on a temporary list and override its color
         /// </summary>
-        public static void AddToSelection()
+        public static void AddToSelection(bool duplicated)
         {
             selectedElements.Clear();
 
             var filterS = new SelectionFilter();
 
-            var refElement = uidoc.Selection.PickObject(Autodesk.Revit.UI.Selection.ObjectType.Element, new SelectionFilter());
+            var refElement = uidoc.Selection.PickObject(ObjectType.Element, new SelectionFilter());
 
             if (refElement != null)
             {
                 var element = uidoc.Document.GetElement(refElement);
 
-
+                if (duplicated)
+                {
+                    selectedElements.AddRange(GetallElementsDuplicated(element));
+                }
                 selectedElements.Add(element);
 
                 //TODO: check if element is from the right category
@@ -169,11 +167,11 @@ namespace RenumberParts
                 byte b = colorSelect.B;
 
 
-#if REVIT2020
+                #if REVIT2020
                 OverrideElemtColor.Graphics20192020(doc,ref overrideGraphicSettings, r, g, b);
-#elif REVIT2019
+                #elif REVIT2019
                 OverrideElemtColor.Graphics20172020(doc, ref overrideGraphicSettings, r, g, b);
-#endif
+                #endif
 
 
                 foreach (Element x in selectedElements)
@@ -189,6 +187,181 @@ namespace RenumberParts
 
             }
 
+        }
+
+        private static List<Element> GetallElementsDuplicated(Element element)
+        {
+            var collector = new FilteredElementCollector(doc, doc.ActiveView.Id).OfCategoryId(element.Category.Id)
+                .WhereElementIsNotElementType()
+                .ToElements();
+
+            var r = new List<Element>();
+            switch (element.Category.Id.IntegerValue)
+            {
+
+                case (int)BuiltInCategory.OST_FabricationDuctwork:
+                    r = collector.Where(x => CheckFabDuctEquality(element, x)).ToList();
+                    break;
+                case (int)BuiltInCategory.OST_FabricationPipework:
+                    r = collector.Where(x => CheckFabPipeEquality(element, x)).ToList();
+                    break;
+                case (int)BuiltInCategory.OST_DuctCurves:
+                    r = collector.Where(x => CheckDuctEquality(element, x)).ToList();
+                    break;
+                case (int)BuiltInCategory.OST_PipeCurves:
+                    r = collector.Where(x => CheckPipesEquality(element, x)).ToList();
+                    break;
+                case (int)BuiltInCategory.OST_Conduit:
+                    r = collector.Where(x => CheckConduitEquality(element, x)).ToList();
+                    break;
+                case (int)BuiltInCategory.OST_CableTray:
+                    r = collector.Where(x => CheckCableTrayEquality(element, x)).ToList();
+                    break;
+                default:
+                    break;
+            }
+
+            return r;
+        }
+
+        private static bool CheckCableTrayEquality(Element element, Element x)
+        {
+            bool fam = element.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString()
+                == x.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString();
+
+            bool system = false;
+            if (element.get_Parameter(BuiltInParameter.RBS_CTC_SERVICE_TYPE) != null &&
+                x.get_Parameter(BuiltInParameter.RBS_CTC_SERVICE_TYPE) != null)
+            {
+                system = element.get_Parameter(BuiltInParameter.RBS_CTC_SERVICE_TYPE).AsValueString()
+                    == x.get_Parameter(BuiltInParameter.RBS_CTC_SERVICE_TYPE).AsValueString();
+            }
+
+            bool size = element.get_Parameter(BuiltInParameter.RBS_CALCULATED_SIZE).AsValueString()
+                == x.get_Parameter(BuiltInParameter.RBS_CALCULATED_SIZE).AsValueString();
+
+            bool length = element.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH).AsValueString()
+                == x.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH).AsValueString();
+
+            return (fam && system && size && length);
+        }
+
+        private static bool CheckConduitEquality(Element element, Element x)
+        {
+            bool fam = element.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString()
+                == x.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString();
+
+            bool system = false;
+            if (element.get_Parameter(BuiltInParameter.RBS_CTC_SERVICE_TYPE) != null &&
+                x.get_Parameter(BuiltInParameter.RBS_CTC_SERVICE_TYPE) != null)
+            {
+                system = element.get_Parameter(BuiltInParameter.RBS_CTC_SERVICE_TYPE).AsValueString()
+                    == x.get_Parameter(BuiltInParameter.RBS_CTC_SERVICE_TYPE).AsValueString();
+            }
+
+            bool size = element.get_Parameter(BuiltInParameter.RBS_CALCULATED_SIZE).AsValueString()
+                == x.get_Parameter(BuiltInParameter.RBS_CALCULATED_SIZE).AsValueString();
+
+            bool length = element.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH).AsValueString()
+                == x.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH).AsValueString();
+
+            return (fam && system && size && length);
+        }
+
+        private static bool CheckDuctEquality(Element element, Element x)
+        {
+            bool fam = element.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString()
+                == x.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString();
+
+            bool system = false;
+            if (element.get_Parameter(BuiltInParameter.RBS_DUCT_SYSTEM_TYPE_PARAM) != null &&
+                x.get_Parameter(BuiltInParameter.RBS_DUCT_SYSTEM_TYPE_PARAM) != null)
+            {
+                system = element.get_Parameter(BuiltInParameter.RBS_DUCT_SYSTEM_TYPE_PARAM).AsValueString()
+                    == x.get_Parameter(BuiltInParameter.RBS_DUCT_SYSTEM_TYPE_PARAM).AsValueString();
+            }
+
+            bool size = element.get_Parameter(BuiltInParameter.RBS_CALCULATED_SIZE).AsValueString()
+                == x.get_Parameter(BuiltInParameter.RBS_CALCULATED_SIZE).AsValueString();
+
+            bool length = element.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH).AsValueString()
+                == x.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH).AsValueString();
+
+            return (fam && system && size && length);
+        }
+
+        private static bool CheckPipesEquality(Element element, Element x)
+        {
+            bool fam = element.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString()
+                == x.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString();
+
+            bool system = false;
+            if (element.get_Parameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM) != null &&
+                x.get_Parameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM) != null)
+            {
+                system = element.get_Parameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM).AsValueString()
+                    == x.get_Parameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM).AsValueString();
+            }
+
+            bool size = element.get_Parameter(BuiltInParameter.RBS_CALCULATED_SIZE).AsValueString()
+                == x.get_Parameter(BuiltInParameter.RBS_CALCULATED_SIZE).AsValueString();
+
+            bool length = element.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH).AsValueString()
+                == x.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH).AsValueString();
+
+            return (fam && system && size && length);
+        }
+
+        private static bool CheckFabDuctEquality(Element element, Element x)
+        {
+
+            bool fam = element.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString() 
+                == x.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString();
+
+            bool system = false;
+            if (element.get_Parameter(BuiltInParameter.FABRICATION_SERVICE_PARAM) != null &&
+                x.get_Parameter(BuiltInParameter.FABRICATION_SERVICE_PARAM) != null)
+            {
+                system = element.get_Parameter(BuiltInParameter.FABRICATION_SERVICE_PARAM).AsValueString() 
+                    == x.get_Parameter(BuiltInParameter.FABRICATION_SERVICE_PARAM).AsValueString();
+            }
+            
+            bool depth = element.get_Parameter(BuiltInParameter.FABRICATION_PART_DEPTH_IN).AsValueString() 
+                == x.get_Parameter(BuiltInParameter.FABRICATION_PART_DEPTH_IN).AsValueString();
+
+            bool width = element.get_Parameter(BuiltInParameter.FABRICATION_PART_WIDTH_IN).AsValueString() 
+                == x.get_Parameter(BuiltInParameter.FABRICATION_PART_WIDTH_IN).AsValueString();
+
+            bool length = element.get_Parameter(BuiltInParameter.FABRICATION_PART_LENGTH).AsValueString() 
+                == x.get_Parameter(BuiltInParameter.FABRICATION_PART_LENGTH).AsValueString();
+
+            return (fam && system && depth && width && length);
+        }
+
+        private static bool CheckFabPipeEquality(Element element, Element x)
+        {
+
+            bool fam = element.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString()
+                == x.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM).AsValueString();
+
+            bool system = false;
+            if (element.get_Parameter(BuiltInParameter.FABRICATION_SERVICE_PARAM) != null &&
+                x.get_Parameter(BuiltInParameter.FABRICATION_SERVICE_PARAM) != null)
+            {
+                system = element.get_Parameter(BuiltInParameter.FABRICATION_SERVICE_PARAM).AsValueString()
+                    == x.get_Parameter(BuiltInParameter.FABRICATION_SERVICE_PARAM).AsValueString();
+            }
+
+            bool diamenter = element.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_IN).AsValueString()
+                == x.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_IN).AsValueString();
+
+            bool diameterOut = element.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_OUT).AsValueString()
+                == x.get_Parameter(BuiltInParameter.FABRICATION_PART_DIAMETER_OUT).AsValueString();
+
+            bool length = element.get_Parameter(BuiltInParameter.FABRICATION_PART_LENGTH).AsValueString()
+                == x.get_Parameter(BuiltInParameter.FABRICATION_PART_LENGTH).AsValueString();
+
+            return (fam && system && diamenter && diameterOut && length);
         }
 
         /// <summary>
@@ -216,11 +389,11 @@ namespace RenumberParts
                 tools.doc.ActiveView.SetElementOverrides(x.Id, overrideGraphicSettings);
             }
 
-#if REVIT2020
+            #if REVIT2020
                 OverrideElemtColor.Graphics20192020(doc,ref overrideGraphicSettings, r, g, b);
-#elif REVIT2019
+            #elif REVIT2019
             OverrideElemtColor.Graphics20172020(doc, ref overrideGraphicSettings, r, g, b);
-#endif
+            #endif
 
 
             foreach (Element x in selectedElements)
@@ -294,6 +467,7 @@ namespace RenumberParts
 
             public bool AllowElement(Element elem)
             {
+                if (elem.Category == null) return false;
                 if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_FabricationDuctwork) return true;
                 if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_FabricationPipework) return true;
                 if (elem.Category.Id.IntegerValue == (int)BuiltInCategory.OST_FabricationContainment) return true;
@@ -403,10 +577,10 @@ namespace RenumberParts
         /// <summary>
         /// Adds 1 to all elements with the same prefix and bigger number than the one on selection
         /// </summary>
-        public static void SetElementsUpStream()
+        public static void SetElementsUpStream(bool duplicated)
         {
 
-            tools.AddToSelection();
+            tools.AddToSelection(duplicated);
             if (tools.selectedElement != null)
             {
                 //Get the selected element
@@ -469,9 +643,9 @@ namespace RenumberParts
         /// <summary>
         /// Subtract 1 to all elements with the same prefix and bigger number than the one on selection
         /// </summary>
-        internal static void SetElementsDnStream()
+        internal static void SetElementsDnStream(bool duplicated)
         {
-            tools.AddToSelection();
+            tools.AddToSelection(duplicated);
             if (tools.selectedElement != null)
             {
                 Element element = tools.selectedElement;

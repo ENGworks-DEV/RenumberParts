@@ -22,21 +22,23 @@ namespace RenumberParts
     /// </summary>
     public partial class ConfirmDelete : Window
     {
-        public ConfirmDelete()
+        public ConfirmDelete(string message)
         {
             InitializeComponent();
+            this.Message.Text = message;
         }
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
             //If yes reset all values and close form
-            ResetValues.reset();
+            this.DialogResult = true;
             this.Close();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //If no just close the form
+            this.DialogResult = false;
             this.Close();
         }
 

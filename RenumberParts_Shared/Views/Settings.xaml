@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="RenumberParts.MainFormSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Name="MainWindow"
+        Height="235.839" Width="280" 
+        MinHeight="280" MinWidth="280" 
+        MaxHeight="400" MaxWidth="280" 
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize"
+        Style="{DynamicResource CustomWindowStyle}" 
+        WindowStyle="None"  >
+
+
+
+    <Border Background="White" BorderBrush="Transparent" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5" Margin="15,-13,15,89">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="20" Color="Gray" Opacity="0.3" ShadowDepth="0" Direction="0"></DropShadowEffect>
+        </Border.Effect>
+
+        <Grid Margin="9,9,11,0" Background="Transparent" Height="154" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0*" />
+                <ColumnDefinition Width="33*" />
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="151*" />
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+
+            <!--Title Bar elements-->
+            <TextBlock x:Name="TextTitle" Grid.Column="1" HorizontalAlignment="Left" Margin="7,12,0,0" TextWrapping="Wrap" Text="Number Ducts" Width="126" FontFamily="Roboto Bold" FontSize="18" Focusable="False" AllowDrop="False" Foreground="Black" Height="23" VerticalAlignment="Top"/>
+            <Button Style="{DynamicResource CloseButtonStyle}" Name="CloseButton" Foreground="Black" BorderThickness="0" Click="Close_Click" Background="Transparent" VerticalAlignment="Top" Grid.Column="2" Height="21" FontSize="16" FontWeight="Bold" Margin="4,12,11,0">X</Button>
+
+
+            <CheckBox Name="checkBoxDuplicates" Content="Equal Elemnts" HorizontalAlignment="Left" Margin="8,52,0,0" VerticalAlignment="Top" Width="18" Height="18" Grid.Column="1" />
+            <Label Name="textBox" HorizontalAlignment="Left" Height="24"  Margin="37,48,0,0" Content=" NUMBER DUPLICATE ELEMENTS" VerticalAlignment="Top" Width="191" BorderBrush="#FFFFFFFF" FontFamily="Roboto" Grid.Column="1" Grid.ColumnSpan="2" />
+
+
+        </Grid>
+    </Border>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+</Window>
