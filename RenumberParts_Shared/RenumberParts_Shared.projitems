@@ -75,6 +75,5 @@
     <Content Include="$(MSBuildThisFileDirectory)RenumberParts.addin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="$(MSBuildThisFileDirectory)Resources\Settings.png" />
   </ItemGroup>
 </Project>
