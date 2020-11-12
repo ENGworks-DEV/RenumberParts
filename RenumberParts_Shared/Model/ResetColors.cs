@@ -1,5 +1,6 @@
 ﻿using Autodesk.Revit.DB;
-
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RenumberParts.Model
 {
@@ -15,16 +16,29 @@ namespace RenumberParts.Model
                 ResetView.Start();
                 OverrideGraphicSettings overrideGraphicSettings = new OverrideGraphicSettings();
 
-                LogicalOrFilter logicalOrFilter = new LogicalOrFilter(MEPCategories.listCat());
-
-                var collector = new FilteredElementCollector(tools.doc, tools.doc.ActiveView.Id).WherePasses(
-                    logicalOrFilter).WhereElementIsNotElementType();
-
-                foreach (var item in collector.ToElements())
+                var selection = tools.uidoc.Selection.GetElementIds();
+                List<ElementId> collector = new List<ElementId>();
+                if (selection != null && selection.Count > 0)
                 {
-                    if (item.IsValidObject && tools.doc.GetElement(item.Id) != null)
+                    foreach (var item in selection)
                     {
-                        tools.doc.ActiveView.SetElementOverrides(item.Id, overrideGraphicSettings);
+                        collector.Add(item);
+                    }
+                }
+
+                else
+                {
+                    LogicalOrFilter logicalOrFilter = new LogicalOrFilter(MEPCategories.listCat());
+                    collector = new FilteredElementCollector(tools.doc, tools.doc.ActiveView.Id).WherePasses(
+                        logicalOrFilter).WhereElementIsNotElementType().ToElementIds().ToList();
+                }
+
+
+                foreach (var item in collector)
+                {
+                    if (tools.doc.GetElement(item) != null)
+                    {
+                        tools.doc.ActiveView.SetElementOverrides(item, overrideGraphicSettings);
                     }
 
                 }
